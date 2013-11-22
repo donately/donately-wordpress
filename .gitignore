@@ -1,0 +1,6 @@
+lib/sass
+.sass-cache
+Gemfile
+Gemfile.lock
+Guardfile
+config.rb
