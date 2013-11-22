@@ -32,7 +32,7 @@ define( $PREFIX . 'PLUGIN_BASENAME', plugin_dir_url( __FILE__ ) );              
 define( $PREFIX . 'JS_DIR', plugin_dir_url( __FILE__ ).'/assets/js' );          // DNTLY_JS_DIR
 define( $PREFIX . 'IMG_DIR', plugin_dir_url( __FILE__ ).'/assets/images' );     // DNTLY_IMG_DIR
 define( $PREFIX . 'CSS_DIR', plugin_dir_url( __FILE__ ).'/assets/css' );        // DNTLY_CSS_DIR
-define( $PREFIX . 'VENDOR_DIR', plugin_dir_url( __FILE__ ).'/assets/vendor' );  // DNTLY_VENDOR_DIR
+define( $PREFIX . 'ADMIN_DIR', plugin_dir_url( __FILE__ ).'/lib/admin' );       // DNTLY_ADMIN_DIR
 
 
 /**
@@ -41,8 +41,8 @@ define( $PREFIX . 'VENDOR_DIR', plugin_dir_url( __FILE__ ).'/assets/vendor' );  
  */
 if ( !function_exists( 'optionsframework_init' ) ) 
 {
-  define( 'OPTIONSFRAME_DIR', DNTLY_VENDOR_DIR . '/options-framework/' );
-  require_once ( DNTLY_VENDOR_DIR . '/options-framework/options-framework.php' );
+  define( 'OPTIONSFRAME_DIR', DNTLY_ADMIN_DIR . '/options-framework/' );
+  require_once ( DNTLY_ADMIN_DIR . '/options-framework/options-framework.php' );
 }
 
 
@@ -67,7 +67,7 @@ if ( $DEBUG ) {
 /* =============================================================================
    S E T U P                                               ( requires/includes )
 ================================================================================ */
-require_once ( DNTLY_VENDOR_DIR . '/options-framework/options-framework.php' );
+require_once ( DNTLY_ADMIN_DIR . '/options-framework/options-framework.php' );
 
 
 
