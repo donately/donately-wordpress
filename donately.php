@@ -22,17 +22,18 @@ $DEBUG  = true;
 /**
  * Definitions
  * @since 0.1
+ * @todo use get_template_directory_uri() instead of plugin_dir_url() ?
  */
-define( $PREFIX . 'JS_DIR', get_template_directory_uri().'/assets/js' );          // DNTLY_JS_DIR
-define( $PREFIX . 'IMG_DIR', get_template_directory_uri().'/assets/images' );     // DNTLY_IMG_DIR
-define( $PREFIX . 'CSS_DIR', get_template_directory_uri().'/assets/css' );        // DNTLY_CSS_DIR
-define( $PREFIX . 'VENDOR_DIR', get_template_directory_uri().'/assets/vendor' );  // DNTLY_VENDOR_DIR
+define( 'DNTLY_VERSION', '0.1');
 
+define( $PREFIX . 'PLUGIN_URL', plugin_dir_url( __FILE__ ) );                   // DNTLY_PLUGIN_URL
+define( $PREFIX . 'PLUGIN_PATH', plugin_dir_url( __FILE__ ) );                  // DNTLY_PLUGIN_PATH
+define( $PREFIX . 'PLUGIN_BASENAME', plugin_dir_url( __FILE__ ) );              // DNTLY_PLUGIN_BASENAME
+define( $PREFIX . 'JS_DIR', plugin_dir_url( __FILE__ ).'/assets/js' );          // DNTLY_JS_DIR
+define( $PREFIX . 'IMG_DIR', plugin_dir_url( __FILE__ ).'/assets/images' );     // DNTLY_IMG_DIR
+define( $PREFIX . 'CSS_DIR', plugin_dir_url( __FILE__ ).'/assets/css' );        // DNTLY_CSS_DIR
+define( $PREFIX . 'VENDOR_DIR', plugin_dir_url( __FILE__ ).'/assets/vendor' );  // DNTLY_VENDOR_DIR
 
-
-/* =============================================================================
-   S E T U P  &  T O G G L E S
-================================================================================ */
 
 /**
  * Load Options Framework
@@ -44,12 +45,33 @@ if ( !function_exists( 'optionsframework_init' ) )
   require_once ( DNTLY_VENDOR_DIR . '/options-framework/options-framework.php' );
 }
 
+
+/* =============================================================================
+   D E B U G G I N G             ( php error reporting and dntly debug logging )
+================================================================================ */
 /**
  * Debugging
  * @since 0.1
  */
+if( !defined('DNTLY_DEBUG') ) {
+  define('DNTLY_DEBUG', false);
+  /* set to true for testing/debugging in development & staging environments */
+}
 if ( $DEBUG ) {
   ini_set('display_errors','On');
   error_reporting(E_ALL);
   define('WP_USE_THEMES', false);
 }
+
+
+/* =============================================================================
+   S E T U P                                               ( requires/includes )
+================================================================================ */
+require_once ( DNTLY_VENDOR_DIR . '/options-framework/options-framework.php' );
+
+
+
+
+
+
+
