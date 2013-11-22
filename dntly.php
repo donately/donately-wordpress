@@ -9,69 +9,148 @@
  */
 
 
-/* =============================================================================
-   D E F I N I T I O N S  &   G L O B A L  V A R S
-================================================================================ */
-/**
- * Global Variables
- * @since 0.1
- */
-$PREFIX = 'DNTLY_';
-$DEBUG  = true;
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-/**
- * Definitions
- * @since 0.1
- * @todo use get_template_directory_uri() instead of plugin_dir_url() ?
- */
-define( 'DNTLY_VERSION', '0.1');
-
-define( $PREFIX . 'PLUGIN_URL', plugin_dir_url( __FILE__ ) );                   // DNTLY_PLUGIN_URL
-define( $PREFIX . 'PLUGIN_PATH', plugin_dir_url( __FILE__ ) );                  // DNTLY_PLUGIN_PATH
-define( $PREFIX . 'PLUGIN_BASENAME', plugin_dir_url( __FILE__ ) );              // DNTLY_PLUGIN_BASENAME
-define( $PREFIX . 'JS_DIR', plugin_dir_url( __FILE__ ).'/assets/js' );          // DNTLY_JS_DIR
-define( $PREFIX . 'IMG_DIR', plugin_dir_url( __FILE__ ).'/assets/images' );     // DNTLY_IMG_DIR
-define( $PREFIX . 'CSS_DIR', plugin_dir_url( __FILE__ ).'/assets/css' );        // DNTLY_CSS_DIR
-define( $PREFIX . 'ADMIN_DIR', plugin_dir_url( __FILE__ ).'/lib/admin' );       // DNTLY_ADMIN_DIR
+if ( ! class_exists( 'DNTLY' ) ) :
 
 
 /**
- * Load Options Framework
+ * Main DNTLY Class
+ *
+ * @since 0.1 */
+final class DNTLY {
+
+  /**
+   * @var DNTLY Instance
+   * @since 0.1
+   */
+  private static $instance;
+
+
+
+  /**
+   * DNTLY Instance / Constructor
+   *
+   * Insures only one instance of DNTLY exists in memory at any one
+   * time & prevents needing to define globals all over the place. 
+   * Inspired by and credit to EDD.
+   *
+   * @since 0.1
+   * @static
+   * @uses DNTLY::setup_globals() Setup the globals needed
+   * @uses DNTLY::includes() Include the required files
+   * @uses DNTLY::setup_actions() Setup the hooks and actions
+   * @see DNTLY()
+   * @return void
+   */
+  public static function instance() {
+    if ( ! isset( self::$instance ) && ! ( self::$instance instanceof DNTLY ) ) {
+      self::$instance = new DNTLY;
+      self::$instance->setup_constants();
+      self::$instance->includes();
+      // self::$instance->load_textdomain();
+      // use @examples from public vars defined above upon implementation
+    }
+    return self::$instance;
+  }
+
+
+
+  /**
+   * Setup plugin constants
+   * @access private
+   * @since 0.1 
+   * @return void
+   */
+  private function setup_constants() {
+    // Plugin version
+    if ( ! defined( 'DNTLY_VERSION' ) )
+      define( 'DNTLY_VERSION', '0.1' );
+
+    // Plugin Folder Path
+    if ( ! defined( 'DNTLY_PLUGIN_DIR' ) )
+      define( 'DNTLY_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+
+    // Plugin Folder URL
+    if ( ! defined( 'DNTLY_PLUGIN_URL' ) )
+      define( 'DNTLY_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+
+    // Plugin Root File
+    if ( ! defined( 'DNTLY_PLUGIN_FILE' ) )
+      define( 'DNTLY_PLUGIN_FILE', __FILE__ );
+
+    if ( ! defined( 'DNTLY_DEBUGGING' ) )
+      define ( 'DNTLY_DEBUGGING', true );
+  }
+
+
+
+  /**
+   * Include required files
+   * @access private
+   * @since 0.1
+   * @return void
+   */
+  private function includes() {
+    global $wp_version;
+
+    // SCRIPTS
+    require_once DNTLY_PLUGIN_DIR . 'lib/dntly-scripts.php';
+    // PLUGIN REQUIRED INCLUDES
+    require_once DNTLY_PLUGIN_DIR . 'lib/dntly-helpers.php';
+    require_once DNTLY_PLUGIN_DIR . 'lib/dntly-formjs.php';
+    require_once DNTLY_PLUGIN_DIR . 'lib/dntly-meta.php';
+    require_once DNTLY_PLUGIN_DIR . 'lib/dntly-posttypes.php';
+    require_once DNTLY_PLUGIN_DIR . 'lib/dntly-shortcodes.php';
+
+    // admin-only includes
+    if( is_admin() ) {
+      require_once DNTLY_PLUGIN_DIR . 'lib/dntly-options.php';
+
+      if( version_compare( $wp_version, '3.6', '>=' ) ) {
+        // require_once DNTLY_PLUGIN_DIR . 'lib/admin/dntly-heartbeat.php';
+      }
+    }
+
+  }
+
+} /* end DNTLY class */
+endif; // End if class_exists check
+
+
+/**
+ * Main function for returning DNTLY Instance to functions everywhere.
+ *
+ * Use this function like you would a global variable, except without needing
+ * to declare the global.
+ *
+ * Example: <?php $edd = EDD(); ?>
+ *
  * @since 0.1
+ * @return object The one true DNTLY Instance
  */
-if ( !function_exists( 'optionsframework_init' ) ) 
-{
-  define( 'OPTIONSFRAME_DIR', DNTLY_ADMIN_DIR . '/options-framework/' );
-  require_once ( DNTLY_ADMIN_DIR . '/options-framework/options-framework.php' );
+function DNTLY() {
+  return DNTLY::instance();
 }
 
 
-/* =============================================================================
-   D E B U G G I N G             ( php error reporting and dntly debug logging )
-================================================================================ */
+/**
+ * Initiate
+ * Run the DNTLY() function, which runs the instance of the DNTLY class.
+ */
+DNTLY();
+
+
+
 /**
  * Debugging
  * @since 0.1
  */
-if( !defined('DNTLY_DEBUG') ) {
-  define('DNTLY_DEBUG', false);
-  /* set to true for testing/debugging in development & staging environments */
-}
-if ( $DEBUG ) {
+if ( DNTLY_DEBUGGING ) {
   ini_set('display_errors','On');
   error_reporting(E_ALL);
-  define('WP_USE_THEMES', false);
 }
-
-
-/* =============================================================================
-   S E T U P                                               ( requires/includes )
-================================================================================ */
-require_once ( DNTLY_ADMIN_DIR . '/options-framework/options-framework.php' );
-
-
-
-
 
 
 
