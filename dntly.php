@@ -28,7 +28,6 @@ final class DNTLY {
   private static $instance;
 
 
-
   /**
    * DNTLY Instance / Constructor
    *
@@ -80,8 +79,8 @@ final class DNTLY {
     if ( ! defined( 'DNTLY_PLUGIN_FILE' ) )
       define( 'DNTLY_PLUGIN_FILE', __FILE__ );
 
-    if ( ! defined( 'DNTLY_DEBUGGING' ) )
-      define ( 'DNTLY_DEBUGGING', true );
+    if ( ! defined( 'DNTLY_DEBUG' ) )
+      define ( 'DNTLY_DEBUG', true );
   }
 
 
@@ -98,10 +97,18 @@ final class DNTLY {
     require_once DNTLY_PLUGIN_DIR . 'lib/admin/settings/register-settings.php';
     $dntly_options = dntly_get_settings();
 
+    // CLASSES
+    require_once DNTLY_PLUGIN_DIR . 'lib/dntly-api.class.php';
     // SCRIPTS
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-scripts.php';
+
     
     // PLUGIN REQUIRED INCLUDES
+
+    // AJAX
+    require_once DNTLY_PLUGIN_DIR . 'lib/dntly-ajax.php';
+
+    // ADDITIONAL INCLUDES
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-helpers.php';
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-formjs.php';
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-meta.php';
@@ -158,7 +165,7 @@ DNTLY();
  * Debugging
  * @since 0.1
  */
-if ( DNTLY_DEBUGGING ) {
+if ( DNTLY_DEBUG ) {
   ini_set('display_errors','On');
   error_reporting(E_ALL);
 }
