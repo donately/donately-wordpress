@@ -91,7 +91,7 @@ class DNTLY_Welcome {
             text-align: center;
             text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
             margin: 0 -5px;
-            //background: url('<?php echo $badge_url; ?>') no-repeat;
+            background: url('<?php echo $badge_url; ?>') no-repeat;
         }
 
         .about-wrap .dntly-badge {
