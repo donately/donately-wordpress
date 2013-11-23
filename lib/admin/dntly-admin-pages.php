@@ -36,7 +36,7 @@ function dntly_add_menu_page()
 {
 
     require_once 'dntly-system-info.php';
-    add_menu_page( __( 'Donately', 'dntly'), __( 'Donately', 'dntly' ), 'edit_pages', 'dntly-settings', 'dntly_options_page', '', 27 );
+    add_menu_page( __( 'Donately', 'dntly'), __( 'Donately', 'dntly' ), 'edit_pages', 'dntly-settings', 'dntly_options_page', DNTLY_PLUGIN_URL . '/assets/images/campaigns.png', 27 );
     add_submenu_page( 'dntly-settings', __( 'Donately Settings', 'dntly' ), __( 'Settings', 'dtly'), 'edit_pages', 'dntly-settings', 'dntly_options_page' );
     add_submenu_page( 'dntly-settings', __( 'Donately System Info', 'dntly' ), __( 'System Info', 'dntly' ), 'install_plugins', 'dntly-system-info', 'dntly_system_info' );
 }
