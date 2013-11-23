@@ -123,11 +123,11 @@ function dntly_get_registered_settings() {
         /** General Settings */
         'general' => apply_filters( 'dntly_settings_general',
             array(
-                'test_mode' => array(
-                    'id' => 'test_mode',
-                    'name' => __( 'Test Mode', 'dntly' ),
-                    'desc' => __( 'While in test mode no live transactions are processed. To fully use test mode, you must have a sandbox (test) account for the payment gateway you are testing.', 'dntly' ),
-                    'type' => 'checkbox'
+                'api_settings' => array(
+                    'id' => 'api_settings',
+                    'name' => '<strong>' . __( 'API Settings', 'dntly' ) . '</strong>',
+                    'desc' => '',
+                    'type' => 'header'
                 ),
                 'donately_email' => array(
                     'id' => 'donately_email',
@@ -135,33 +135,15 @@ function dntly_get_registered_settings() {
                     'desc' => __( 'This is the email used to create your <a href="http://dntly.com">Donately</a> account.', 'dntly' ),
                     'type' => 'text',
                     'size' => 'medium',
-                    'std' => ','
+                    'std' => ''
                 ),
                 'decimal_separator' => array(
                     'id' => 'decimal_separator',
-                    'name' => __( 'Decimal Separator', 'dntly' ),
-                    'desc' => __( 'The symbol (usually , or .) to separate decimal points', 'dntly' ),
-                    'type' => 'text',
-                    'size' => 'small',
-                    'std' => '.'
-                ),
-                'api_settings' => array(
-                    'id' => 'api_settings',
-                    'name' => '<strong>' . __( 'API Settings', 'dntly' ) . '</strong>',
-                    'desc' => '',
-                    'type' => 'header'
-                ),
-                'api_allow_user_keys' => array(
-                    'id' => 'api_allow_user_keys',
-                    'name' => __( 'Allow User Keys', 'dntly' ),
-                    'desc' => __( 'Check this box to allow all users to generate API keys. Users with the \'manage_shop_settings\' capability are always allowed to generate keys.', 'dntly' ),
-                    'type' => 'checkbox'
-                ),
-                'tracking_settings' => array(
-                    'id' => 'tracking_settings',
-                    'name' => '<strong>' . __( 'Tracking Settings', 'dntly' ) . '</strong>',
-                    'desc' => '',
-                    'type' => 'header'
+                    'name' => __( 'Donately Token', 'dntly' ),
+                    'desc' => __( 'Enter your Donately API Token ', 'dntly' ),
+                    'type' => 'password',
+                    'size' => 'medium',
+                    'std' => ''
                 )
             )
         ),
