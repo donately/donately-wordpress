@@ -24,7 +24,17 @@ function dntly_add_options_link() {
     global $dntly_settings_page;
 
 
-    $dntly_settings_page = add_submenu_page( 'edit.php?post_type=dntly_campaigns', __( 'Donately for WordPress Settings', 'dntly' ), __( 'Settings', 'dntly' ), 'inall_plugins', 'dntly-settings', 'dntly_options_page' );
+   // $dntly_settings_page = add_submenu_page( 'edit.php?post_type=dntly_campaigns', __( 'Donately for WordPress Settings', 'dntly' ), __( 'Settings', 'dntly' ), 'inall_plugins', 'dntly-settings', 'dntly_options_page' );
 
 }
 add_action( 'admin_menu', 'dntly_add_options_link', 10 );
+
+
+
+
+function dntly_add_menu_page()
+{
+    add_menu_page( __( 'Donately', 'dntly'), __( 'Donately', 'dntly' ), 'edit_pages', 'dntly-settings', 'dntly_options_page', '', 27 );
+    add_submenu_page( 'dntly-settings', __( 'Donately Settings', 'dntly' ), __( 'Settings', 'dtly'), 'edit_pages', 'dntly-settings', 'dntly_options_page' );
+}
+add_action( 'admin_menu', 'dntly_add_menu_page' );

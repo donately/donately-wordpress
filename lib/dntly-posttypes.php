@@ -49,7 +49,7 @@ function setup_dntly_campaign_post_types() {
         'public'            => true,
         'publicly_queryable'=> true,
         'show_ui'           => true,
-        'show_in_menu'      => true,
+        'show_in_menu'      => 'dntly-settings',
         'query_var'         => true,
         'rewrite'           => $rewrite,
         'map_meta_cap'      => true,
