@@ -63,6 +63,7 @@ function dntly_system_info() {
 </style>
     <div class="wrap">
         <h2><?php _e( 'System Information', 'dntly' ) ?></h2><br/>
+        <p>This is the information we're receiving about your server. Copy and paste into a text editor when submitting a support request.</p>
         <form action="<?php echo esc_url( admin_url( 'admin.php?page=dntly-system-info' ) ); ?>" method="post" dir="ltr">
             <textarea readonly="readonly" onclick="this.focus();this.select()" id="system-info-textarea" name="dntly-sysinfo" title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'dntly' ); ?>">
 ### Begin System Info ###
@@ -89,7 +90,7 @@ Host:                     <?php echo $host . "\n"; ?>
 Symlinks Enabled:         <?php echo apply_filters( 'dntly_symlink_file_downloads', isset( $dntly_options['symlink_file_downloads'] ) ) && function_exists( 'symlink' ) ? "Yes\n" : "No\n"; ?>
 
 
-Downloads slug:           <?php echo defined( 'DNTLY_SLUG' ) ? '/' . DNTLY_SLUG . "\n" : "/campaigns\n"; ?>
+Campaigns slug:           <?php echo defined( 'DNTLY_SLUG' ) ? '/' . DNTLY_SLUG . "\n" : "/campaigns\n"; ?>
 
 
 Registered Post Stati:    <?php echo implode( ', ', get_post_stati() ) . "\n\n"; ?>
@@ -122,7 +123,7 @@ $request['cmd'] = '_notify-validate';
 $params = array(
     'sslverify'     => false,
     'timeout'       => 60,
-    'user-agent'    => 'dntly/' . dntly_VERSION,
+    'user-agent'    => 'dntly/' . DNTLY_VERSION,
     'body'          => $request
 );
 
