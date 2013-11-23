@@ -243,7 +243,8 @@ class DNTLY_API {
    * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
    * @return (boolean) true/false
    */
-  function do_not_log(){
+  function do_not_log()
+  {
     // If $surpress_logging is set to true, return true
     if( $this->suppress_logging ) {
       return true;
@@ -258,6 +259,75 @@ class DNTLY_API {
     }
   }
 
+
+
+
+  /**
+   * Make API Request
+   *
+   * Make an API request to Donately using select methods, header auth and post vars
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @param [array] $api_method, (boolean) $auth, [array] $post_variables
+   * @return [array] JSON data array || NULL
+   */
+  function make_api_request( $api_method, $auth=true, $post_variables=null )
+  {
+    // Set $url variable after running the $api_method through the build_url() function
+    $url = $this->build_url( $api_method );
+
+    // If console_calls is not empty in $dntly_options AND logging is NOT suppressed
+    if( !empty($this->dntly_options['console_calls']) && !$this->do_not_log() ) {
+      // Log the transaction with API url, API post args, then print the debug results
+      dntly_transaction_logging("\n" . "api url: " . $url . "\n" . "api post args: " . (sizeof($post_variables) ? print_r($post_variables, true) : '') . "\n", 'print_debug');
+    }
+
+    // If $auth is true, set $session_token to 'token' value in $dntly_options, set $authorization to base64 encoded token, and prep them as $header var to later send
+    if( $auth ){
+      $session_token = $this->dntly_options['token'];
+      $authorization = 'Basic ' . base64_encode("{$session_token}:");
+      $headers       = array( 'Authorization' => $authorization, 'sslverify' => false );
+    // Else, do not send authorization (token), only set sslverify as false in header (used only for non-auth API calls)
+    } else {
+      $headers = array( 'sslverify' => false );
+    }
+
+    // If the first value (method) of the $api_method is "POST", use wp_remote_post with the above set auth headers and post vars
+    if( $this->api_methods[$api_method][0] == "post" ){
+      $this->remote_results = wp_remote_post($url, array('headers' => $headers, 'body' => $post_variables));
+    }
+    // Else if the $post_variables parameters are set/true...  (break down array in foreach)
+    else{
+      if( $post_variables ) {
+        // Append the URL with a '?' in preparation to send post variables
+        $url .= '?';
+        // Loop through the $post_variables array and append them to the $url
+        foreach( $post_variables as $var => $val ) { 
+          $url .= $var . '=' . $val . '&';
+        }
+      }
+      // Otherwise (not $post_variables passed), perform "GET" using wordpress' function, only sending headers and no post variables
+      $this->remote_results = wp_remote_get($url, array('headers' => $headers));
+    }
+    // If the results from the request is an object ...
+    if( is_object($this->remote_results) ){
+      // And if the class name (string) of the result object is 'WP_Error' ...
+      if( get_class($this->remote_results) == 'WP_Error' ){
+        // Then something went wrong, so just return NULL.
+        return null;
+      }
+    }
+    // If the result response array's 'code' value is NOT 200 (unsuccessfull) ...
+    if( $this->remote_results['response']['code'] != '200' ) {
+      // Then run the display function to display the JSON error, passing the message value, and return null.
+      $this->return_json_error($this->remote_results['response']['message']);
+      return null;
+    }
+    // Otherwise, we succeeded, and return the JSON body decoded to PHP
+    return json_decode($this->remote_results['body']);
+  }
 
 
 
