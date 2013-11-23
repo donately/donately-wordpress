@@ -129,6 +129,15 @@ function dntly_get_registered_settings() {
                     'desc' => '',
                     'type' => 'header'
                 ),
+                
+                'donately_subdomain' => array(
+                    'id' => 'donately_subdomain',
+                    'name' => __( 'Donately Subdomain', 'dntly' ),
+                    'desc' => __( 'Enter your dntly.com subdomain name here (http://example.dntly.com - example is the subdomain.', 'dntly' ),
+                    'type' => 'text',
+                    'size' => 'regular',
+                    'std' => ''
+                ),
                 'donately_email' => array(
                     'id' => 'donately_email',
                     'name' => __( 'Donately Email', 'dntly' ),
@@ -137,10 +146,10 @@ function dntly_get_registered_settings() {
                     'size' => 'regular',
                     'std' => ''
                 ),
-                'decimal_separator' => array(
-                    'id' => 'decimal_separator',
+                'donately_token' => array(
+                    'id' => 'donately_token',
                     'name' => __( 'Donately Token', 'dntly' ),
-                    'desc' => __( 'Enter your Donately API Token ', 'dntly' ),
+                    'desc' => __( 'Enter your Donately API Token. You can find it <a href="https://dntly.com/settings#/profile">here.</a>. (Click "Profile Details")', 'dntly' ),
                     'type' => 'password',
                     'size' => 'regular',
                     'std' => ''

@@ -1,0 +1,46 @@
+/**
+ * Donately for WordPress Admin CSS
+ *
+ * @package     Donately
+ * @subpackage  Admin CSS
+ * @copyright   Copyright (c) 2013, Fifty and Fifty
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+*/
+
+
+/* Dashboard Widget Styles
+-------------------------------------------------------------- */
+.dntly_dashboard_widget .table { margin: 20px 0 0 0; padding: 0; position: relative; border-top: 1px solid #ececec; }
+.dntly_dashboard_widget .table_left { float: left; width: 45%;  }
+.dntly_dashboard_widget .table_right { float: right; width: 45%;  }
+.dntly_dashboard_widget .sub { margin: 0 0 8px 12px; padding: 12px 0 0 0; color: #8f8f8f; font-size: 14px; position: absolute; top: -40px; left: 0; }
+.dntly_dashboard_widget .table table, .dntly_dashboard_widget .table div { margin: 0 0 0 12px; }
+.dntly_dashboard_widget .inside { font-size: 12px; }
+.dntly_dashboard_widget td { padding: 3px 0; }
+.dntly_dashboard_widget .b { font-size: 14px; font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif; text-align: right; padding-right: 6px; width: auto; }
+.dntly_dashboard_widget .t { font-size: 12px; padding-right: 12px; padding-top: 6px; color: #777; }
+.dntly_dashboard_widget .lifetime_best_selling_label,
+.dntly_dashboard_widget .best_selling_30_days_label { background: rgb(0, 118, 156); padding: 2px 4px; border-radius: 3px; color: white; margin-right: 2px; }
+.dntly_dashboard_widget .label_heading { margin: 0 0 8px 12px; display: block; font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #8f8f8f; font-weight: normal; padding-top: 10px; border-top: 1px solid #ececec; }
+.dntly_dashboard_widget .dntly_dashboard_widget_subheading { margin: 1em 0 0 12px; border-top: 1px solid #ececec; padding-top: 10px; color: #8f8f8f; font-size: 14px; }
+.dntly_dashboard_widget .dntly_dashboard_widget_subheading + .table { margin: 8px 0 0 0; }
+.dntly_dashboard_widget .dntly_price_label { background: rgb(0, 118, 156); padding: 2px 4px; border-radius: 3px; color: white; margin-right: 2px; font-size: 10px; }
+
+
+
+/* System Info page styles
+-------------------------------------------------------------- */
+#system-info-textarea { width: 800px; height: 400px; font-family: Menlo, Monaco, monospace; background: none; white-space: pre; overflow: auto; display: block; }
+
+/* Button styles
+-------------------------------------------------------------- */
+#TB_window #dntly-add-download:hover, #TB_window #dntly-add-download:active, #TB_window #dntly-add-download:focus { color: #fff; }
+
+/* General styles
+-------------------------------------------------------------- */
+.dntly-select-chosen { width: 300px; }
+
+.chzn-container-multi .chzn-choices{ -webkit-border-radius: 3px; border-radius: 3px; border-color: #dfdfdf; background-image:none; }
+.chzn-container-multi .chzn-choices li.search-field input{ margin:2px; height:auto; border-color: #dfdfdf; }
+.chzn-container .chzn-drop { border-color: #aaa; -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); }
+.chzn-container-active .chzn-choices { -webkit-border-top-left-radius: 3px; border-top-left-radius: 3px; -webkit-border-top-right-radius: 3px; border-top-right-radius: 3px; -webkit-border-bottom-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-color: #aaa; -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); }
