@@ -1,0 +1,9 @@
+Function
+
+edd_get_option => dntly_get_option
+
+Variables
+$edd_options => $dntly_options
+
+
+edd_missing_callback => dntly_missin
