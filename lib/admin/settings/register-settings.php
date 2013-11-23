@@ -134,7 +134,7 @@ function dntly_get_registered_settings() {
                     'name' => __( 'Donately Email', 'dntly' ),
                     'desc' => __( 'This is the email used to create your <a href="http://dntly.com">Donately</a> account.', 'dntly' ),
                     'type' => 'text',
-                    'size' => 'medium',
+                    'size' => 'regular',
                     'std' => ''
                 ),
                 'decimal_separator' => array(
@@ -142,7 +142,7 @@ function dntly_get_registered_settings() {
                     'name' => __( 'Donately Token', 'dntly' ),
                     'desc' => __( 'Enter your Donately API Token ', 'dntly' ),
                     'type' => 'password',
-                    'size' => 'medium',
+                    'size' => 'regular',
                     'std' => ''
                 )
             )
