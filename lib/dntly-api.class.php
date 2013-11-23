@@ -70,7 +70,7 @@ class DNTLY_API {
       }
 
       // If the account_id is set in dntly_options, set it as the account_id, else set it to 0 (no accounts created yet)
-      if ( isset($this->dntly_options['account_id'] ) {
+      if ( isset( $this->dntly_options['account_id'] ) ) {
         $this->dntly_account_id = $this->dntly_options['account_id'];
       } else {
         $this->dntly_account_id = 0;

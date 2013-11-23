@@ -126,7 +126,7 @@ add_filter( 'enter_title_here', 'dntly_campaigns_change_default_title' );
 */
 function dntly_campaigns_setup_taxonomies() {
 
-    $slug     = defined( 'DNTLY_CAMPAIGNS_SLUG' ) ? DNTLY_CAMPAIGNS_SLUG : 'staff';
+    $slug     = defined( 'DNTLY_CAMPAIGNS_SLUG' ) ? DNTLY_CAMPAIGNS_SLUG : 'campaigns';
 
     /** Categories */
     $category_labels = array(
@@ -156,7 +156,7 @@ function dntly_campaigns_setup_taxonomies() {
     register_taxonomy( 'campaign_category', array('dntly_campaigns'), $category_args );
     register_taxonomy_for_object_type( 'campaign_category', 'dntly_campaigns' );
 
-        /** Tags */
+    /** Tags */
     $tag_labels = array(
         'name'              => sprintf( _x( '%s Tags', 'taxonomy general name', 'dntly' ), dntly_campaigns_get_label_singular() ),
         'singular_name'     => _x( 'Tag', 'taxonomy singular name', 'dntly' ),
