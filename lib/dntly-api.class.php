@@ -23,8 +23,8 @@ class DNTLY_API {
    * @package Donately Wordpress
    * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
    */
-  public $api_scheme           = array('production' => 'https');      //, 'staging' => 'http');//, 'dev' => 'http');
-  public $api_domain           = array('production' => 'dntly.com');  //, 'staging' => 'dntly-staging.com');//, 'dev' => 'dntly.local:3000');
+  public $api_scheme           = array('production' => 'https');    
+  public $api_domain           = array('production' => 'dntly.com');
   public $api_subdomain        = "www";
   public $api_endpoint         = "/api/v1/";
   public $api_methods          = array();
@@ -131,7 +131,7 @@ class DNTLY_API {
    * @param $data
    * @return [array] : success (true/false), data ($data array)
    */
-  function return_json_success($data='')
+  function return_json_success( $data = '' )
   {
     print json_encode( array("success" => 'true', "data" => $data) );
   }
@@ -147,7 +147,7 @@ class DNTLY_API {
    * @param $error
    * @return [array] : success (true/false), message ($error string)
    */
-  function return_json_error($error='')
+  function return_json_error( $error = '' )
   {
     print json_encode( array("success" => 'false', 'error' => array("message" => $error)) );
   }
@@ -162,7 +162,7 @@ class DNTLY_API {
    * @param [array]
    * @return {object}
    */
-  function array_to_object($array) 
+  function array_to_object( $array ) 
   {
     // If the array parameter is not an array, exit and return the parameter stripped
     if( !is_array($array) ) { 
@@ -192,6 +192,71 @@ class DNTLY_API {
     }
   }
 
+
+
+  /**
+   * Build URL
+   *
+   * Build API Call URLs based on environment -> protocols etc.
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @param [array] $api_method
+   * @return (string) $url
+   */
+  function build_url( $api_method )
+  {
+    // If the environment value in $dntly_options is not empty, $url is the set environment (protocol : https), else default to production environment
+    if ( !empty($this->dntly_options['environment']) ) {
+      $url = $this->api_scheme[$this->dntly_options['environment']];
+    } else {
+      $url = $this->api_scheme['production'] . '://';
+    }
+    // Append the subdomain and a period (Ex: __SUBDOMAIN__.dntly.com/ ... )
+    $url .= $this->api_subdomain . '.';
+
+    // If the environment value in $dntly_options is not empty, append $url with the api_domain (dntly.com), else default to api_domain (production)
+    if ( !empty($this->dntly_options['environment']) ) {
+      $url .= $this->api_domain[$this->dntly_options['environment']];
+    } else {
+      $url .= $this->api_domain['production'];
+    }
+    // If the $api_method is NOT 'root', append $url with the $api_endpoint (API path)
+    if ( $api_method != 'root' ) {
+      $url .= $this->api_endpoint . $this->api_methods[$api_method][1];
+    }
+    // Return the built URL
+    return $url;
+  }
+
+
+
+
+  /**
+   * Do Not Log
+   *
+   * Check for logging suppression and setting of $_REQUESTION['action']
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @return (boolean) true/false
+   */
+  function do_not_log(){
+    // If $surpress_logging is set to true, return true
+    if( $this->suppress_logging ) {
+      return true;
+    }
+    // If the action request is not set, return true
+    if( !isset($_REQUEST['action']) ) {
+      return true;
+    }
+    // If the action request substring contains dntly, return false 
+    if( substr($_REQUEST['action'], 0 ,5) == 'dntly' ){
+      return false;
+    }
+  }
 
 
 
