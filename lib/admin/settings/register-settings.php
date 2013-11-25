@@ -42,9 +42,10 @@ function dntly_get_settings() {
         // Update old settings with new single option
 
         $general_settings = is_array( get_option( 'dntly_settings_general' ) )    ? get_option( 'dntly_settings_general' )      : array();
+        $sync_settings    = is_array( get_option( 'dntly_settings_sync' ) )       ? get_option( 'dntly_settings_sync' )         : array();
         $misc_settings    = is_array( get_option( 'dntly_settings_misc' ) )       ? get_option( 'dntly_settings_misc' )         : array();
 
-        $settings = array_merge( $general_settings, $misc_settings );
+        $settings = array_merge( $general_settings, $sync_settings, $misc_settings );
 
         update_option( 'dntly_settings', $settings );
     }
@@ -154,6 +155,33 @@ function dntly_get_registered_settings() {
                     'size' => 'regular',
                     'std' => ''
                 )
+            )
+        ),
+        /** Sync Settings */
+        'sync' => apply_filters( 'dntly_settings_sync',
+            array(
+                'sync_settings' => array(
+                    'id' => 'sync_settings',
+                    'name' => '<strong>' . __( 'Sync with Donately', 'dntly' ) . '</strong>',
+                    'desc' => '',
+                    'type' => 'header'
+                ),
+                'test_button' => array(
+                    'id' => 'test_button',
+                    'name' => __( 'Email Template', 'dntly' ),
+                    'desc' => __( 'Choose a template. Click "Save Changes" then "Preview Purchase Receipt" to see the new template.', 'dntly' ),
+                    'type' => 'select',
+                    'options' => array(
+                        'blah'  => 'blah',
+                        'heyo'  => 'heyo'
+                        )
+                ),
+                'test_button2' => array(
+                    'id' => 'test_button2',
+                    'name' => '',
+                    'desc' => '',
+                    'type' => 'hook'
+                ),
             )
         ),
         /** Misc Settings */
@@ -750,9 +778,29 @@ function dntly_get_settings_tabs() {
 
     $settings = dntly_get_registered_settings();
 
-    $tabs             = array();
-    $tabs['general']  = __( 'General', 'dntly' );
-    $tabs['misc']      = __( 'Misc', 'dntly' );
+    $tabs            = array();
+    $tabs['general'] = __( 'General', 'dntly' );
+    $tabs['sync']    = __( 'Sync', 'dntly' );
+    $tabs['misc']    = __( 'Misc', 'dntly' );
 
     return apply_filters( 'dntly_settings_tabs', $tabs );
 }
+
+/**
+ * Email Template Preview
+ *
+ * @access private
+ * @global $edd_options Array of all the EDD Options
+ * @since 1.0.8.2
+ */
+function dntly_test_button_again() {
+    global $edd_options;
+
+    ob_start();
+    ?>
+    <a href="#nothing" class="button-secondary" title="<?php _e( 'Figured this Shit Out', 'dntly' ); ?> "><?php _e( 'Figured this Shit Out', 'dntly' ); ?></a>
+    <a href="#nothin" title="<?php _e( 'Hell Yeah', 'dntly' ); ?>" class="button-secondary"><?php _e( 'Hell Yea', 'dntly' ); ?></a>
+    <?php
+    echo ob_get_clean();
+}
+add_action( 'dntly_test_button2', 'dntly_test_button_again' );
