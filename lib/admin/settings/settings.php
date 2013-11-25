@@ -32,6 +32,7 @@ function dntly_options_page() {
     <div class="wrap">
         <h2 class="nav-tab-wrapper">
             <a href="<?php echo add_query_arg('tab', 'general', remove_query_arg('settings-updated')); ?>" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _e('General', 'dntly'); ?></a>
+            <a href="<?php echo add_query_arg('tab', 'email', remove_query_arg('settings-updated')); ?>" class="nav-tab <?php echo $active_tab == 'email' ? 'nav-tab-active' : ''; ?>"><?php _e('Email', 'dntly'); ?></a>
             <a href="<?php echo add_query_arg('tab', 'sync', remove_query_arg('settings-updated')); ?>" class="nav-tab <?php echo $active_tab == 'sync' ? 'nav-tab-active' : ''; ?>"><?php _e('Sync', 'dntly'); ?></a>
             <a href="<?php echo add_query_arg('tab', 'misc', remove_query_arg('settings-updated')); ?>" class="nav-tab <?php echo $active_tab == 'misc' ? 'nav-tab-active' : ''; ?>"><?php _e('Misc', 'dntly'); ?></a>
         </h2>
@@ -44,6 +45,9 @@ function dntly_options_page() {
                 if ( $active_tab == 'general' ) {
                     settings_fields( 'dntly_settings_general' );
                     do_settings_sections( 'dntly_settings_general' );
+                } elseif ( $active_tab == 'email') {
+                    settings_fields( 'dntly_settings_email' );
+                    do_settings_sections( 'dntly_settings_email' );
                 } elseif ( $active_tab == 'sync') {
                     settings_fields( 'dntly_settings_sync' );
                     do_settings_sections( 'dntly_settings_sync' );
