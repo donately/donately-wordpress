@@ -97,6 +97,7 @@ final class DNTLY {
     require_once DNTLY_PLUGIN_DIR . 'lib/admin/settings/register-settings.php';
     $dntly_options = dntly_get_settings();
 
+
     // CLASSES
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-api.class.php';
     // SCRIPTS
