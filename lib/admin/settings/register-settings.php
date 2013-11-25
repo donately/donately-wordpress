@@ -42,10 +42,11 @@ function dntly_get_settings() {
         // Update old settings with new single option
 
         $general_settings = is_array( get_option( 'dntly_settings_general' ) )    ? get_option( 'dntly_settings_general' )      : array();
+        $email_settings   = is_array( get_option( 'dntly_settings_email' ) )       ? get_option( 'dntly_settings_email' )         : array();
         $sync_settings    = is_array( get_option( 'dntly_settings_sync' ) )       ? get_option( 'dntly_settings_sync' )         : array();
         $misc_settings    = is_array( get_option( 'dntly_settings_misc' ) )       ? get_option( 'dntly_settings_misc' )         : array();
 
-        $settings = array_merge( $general_settings, $sync_settings, $misc_settings );
+        $settings = array_merge( $general_settings, $email_settings, $sync_settings, $misc_settings );
 
         update_option( 'dntly_settings', $settings );
     }
@@ -152,6 +153,25 @@ function dntly_get_registered_settings() {
                     'name' => __( 'Donately Token', 'dntly' ),
                     'desc' => __( 'Enter your Donately API Token. You can find it <a href="https://dntly.com/settings#/profile">here.</a>. (Click "Profile Details")', 'dntly' ),
                     'type' => 'password',
+                    'size' => 'regular',
+                    'std' => ''
+                )
+            )
+        ),
+        /** Email Settings */
+        'email' => apply_filters( 'dntly_settings_email',
+            array(
+                'email_settings' => array(
+                    'id' => 'email_settings',
+                    'name' => '<strong>' . __( 'Email Settings', 'dntly' ) . '</strong>',
+                    'desc' => '',
+                    'type' => 'header'
+                ),
+                'donately_test' => array(
+                    'id' => 'donately_test',
+                    'name' => __( 'Donately Test', 'dntly' ),
+                    'desc' => __( 'Enter your dntly.com subdomain name here (http://example.dntly.com - example is the subdomain.', 'dntly' ),
+                    'type' => 'text',
                     'size' => 'regular',
                     'std' => ''
                 )
@@ -780,6 +800,7 @@ function dntly_get_settings_tabs() {
 
     $tabs            = array();
     $tabs['general'] = __( 'General', 'dntly' );
+    $tabs['email']   = __( 'Email', 'dntly' );
     $tabs['sync']    = __( 'Sync', 'dntly' );
     $tabs['misc']    = __( 'Misc', 'dntly' );
 
