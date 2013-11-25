@@ -281,7 +281,7 @@ class DNTLY_API {
     // If console_calls is not empty in $dntly_options AND logging is NOT suppressed
     if( !empty($this->dntly_options['console_calls']) && !$this->do_not_log() ) {
       // Log the transaction with API url, API post args, then print the debug results
-      dntly_transaction_logging("\n" . "api url: " . $url . "\n" . "api post args: " . (sizeof($post_variables) ? print_r($post_variables, true) : '') . "\n", 'print_debug');
+      // dntly_transaction_logging("\n" . "api url: " . $url . "\n" . "api post args: " . (sizeof($post_variables) ? print_r($post_variables, true) : '') . "\n", 'print_debug');
     }
 
     // If $auth is true, set $session_token to 'token' value in $dntly_options, set $authorization to base64 encoded token, and prep them as $header var to later send
@@ -328,6 +328,291 @@ class DNTLY_API {
     // Otherwise, we succeeded, and return the JSON body decoded to PHP
     return json_decode($this->remote_results['body']);
   }
+
+
+
+
+
+  /**
+   * Convert Amount in Cents to Amount
+   *
+   * Converts an integer to an amount in cents of dollars
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @param (int) $amount_in_cents
+   * @return (string) $dollar . $cents
+   * @todo Review compatibility for various PHP versions
+   */
+  function convert_amount_in_cents_to_amount( $amount_in_cents )
+  {
+    $dollars = substr($amount_in_cents, 0, (strlen($amount_in_cents)-2));
+    $cents   = substr($amount_in_cents, -2);
+
+    return $dollars . '.' . $cents;
+  }
+
+
+
+
+
+  /**
+   * Get Accounts
+   *
+   * Make an API request to get all Donately accounts
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @return [array] $accounts
+   * @todo Use alert notifications (pending Monzon implementation)
+   */
+  function get_accounts()
+  {
+    // Use make_api_request function with method defined above
+    $accounts = $this->make_api_request("get_my_accounts");
+
+    // If we do NOT have accounts, print error message
+    if( !$accounts ){
+      print '<div class="updated" id="message"><p><strong>Error retrieving Donately accounts!</strong> - ' . print_r($this->remote_results, true) . '</p></div>';
+    }
+    // If all is good, return $accounts array 
+    return $accounts;
+  }
+
+
+
+
+  /**
+   * Update Account Stats
+   *
+   * Update various Donately statistics in option 'dntly_stats'
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @param $stats
+   * @return [array] $dntly_stats
+   * @todo Add/remove fundraisers and additional as necessary
+   */
+  function update_account_stats( $stats )
+  {
+    $existing_stats = get_option('dntly_stats');
+    $dntly_stats = array(
+        'total_raised'              => ( !empty($stats['total_raised'])           ? $stats['total_raised']          : $existing_stats['total_raised'] ),
+        'total_raised_onetime'      => ( !empty($stats['total_raised_onetime'])   ? $stats['total_raised_onetime']  : $existing_stats['total_raised_onetime'] ),
+        'total_raised_recurring'    => ( !empty($stats['total_raised_recurring']) ? $stats['total_raised_recurring']: $existing_stats['total_raised_recurring'] ),
+        'total_donations'           => ( !empty($stats['total_donations'])        ? $stats['total_donations']       : $existing_stats['total_donations'] ),
+        'total_campaigns_count'     => ( !empty($stats['total_campaigns_count'])  ? $stats['total_campaigns_count'] : $existing_stats['total_campaigns_count'] ),
+    );
+    update_option('dntly_stats', $dntly_stats);
+    return $dntly_stats;
+  }
+
+
+
+
+  /**
+   * Get Account Stats
+   *
+   * Get the account statistics by making an API call and storing them in an array,
+   * then run the update_account_stats to store them in an option
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @return [array] $all_stats
+   * @todo Revisit transaction logging
+   */
+  function get_account_stats(){
+    // Make API call with authorization
+    $stats = $this->make_api_request("get_account_stats", true);
+    // Create array with the returned object
+    $dntly_stats = array(
+        'total_raised'           => $stats->amount_raised,
+        'total_raised_onetime'   => $stats->one_time_amount_raised,
+        'total_raised_recurring' => $stats->recurring_amount_raised,
+        'total_donations'        => $stats->donations_count
+    );
+    // Update the returned array into the options
+    $all_stats = $this->update_account_stats( $dntly_stats );
+    // dntly_transaction_logging("Synced Account Stats - total_raised: $" . $stats->amount_raised . ", total_donations: " . $stats->donations_count);
+    return $all_stats;
+  }
+
+
+
+
+  /**
+   * Get Campaigns
+   *
+   * Get the campaigns associated with the users account
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @param (boolean) $referrer, (int), $campaign_count
+   * @return void
+   * @todo Revisit using die() at end of function
+   */
+  function get_campaigns( $referrer = NULL, $campaign_count = 100 )
+  {
+    // Set the account count at 0
+    $count_accounts  = 0;
+    // Set campaign counts at 0
+    $count_campaigns = array('add' => 0, 'update' => 0, 'skip' => 0);
+
+    // If referrer is passed as true, make the API request and pass the referrer
+    if( $referrer ) {
+      $get_accounts = $this->make_api_request("get_my_accounts", true, array('referrer' => $referrer));
+      // Foreach account, count++ on the accounts, and get campaigns with an API call passing account_ids as post variables
+      foreach( $get_accounts->accounts as $account ) {
+        // Count up so we can reach a total
+        $count_accounts++;
+        // Make API call with each account's ID (as post var)
+        $get_campaigns = $this->make_api_request("get_campaigns", true, array('account_ids' => $account->id));
+
+        // Foreach campaign (within account), add/update the campaign to be stored in $_dntly_data
+        foreach($get_campaigns->campaigns as $campaign){
+          $count_campaigns = $this->add_update_campaign($campaign, $account->id, $count_campaigns);
+        }
+      }
+    }
+    // Else (no referrer), do not perform API request for accounts with referrer post var
+    else{
+      // Count up accounts so we can reach a total
+      $count_accounts++;
+      // Make API call for campaigns with each account_id in post vars, and also set a limit (can be overriden as second parameter)
+      $get_campaigns = $this->make_api_request("get_campaigns", true, array('account_ids' => $this->dntly_account_id, 'count' => $campaign_count));
+
+      // Foreach campaign, update their data as an option using add_update_campaign() function
+      foreach($get_campaigns->campaigns as $campaign){
+        $count_campaigns = $this->add_update_campaign($campaign, $this->dntly_account_id, $count_campaigns);
+      }
+    }
+
+    // If $count_campaigns array key/vals exist, update account stats with the accounts tallied in above loops
+    if( $count_campaigns['add'] || $count_campaigns['update'] || $count_campaigns['skip'] ){
+      $this->update_account_stats( array('total_campaigns_count' => ($count_campaigns['add'] + $count_campaigns['update'] + $count_campaigns['skip']) ) );
+      // dntly_transaction_logging("Synced Campaigns - ".$count_campaigns['add']." added, ".$count_campaigns['update']." updated ".$count_campaigns['skip']." skipped " . ($count_accounts>1?"from {$count_accounts} accounts":""));
+    }
+    else{
+      // dntly_transaction_logging('Synced Campaigns Error, no campaigns found', 'error');
+      ?> <script>console.log('Campaign sync error, no campaigns found. Refer to get_campaigns function in dntly-api.class.php');</script> <?php
+    }
+  }
+
+
+
+
+
+  /**
+   * Add / Update Campaign
+   *
+   * Add or update $dntly_data with campaign information
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @param (string) $campaign, (string) $account_id, (int) $count_campaigns
+   * @return [array] $campaign_count (?) 'add', 'update', 'skip'
+   * @todo Revisit the nature of the returned information
+   */
+  function add_update_campaign( $campaign, $account_id, $count_campaigns )
+  {
+    if( $campaign->state == 'archived' ){
+      return array( 'add' => $count_campaigns['add'], 'update' => $count_campaigns['update'], 'skip' => ($count_campaigns['skip']+1) );
+    }
+
+    $trans_type = null;
+
+    $_dntly_data = array(
+      'dntly_id'              => $campaign->id,
+      'account_title'           => $this->dntly_options['account_title'],
+      'account_id'            => $account_id,
+      'campaign_goal'           => $campaign->campaign_goal,
+      'donations_count'         => $campaign->donations_count,
+      'donors_count'            => $campaign->donors_count,
+      'amount_raised'           => $campaign->amount_raised,
+      'amount_raised_in_cents'      => $campaign->amount_raised_in_cents,
+      'percent_funded'          => $campaign->percent_funded,
+      'photo_original'          => (stristr($campaign->photo->original, 'http') ? $campaign->photo->original : ''),
+    );
+
+    // Does this exist in the DB already? If it does, update it.
+    $post_exists = new WP_Query(
+      array(
+      'posts_per_page'  => 1,
+      'post_type'       => $this->dntly_options['dntly_campaign_posttype'],
+      'post_status'     => array( 'publish', 'private', 'draft', 'pending', 'future', 'pending'), // essentially match any not in the trash
+      'meta_query'      => array(
+        array(
+          'key'         => '_dntly_id',
+          'value'       => $campaign->id
+        ),
+        array(
+          'key'         => '_dntly_environment',
+          'value'       => $this->dntly_options['environment'],
+        )
+      ))
+    );
+
+    if( isset($post_exists->posts[0]->ID) ){
+      $post_id = $post_exists->posts[0]->ID;
+      $trans_type = "update";
+    }
+    else{
+      $post_params = array(
+        'post_type'     => $this->dntly_options['dntly_campaign_posttype'],
+        'post_title'    => $campaign->title,
+        'post_content'  => $campaign->description,
+        'post_status'   => ($this->dntly_options['sync_to_private']?'private':'publish'),
+      );
+      $post_id = wp_insert_post($post_params);
+
+      if( (stristr($campaign->photo->original, 'http')) ){
+        $image = $campaign->photo->original;
+      }else{
+        $image = null;
+      }
+
+      if( $image ){
+        $img_filetype = wp_check_filetype( $image, null );
+        $img_name = strtolower( preg_replace('/[\s\W]+/','-', $campaign->title . '-dntly-img') );
+        $img_path = $this->wordpress_upload_dir['path'] . "/" . $img_name . "." . $img_filetype['ext'];
+        $img_sub_path = $this->wordpress_upload_dir['subdir'] . "/" . $img_name . "." . $img_filetype['ext'];
+        $image_file = file_get_contents( $image );
+        file_put_contents($img_path, $image_file);
+            $attachment = array(
+             'post_type'      => 'attachment',
+             'post_title'     => 'Donately Campaign - ' . $campaign->title,
+             'post_parent'    => $post_id,
+             'post_status'    => 'inherit',
+             'post_mime_type' => $img_filetype['type'],
+            );
+            $attachment_id = wp_insert_post( $attachment, true );
+            add_post_meta($post_id, '_thumbnail_id', $attachment_id);
+            add_post_meta($attachment_id, '_wp_attached_file', $img_sub_path, true );
+      }
+
+      $trans_type = "add";
+    }
+
+    update_post_meta($post_id, '_dntly_data', $_dntly_data);
+    update_post_meta($post_id, '_dntly_id', $campaign->id );
+    update_post_meta($post_id, '_dntly_account_id', $account_id);
+    update_post_meta($post_id, '_dntly_environment', $this->dntly_options['environment']);
+    update_post_meta($post_id, '_dntly_amount_raised', $campaign->amount_raised);
+    update_post_meta($post_id, '_dntly_goal', $campaign->campaign_goal);
+
+    if( !empty($this->dntly_options['console_details']) && !$this->do_not_log() ){
+      dntly_transaction_logging("\nCampaign: {$trans_type} {$campaign->title} (dntly_id:{$campaign->id} | local_id:{$post_id})", 'print_debug');
+    }
+
+    return array('add' => ($count_campaigns['add']+($trans_type=='add'?1:0)), 'update' => ($count_campaigns['update']+($trans_type=='update'?1:0)), 'skip' => $count_campaigns['skip']);
+  }
+
 
 
 
