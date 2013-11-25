@@ -228,7 +228,7 @@ class DNTLY_API {
     }
     // Return the built URL
     return $url;
-  }
+  } 
 
 
 
