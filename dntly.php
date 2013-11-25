@@ -109,8 +109,8 @@ final class DNTLY {
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-ajax.php';
 
     // ADDITIONAL INCLUDES
-    require_once DNTLY_PLUGIN_DIR . 'lib/dntly-helpers.php';
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-formjs.php';
+    require_once DNTLY_PLUGIN_DIR . 'lib/dntly-helpers.php';
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-meta.php';
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-posttypes.php';
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-shortcodes.php';
@@ -118,15 +118,17 @@ final class DNTLY {
     // admin-only includes
     if( is_admin() ) {
 
+      require_once DNTLY_PLUGIN_DIR . 'lib/dntly-admin-dashboard.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/dntly-admin-pages.php';
-      require_once DNTLY_PLUGIN_DIR . 'lib/admin/dntly-admin-dashboard.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/dntly-dashboard-widgets.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/settings/display-settings.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/dntly-options.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/dntly-welcome.php';
+      
       if( version_compare( $wp_version, '3.6', '>=' ) ) {
         // require_once DNTLY_PLUGIN_DIR . 'lib/admin/dntly-heartbeat.php';
       }
+
     }else{
 
     }

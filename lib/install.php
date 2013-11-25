@@ -4,7 +4,7 @@
  *
  * @package     Donately for WordPress
  * @subpackage  Functions/Install
- * @copyright   Copyright (c) 2013, Pippin Williamson
+ * @copyright   Copyright (c) 2013, Fifty & Fifty
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0
 */
@@ -60,7 +60,7 @@ register_activation_hook( EDD_PLUGIN_FILE, 'dntly_install' );
  * Runs just after plugin installation and exposes the
  * dntly_after_install hook.
  *
- * @since 1.7
+ * @since 0.1
  * @return void
  */
 function dntly_after_install() {
