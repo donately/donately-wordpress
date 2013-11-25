@@ -31,7 +31,7 @@ function dntly_dashboard_page()
 
 
     <div class="wrap about-wrap">
-            <h1><?php printf( __( 'Welcome to Donately for WordPress %s', 'dntly' ), $display_version ); ?></h1>
+            <h1><?php printf( __( 'Donately for WordPress %s', 'dntly' ), $display_version ); ?></h1>
             <div class="about-text"><?php printf( __( 'Thank you for updating to the latest version!', 'dntly' ), $display_version ); ?></div>
             <div class="edd-badge"><?php printf( __( 'Version %s', 'dntly' ), $display_version ); ?></div>
 
