@@ -515,53 +515,59 @@ class DNTLY_API {
    * @since 0.1
    * @package Donately Wordpress
    * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
-   * @param (string) $campaign, (string) $account_id, (int) $count_campaigns
+   * @param {object} $campaign, (string) $account_id, (int) $count_campaigns
    * @return [array] $campaign_count (?) 'add', 'update', 'skip'
    * @todo Revisit the nature of the returned information
    */
   function add_update_campaign( $campaign, $account_id, $count_campaigns )
   {
+    // If the campaign state is archived, return [array] ('add', 'update', 'skip')
     if( $campaign->state == 'archived' ){
       return array( 'add' => $count_campaigns['add'], 'update' => $count_campaigns['update'], 'skip' => ($count_campaigns['skip']+1) );
     }
-
+    // Set the transaction type to NULL
     $trans_type = null;
 
+    // Create $_dntly_data array from the $campaign object
     $_dntly_data = array(
-      'dntly_id'              => $campaign->id,
-      'account_title'           => $this->dntly_options['account_title'],
-      'account_id'            => $account_id,
-      'campaign_goal'           => $campaign->campaign_goal,
-      'donations_count'         => $campaign->donations_count,
-      'donors_count'            => $campaign->donors_count,
-      'amount_raised'           => $campaign->amount_raised,
-      'amount_raised_in_cents'      => $campaign->amount_raised_in_cents,
-      'percent_funded'          => $campaign->percent_funded,
-      'photo_original'          => (stristr($campaign->photo->original, 'http') ? $campaign->photo->original : ''),
+      'dntly_id'               => $campaign->id,
+      'account_title'          => $this->dntly_options['account_title'],
+      'account_id'             => $account_id,
+      'campaign_goal'          => $campaign->campaign_goal,
+      'donations_count'        => $campaign->donations_count,
+      'donors_count'           => $campaign->donors_count,
+      'amount_raised'          => $campaign->amount_raised,
+      'amount_raised_in_cents' => $campaign->amount_raised_in_cents,
+      'percent_funded'         => $campaign->percent_funded,
+      'photo_original'         => (stristr($campaign->photo->original, 'http') ? $campaign->photo->original : ''),
     );
 
     // Does this exist in the DB already? If it does, update it.
     $post_exists = new WP_Query(
       array(
-      'posts_per_page'  => 1,
-      'post_type'       => $this->dntly_options['dntly_campaign_posttype'],
-      'post_status'     => array( 'publish', 'private', 'draft', 'pending', 'future', 'pending'), // essentially match any not in the trash
-      'meta_query'      => array(
+      'posts_per_page' => 1,
+      'post_type'      => $this->dntly_options['dntly_campaign_posttype'],
+      'post_status'    => array( 'publish', 'private', 'draft', 'pending', 'future', 'pending'), // essentially match any not in the trash
+      'meta_query'     => array(
         array(
-          'key'         => '_dntly_id',
-          'value'       => $campaign->id
+          'key'   => '_dntly_id',
+          'value' => $campaign->id
         ),
         array(
-          'key'         => '_dntly_environment',
-          'value'       => $this->dntly_options['environment'],
+          'key'   => '_dntly_environment',
+          'value' => $this->dntly_options['environment'],
         )
       ))
     );
 
+    // If the post exists (isset), get first in array by ID
     if( isset($post_exists->posts[0]->ID) ){
-      $post_id = $post_exists->posts[0]->ID;
+      // Set the post ID
+      $post_id    = $post_exists->posts[0]->ID;
+      // Set transaction type to 'update'
       $trans_type = "update";
     }
+    // Else, set post variables parameters as an array
     else{
       $post_params = array(
         'post_type'     => $this->dntly_options['dntly_campaign_posttype'],
@@ -569,36 +575,52 @@ class DNTLY_API {
         'post_content'  => $campaign->description,
         'post_status'   => ($this->dntly_options['sync_to_private']?'private':'publish'),
       );
+      // Set post ID and run wp_insert_post (inserts post in the database and sanitize variables)
       $post_id = wp_insert_post($post_params);
 
-      if( (stristr($campaign->photo->original, 'http')) ){
+      // If campaign photo has http (stristr finds first occurence of substring in a string), set the $image var 
+      if ( (stristr($campaign->photo->original, 'http')) ) {
         $image = $campaign->photo->original;
-      }else{
+      // Otherwise we don't have an image and set the $image var to NULL
+      } else {
         $image = null;
       }
 
+      // If we DO have an image, perform various checks and operations
       if( $image ){
+        // Check the image filetype
         $img_filetype = wp_check_filetype( $image, null );
-        $img_name = strtolower( preg_replace('/[\s\W]+/','-', $campaign->title . '-dntly-img') );
-        $img_path = $this->wordpress_upload_dir['path'] . "/" . $img_name . "." . $img_filetype['ext'];
+        // Format the image filename to lowercase and use regex to prefix it
+        $img_name     = strtolower( preg_replace('/[\s\W]+/','-', $campaign->title . '-dntly-img') );
+        // Set the image path 
+        $img_path     = $this->wordpress_upload_dir['path'] . "/" . $img_name . "." . $img_filetype['ext'];
+        // Set the image subpath
         $img_sub_path = $this->wordpress_upload_dir['subdir'] . "/" . $img_name . "." . $img_filetype['ext'];
-        $image_file = file_get_contents( $image );
+        // Get the image file
+        $image_file   = file_get_contents( $image );
+        // Write the image path and file data
         file_put_contents($img_path, $image_file);
-            $attachment = array(
-             'post_type'      => 'attachment',
-             'post_title'     => 'Donately Campaign - ' . $campaign->title,
-             'post_parent'    => $post_id,
-             'post_status'    => 'inherit',
-             'post_mime_type' => $img_filetype['type'],
-            );
-            $attachment_id = wp_insert_post( $attachment, true );
-            add_post_meta($post_id, '_thumbnail_id', $attachment_id);
-            add_post_meta($attachment_id, '_wp_attached_file', $img_sub_path, true );
-      }
 
+          // Set $attachment array keys/values
+          $attachment = array(
+           'post_type'      => 'attachment',
+           'post_title'     => 'Donately Campaign - ' . $campaign->title,
+           'post_parent'    => $post_id,
+           'post_status'    => 'inherit',
+           'post_mime_type' => $img_filetype['type'],
+          );
+          // Write the $attachment_id to the database, passing true for WP_Error object on failure
+          $attachment_id = wp_insert_post( $attachment, true );
+          // Add post meta for the thumbnail of the attachment on the post
+          add_post_meta($post_id, '_thumbnail_id', $attachment_id);
+          // Add post meta for the attachment_id and the image subpath
+          add_post_meta($attachment_id, '_wp_attached_file', $img_sub_path, true );
+      }
+      // Set transaction type to 'Add'
       $trans_type = "add";
     }
 
+    // Update various _dntly_* meta
     update_post_meta($post_id, '_dntly_data', $_dntly_data);
     update_post_meta($post_id, '_dntly_id', $campaign->id );
     update_post_meta($post_id, '_dntly_account_id', $account_id);
@@ -606,14 +628,52 @@ class DNTLY_API {
     update_post_meta($post_id, '_dntly_amount_raised', $campaign->amount_raised);
     update_post_meta($post_id, '_dntly_goal', $campaign->campaign_goal);
 
-    if( !empty($this->dntly_options['console_details']) && !$this->do_not_log() ){
-      dntly_transaction_logging("\nCampaign: {$trans_type} {$campaign->title} (dntly_id:{$campaign->id} | local_id:{$post_id})", 'print_debug');
-    }
-
+    // Return campaign array
     return array('add' => ($count_campaigns['add']+($trans_type=='add'?1:0)), 'update' => ($count_campaigns['update']+($trans_type=='update'?1:0)), 'skip' => $count_campaigns['skip']);
   }
 
 
+
+
+
+  /**
+   * Look up person
+   *
+   * Look up a person by making an API request using users email on $_POST
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @return [array] JSON data with (boolean) 'success' and 'url' or error
+   * @todo Revisit need for die() at end of function
+   */
+  function lookup_person()
+  {
+    // Set email from the $_POST variable (assumes used in form on submit)
+    $email = $_POST['email'];
+    // Suppress logging 
+    $this->suppress_logging = true;
+    // Set $lookup_person variable by making API request (method : 'person_exists'), authed with token and $email as post variable
+    $lookup_person = $this->make_api_request("person_exists", true, array('email' => $email));
+
+    // If API success
+    if( isset($lookup_person->success) ){
+      // And if there is data set for the person
+      if( isset($lookup_person->people[0]) ){
+        // Print a JSON array of the success boolean and the person URL
+        print json_encode(array('success' => true, 'url' => $lookup_person->people[0]));
+      }
+      // Else, print JSON array with failure message/details
+      else{
+        print json_encode(array('success' => false, 'message' => 'No Match Found'));
+      }
+    }
+    // If API failure, print JSON array with failure message/details (in this instance it should be a connection error)
+    else{
+      print json_encode(array('success' => false, 'message' => 'Connection Error'));
+    }
+    die();
+  }
 
 
 
