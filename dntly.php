@@ -119,7 +119,7 @@ final class DNTLY {
     // admin-only includes
     if( is_admin() ) {
 
-      require_once DNTLY_PLUGIN_DIR . 'lib/dntly-admin-dashboard.php';
+      require_once DNTLY_PLUGIN_DIR . 'lib/dntly-dashboard.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/dntly-admin-pages.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/dntly-dashboard-widgets.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/settings/display-settings.php';
