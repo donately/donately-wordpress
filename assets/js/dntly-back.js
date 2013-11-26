@@ -73,7 +73,7 @@
 		}
 		dntly.elems.form.tokenBtn.bind('click', function(e) {
 			e.preventDefault();
-			env = jQuery('input[name^="dntly_options[environment]"]').val() || jQuery("select[id=dntly-environment] option:selected").val();
+			env = jQuery('input[name^="dntly_settings[environment]"]').val() || jQuery("select[id=dntly-environment] option:selected").val();
 			jQuery.ajax({
 				'type'  : 'post',
 				'url'		: ajaxurl,

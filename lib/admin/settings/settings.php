@@ -23,8 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @return      void
 */
 
-function dntly_options_page() {
-    global $dntly_options;
+function dntly_settings_page() {
+    global $dntly_settings;
 
     $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'general';
 

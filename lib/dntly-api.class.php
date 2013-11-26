@@ -16,6 +16,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 class DNTLY_API {
 
+
   /**
    * Variables & Conditionals
    *  
@@ -30,7 +31,7 @@ class DNTLY_API {
   public $api_methods          = array();
   public $api_runtime_id       = 0;
   public $dntly_account_id     = 0;
-  public $dntly_options        = array();
+  public $dntly_settings        = array();
   public $wordpress_upload_dir = null;
   public $suppress_logging     = false;
   public $remote_results       = null;
@@ -57,22 +58,22 @@ class DNTLY_API {
       $this->api_scheme['dev']     = 'http';
       $this->api_domain['dev']     = 'dntly.local:3000';
     }
-    // Get the dntly_options array
-    $this->dntly_options = get_option('dntly_options');
+    // Get the dntly_settings array
+    $this->dntly_settings = get_option('dntly_settings');
 
-    // If the account is set in the dntly_options array,
-    if( isset($this->dntly_options['account']) )
+    // If the account is set in the dntly_settings array,
+    if( isset($this->dntly_settings['account']) )
     {
-      // If the account value is not empty in dntly_options, set it as the subdomain, else set subomdian to default to 'www'
-      if ( $this->dntly_options['account'] != '' ) {
-        $this->api_subdomain = $this->dntly_options['account'];
+      // If the account value is not empty in dntly_settings, set it as the subdomain, else set subomdian to default to 'www'
+      if ( $this->dntly_settings['account'] != '' ) {
+        $this->api_subdomain = $this->dntly_settings['account'];
       } else {
         $this->api_subdomain = 'www';
       }
 
-      // If the account_id is set in dntly_options, set it as the account_id, else set it to 0 (no accounts created yet)
-      if ( isset( $this->dntly_options['account_id'] ) ) {
-        $this->dntly_account_id = $this->dntly_options['account_id'];
+      // If the account_id is set in dntly_settings, set it as the account_id, else set it to 0 (no accounts created yet)
+      if ( isset( $this->dntly_settings['account_id'] ) ) {
+        $this->dntly_account_id = $this->dntly_settings['account_id'];
       } else {
         $this->dntly_account_id = 0;
       }
@@ -82,13 +83,6 @@ class DNTLY_API {
     // Set the WP upload directory by running the wp core function
     $this->wordpress_upload_dir = wp_upload_dir();
 
-    // Token Vars
-    $token_raw    = $this->dntly_options['donately_token'];
-    $token_base64 = base64_encode($token_raw);
-    $this->tokens_b64_arr = array(
-      'BM' => base64_encode('d06449cd77c32744857218c834556668'),
-      'AZ' => base64_encode('b384c98ff1bf9273c6b4929346d87b90')
-    );
   }
   
 
@@ -107,7 +101,7 @@ class DNTLY_API {
   function debug_request_test( $url = NULL, $post_vars = array(), $method = NULL )
   {
 
-    $token_b64_temp = base64_encode($this->dntly_options['donately_token']);
+    $token_b64_temp = base64_encode($this->dntly_settings['donately_token']);
 
     // If 'POST'
     if ( $method == 'POST' ) {
@@ -275,18 +269,18 @@ class DNTLY_API {
    */
   function build_url( $api_method )
   {
-    // If the environment value in $dntly_options is not empty, $url is the set environment (protocol : https), else default to production environment
-    if ( !empty($this->dntly_options['environment']) ) {
-      $url = $this->api_scheme[$this->dntly_options['environment']];
+    // If the environment value in $dntly_settings is not empty, $url is the set environment (protocol : https), else default to production environment
+    if ( !empty($this->dntly_settings['environment']) ) {
+      $url = $this->api_scheme[$this->dntly_settings['environment']];
     } else {
       $url = $this->api_scheme['production'] . '://';
     }
     // Append the subdomain and a period (Ex: __SUBDOMAIN__.dntly.com/ ... )
     $url .= $this->api_subdomain . '.';
 
-    // If the environment value in $dntly_options is not empty, append $url with the api_domain (dntly.com), else default to api_domain (production)
-    if ( !empty($this->dntly_options['environment']) ) {
-      $url .= $this->api_domain[$this->dntly_options['environment']];
+    // If the environment value in $dntly_settings is not empty, append $url with the api_domain (dntly.com), else default to api_domain (production)
+    if ( !empty($this->dntly_settings['environment']) ) {
+      $url .= $this->api_domain[$this->dntly_settings['environment']];
     } else {
       $url .= $this->api_domain['production'];
     }
@@ -346,17 +340,18 @@ class DNTLY_API {
     // Set $url variable after running the $api_method through the build_url() function
     $url = $this->build_url( $api_method );
 
-    // If console_calls is not empty in $dntly_options AND logging is NOT suppressed
-    if( !empty($this->dntly_options['console_calls']) && !$this->do_not_log() ) {
+    // If console_calls is not empty in $dntly_settings AND logging is NOT suppressed
+    if( !empty($this->dntly_settings['console_calls']) && !$this->do_not_log() ) {
       // Log the transaction with API url, API post args, then print the debug results
       // dntly_transaction_logging("\n" . "api url: " . $url . "\n" . "api post args: " . (sizeof($post_variables) ? print_r($post_variables, true) : '') . "\n", 'print_debug');
     }
 
-    // If $auth is true, set $session_token to 'token' value in $dntly_options, set $authorization to base64 encoded token, and prep them as $header var to later send
+    // If $auth is true, set $session_token to 'token' value in $dntly_settings, set $authorization to base64 encoded token, and prep them as $header var to later send
     if( $auth ){
-      $session_token = $this->dntly_options['donately_token'];
+      $session_token = $this->dntly_settings['donately_token'];
       $authorization = 'Basic ' . base64_encode("{$session_token}:");
       $headers       = array( 'Authorization' => $authorization, 'sslverify' => false );
+
     // Else, do not send authorization (token), only set sslverify as false in header (used only for non-auth API calls)
     } else {
       $headers = array( 'sslverify' => false );
@@ -365,6 +360,7 @@ class DNTLY_API {
     // If the first value (method) of the $api_method is "POST", use wp_remote_post with the above set auth headers and post vars
     if( $this->api_methods[$api_method][0] == "post" ){
       $this->remote_results = wp_remote_post($url, array('headers' => $headers, 'body' => $post_variables));
+
     }
     // Else if the $post_variables parameters are set/true...  (break down array in foreach)
     else{
@@ -379,6 +375,16 @@ class DNTLY_API {
       // Otherwise (not $post_variables passed), perform "GET" using wordpress' function, only sending headers and no post variables
       $this->remote_results = wp_remote_get($url, array('headers' => $headers));
     }
+
+    // @TODO temp, remove
+    print '$session_token';
+    var_dump($session_token);
+    print '$headers';
+    var_dump($headers);
+    print 'Remote Results';
+    print_r($this->remote_results);
+
+
     // If the results from the request is an object ...
     if( is_object($this->remote_results) ){
       // And if the class name (string) of the result object is 'WP_Error' ...
@@ -599,7 +605,7 @@ class DNTLY_API {
     // Create $_dntly_data array from the $campaign object
     $_dntly_data = array(
       'dntly_id'               => $campaign->id,
-      'account_title'          => $this->dntly_options['account_title'],
+      'account_title'          => $this->dntly_settings['account_title'],
       'account_id'             => $account_id,
       'campaign_goal'          => $campaign->campaign_goal,
       'donations_count'        => $campaign->donations_count,
@@ -614,7 +620,7 @@ class DNTLY_API {
     $post_exists = new WP_Query(
       array(
       'posts_per_page' => 1,
-      'post_type'      => $this->dntly_options['dntly_campaign_posttype'],
+      'post_type'      => $this->dntly_settings['dntly_campaign_posttype'],
       'post_status'    => array( 'publish', 'private', 'draft', 'pending', 'future', 'pending'), // essentially match any not in the trash
       'meta_query'     => array(
         array(
@@ -623,7 +629,7 @@ class DNTLY_API {
         ),
         array(
           'key'   => '_dntly_environment',
-          'value' => $this->dntly_options['environment'],
+          'value' => $this->dntly_settings['environment'],
         )
       ))
     );
@@ -638,10 +644,10 @@ class DNTLY_API {
     // Else, set post variables parameters as an array
     else{
       $post_params = array(
-        'post_type'     => $this->dntly_options['dntly_campaign_posttype'],
+        'post_type'     => $this->dntly_settings['dntly_campaign_posttype'],
         'post_title'    => $campaign->title,
         'post_content'  => $campaign->description,
-        'post_status'   => ($this->dntly_options['sync_to_private']?'private':'publish'),
+        'post_status'   => ($this->dntly_settings['sync_to_private']?'private':'publish'),
       );
       // Set post ID and run wp_insert_post (inserts post in the database and sanitize variables)
       $post_id = wp_insert_post($post_params);
@@ -692,7 +698,7 @@ class DNTLY_API {
     update_post_meta($post_id, '_dntly_data', $_dntly_data);
     update_post_meta($post_id, '_dntly_id', $campaign->id );
     update_post_meta($post_id, '_dntly_account_id', $account_id);
-    update_post_meta($post_id, '_dntly_environment', $this->dntly_options['environment']);
+    update_post_meta($post_id, '_dntly_environment', $this->dntly_settings['environment']);
     update_post_meta($post_id, '_dntly_amount_raised', $campaign->amount_raised);
     update_post_meta($post_id, '_dntly_goal', $campaign->campaign_goal);
 

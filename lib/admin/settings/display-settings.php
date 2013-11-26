@@ -18,11 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Renders the options page contents.
  *
  * @since 1.0
- * @global $dntly_options Array of all the EDD Options
+ * @global $dntly_settings Array of all the EDD Options
  * @return void
  */
-function dntly_options_page() {
-    global $dntly_options;
+function dntly_settings_page() {
+    global $dntly_settings;
 
     $active_tab = isset( $_GET[ 'tab' ] ) && array_key_exists( $_GET['tab'], dntly_get_settings_tabs() ) ? $_GET[ 'tab' ] : 'general';
 

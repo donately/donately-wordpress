@@ -23,12 +23,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * @since 1.0
  * @global $wpdb
- * @global $dntly_options
+ * @global $dntly_settings
  * @global $wp_version
  * @return void
  */
 function dntly_install() {
-    global $wpdb, $dntly_options, $wp_version;
+    global $wpdb, $dntly_settings, $wp_version;
 
     // Setup the Downloads Custom Post Type
     setup_dntly_campaign_post_types();

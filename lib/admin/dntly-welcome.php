@@ -241,11 +241,11 @@ class DNTLY_Welcome {
      *
      * @access public
      * @since 1.4
-     * @global $dntly_options Array of all the EDD Options
+     * @global $dntly_settings Array of all the EDD Options
      * @return void
      */
     public function welcome() {
-        global $dntly_options;
+        global $dntly_settings;
 
         // Bail if no activation redirect
         if ( ! get_transient( '_dntly_activation_redirect' ) )

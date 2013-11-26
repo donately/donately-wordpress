@@ -23,12 +23,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @global $wpdb
  * @global object $wpdb Used to query the database using the WordPress
  *   Database API
- * @global $dntly_options Array of all the dntly Options
+ * @global $dntly_settings Array of all the dntly Options
  * @author Chris Christoff
  * @return void
  */
 function dntly_system_info() {
-    global $wpdb, $dntly_options;
+    global $wpdb, $dntly_settings;
 
     if ( ! class_exists( 'Browser' ) )
         require_once DNTLY_PLUGIN_DIR . 'lib/libraries/browser.php';
@@ -87,7 +87,7 @@ Host:                     <?php echo $host . "\n"; ?>
 <?php endif; ?>
 
 
-Symlinks Enabled:         <?php echo apply_filters( 'dntly_symlink_file_downloads', isset( $dntly_options['symlink_file_downloads'] ) ) && function_exists( 'symlink' ) ? "Yes\n" : "No\n"; ?>
+Symlinks Enabled:         <?php echo apply_filters( 'dntly_symlink_file_downloads', isset( $dntly_settings['symlink_file_downloads'] ) ) && function_exists( 'symlink' ) ? "Yes\n" : "No\n"; ?>
 
 
 Campaigns slug:           <?php echo defined( 'DNTLY_SLUG' ) ? '/' . DNTLY_SLUG . "\n" : "/campaigns\n"; ?>

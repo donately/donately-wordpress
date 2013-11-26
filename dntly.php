@@ -92,10 +92,10 @@ final class DNTLY {
    * @return void
    */
   private function includes() {
-    global $dntly_options, $wp_version;
+    global $dntly_settings, $wp_version;
 
     require_once DNTLY_PLUGIN_DIR . 'lib/admin/settings/register-settings.php';
-    $dntly_options = dntly_get_settings();
+    $dntly_settings = dntly_get_settings();
 
 
     // CLASSES

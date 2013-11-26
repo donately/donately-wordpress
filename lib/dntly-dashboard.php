@@ -18,13 +18,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Renders the options page contents.
  *
  * @since 1.0
- * @global $dntly_options Array of all the EDD Options
+ * @global $dntly_settings Array of all the EDD Options
  * @return void
  */
 function dntly_dashboard_page() 
 {
 
-    global $dntly_options;
+    global $dntly_settings;
     list( $display_version ) = explode( '-', DNTLY_VERSION );
     ob_start();
     ?>

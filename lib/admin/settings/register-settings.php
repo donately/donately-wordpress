@@ -22,8 +22,8 @@ if ( !defined( 'ABSPATH' ) ) exit;
  * @return mixed
  */
 function dntly_get_option( $key = '', $default = false ) {
-    global $dntly_options;
-    return isset( $dntly_options[ $key ] ) ? $dntly_options[ $key ] : $default;
+    global $dntly_settings;
+    return isset( $dntly_settings[ $key ] ) ? $dntly_settings[ $key ] : $default;
 }
 
 /**
@@ -385,13 +385,13 @@ function dntly_header_callback( $args ) {
  *
  * @since 1.0
  * @param array $args Arguments passed by the setting
- * @global $dntly_options Array of all the DNTLY Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @return void
  */
 function dntly_checkbox_callback( $args ) {
-    global $dntly_options;
+    global $dntly_settings;
 
-    $checked = isset($dntly_options[$args['id']]) ? checked(1, $dntly_options[$args['id']], false) : '';
+    $checked = isset($dntly_settings[$args['id']]) ? checked(1, $dntly_settings[$args['id']], false) : '';
     $html = '<input type="checkbox" id="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']" name="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']" value="1" ' . $checked . '/>';
     $html .= '<label for="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']"> '  . $args['desc'] . '</label>';
 
@@ -405,14 +405,14 @@ function dntly_checkbox_callback( $args ) {
  *
  * @since 1.0
  * @param array $args Arguments passed by the setting
- * @global $dntly_options Array of all the DNTLY Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @return void
  */
 function dntly_multicheck_callback( $args ) {
-    global $dntly_options;
+    global $dntly_settings;
 
     foreach( $args['options'] as $key => $option ):
-        if( isset( $dntly_options[$args['id']][$key] ) ) { $enabled = $option; } else { $enabled = NULL; }
+        if( isset( $dntly_settings[$args['id']][$key] ) ) { $enabled = $option; } else { $enabled = NULL; }
         echo '<input name="dntly_settings_' . $args['section'] . '[' . $args['id'] . '][' . $key . ']" id="dntly_settings_' . $args['section'] . '[' . $args['id'] . '][' . $key . ']" type="checkbox" value="' . $option . '" ' . checked($option, $enabled, false) . '/>&nbsp;';
         echo '<label for="dntly_settings_' . $args['section'] . '[' . $args['id'] . '][' . $key . ']">' . $option . '</label><br/>';
     endforeach;
@@ -426,18 +426,18 @@ function dntly_multicheck_callback( $args ) {
  *
  * @since 1.3.3
  * @param array $args Arguments passed by the setting
- * @global $dntly_options Array of all the DNTLY Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @return void
  */
 function dntly_radio_callback( $args ) {
-    global $dntly_options;
+    global $dntly_settings;
 
     foreach ( $args['options'] as $key => $option ) :
         $checked = false;
 
-        if ( isset( $dntly_options[ $args['id'] ] ) && $dntly_options[ $args['id'] ] == $key )
+        if ( isset( $dntly_settings[ $args['id'] ] ) && $dntly_settings[ $args['id'] ] == $key )
             $checked = true;
-        elseif( isset( $args['std'] ) && $args['std'] == $key && ! isset( $dntly_options[ $args['id'] ] ) )
+        elseif( isset( $args['std'] ) && $args['std'] == $key && ! isset( $dntly_settings[ $args['id'] ] ) )
             $checked = true;
 
         echo '<input name="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']"" id="dntly_settings_' . $args['section'] . '[' . $args['id'] . '][' . $key . ']" type="radio" value="' . $key . '" ' . checked(true, $checked, false) . '/>&nbsp;';
@@ -456,14 +456,14 @@ function dntly_radio_callback( $args ) {
  *
  * @since 1.0
  * @param array $args Arguments passed by the setting
- * @global $dntly_options Array of all the DNTLY Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @return void
  */
 function dntly_text_callback( $args ) {
-    global $dntly_options;
+    global $dntly_settings;
 
-    if ( isset( $dntly_options[ $args['id'] ] ) )
-        $value = $dntly_options[ $args['id'] ];
+    if ( isset( $dntly_settings[ $args['id'] ] ) )
+        $value = $dntly_settings[ $args['id'] ];
     else
         $value = isset( $args['std'] ) ? $args['std'] : '';
 
@@ -481,14 +481,14 @@ function dntly_text_callback( $args ) {
  *
  * @since 1.0
  * @param array $args Arguments passed by the setting
- * @global $dntly_options Array of all the DNTLY Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @return void
  */
 function dntly_textarea_callback( $args ) {
-    global $dntly_options;
+    global $dntly_settings;
 
-    if ( isset( $dntly_options[ $args['id'] ] ) )
-        $value = $dntly_options[ $args['id'] ];
+    if ( isset( $dntly_settings[ $args['id'] ] ) )
+        $value = $dntly_settings[ $args['id'] ];
     else
         $value = isset( $args['std'] ) ? $args['std'] : '';
 
@@ -506,14 +506,14 @@ function dntly_textarea_callback( $args ) {
  *
  * @since 1.3
  * @param array $args Arguments passed by the setting
- * @global $dntly_options Array of all the DNTLY Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @return void
  */
 function dntly_password_callback( $args ) {
-    global $dntly_options;
+    global $dntly_settings;
 
-    if ( isset( $dntly_options[ $args['id'] ] ) )
-        $value = $dntly_options[ $args['id'] ];
+    if ( isset( $dntly_settings[ $args['id'] ] ) )
+        $value = $dntly_settings[ $args['id'] ];
     else
         $value = isset( $args['std'] ) ? $args['std'] : '';
 
@@ -544,14 +544,14 @@ function dntly_missing_callback($args) {
  *
  * @since 1.0
  * @param array $args Arguments passed by the setting
- * @global $dntly_options Array of all the DNTLY Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @return void
  */
 function dntly_select_callback($args) {
-    global $dntly_options;
+    global $dntly_settings;
 
-    if ( isset( $dntly_options[ $args['id'] ] ) )
-        $value = $dntly_options[ $args['id'] ];
+    if ( isset( $dntly_settings[ $args['id'] ] ) )
+        $value = $dntly_settings[ $args['id'] ];
     else
         $value = isset( $args['std'] ) ? $args['std'] : '';
 
@@ -575,14 +575,14 @@ function dntly_select_callback($args) {
  *
  * @since 1.8
  * @param array $args Arguments passed by the setting
- * @global $dntly_options Array of all the DNTLY Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @return void
  */
 function dntly_color_select_callback( $args ) {
-    global $dntly_options;
+    global $dntly_settings;
 
-    if ( isset( $dntly_options[ $args['id'] ] ) )
-        $value = $dntly_options[ $args['id'] ];
+    if ( isset( $dntly_settings[ $args['id'] ] ) )
+        $value = $dntly_settings[ $args['id'] ];
     else
         $value = isset( $args['std'] ) ? $args['std'] : '';
 
@@ -606,14 +606,14 @@ function dntly_color_select_callback( $args ) {
  *
  * @since 1.0
  * @param array $args Arguments passed by the setting
- * @global $dntly_options Array of all the DNTLY Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @global $wp_version WordPress Version
  */
 function dntly_rich_editor_callback( $args ) {
-    global $dntly_options, $wp_version;
+    global $dntly_settings, $wp_version;
 
-    if ( isset( $dntly_options[ $args['id'] ] ) )
-        $value = $dntly_options[ $args['id'] ];
+    if ( isset( $dntly_settings[ $args['id'] ] ) )
+        $value = $dntly_settings[ $args['id'] ];
     else
         $value = isset( $args['std'] ) ? $args['std'] : '';
 
@@ -635,14 +635,14 @@ function dntly_rich_editor_callback( $args ) {
  *
  * @since 1.0
  * @param array $args Arguments passed by the setting
- * @global $dntly_options Array of all the DNTLY Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @return void
  */
 function dntly_upload_callback( $args ) {
-    global $dntly_options;
+    global $dntly_settings;
 
-    if ( isset( $dntly_options[ $args['id'] ] ) )
-        $value = $dntly_options[$args['id']];
+    if ( isset( $dntly_settings[ $args['id'] ] ) )
+        $value = $dntly_settings[$args['id']];
     else
         $value = isset($args['std']) ? $args['std'] : '';
 
@@ -662,14 +662,14 @@ function dntly_upload_callback( $args ) {
  *
  * @since 1.6
  * @param array $args Arguments passed by the setting
- * @global $dntly_options Array of all the DNTLY Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @return void
  */
 function dntly_color_callback( $args ) {
-    global $dntly_options;
+    global $dntly_settings;
 
-    if ( isset( $dntly_options[ $args['id'] ] ) )
-        $value = $dntly_options[ $args['id'] ];
+    if ( isset( $dntly_settings[ $args['id'] ] ) )
+        $value = $dntly_settings[ $args['id'] ];
     else
         $value = isset( $args['std'] ) ? $args['std'] : '';
 
@@ -709,7 +709,7 @@ function dntly_hook_callback( $args ) {
  */
 function dntly_settings_sanitize( $input = array() ) {
 
-    global $dntly_options;
+    global $dntly_settings;
 
     parse_str( $_POST['_wp_http_referer'], $referrer );
 
@@ -746,14 +746,14 @@ function dntly_settings_sanitize( $input = array() ) {
             }
 
             if( empty( $_POST[ 'dntly_settings_' . $tab ][ $key ] ) ) {
-                unset( $dntly_options[ $key ] );
+                unset( $dntly_settings[ $key ] );
             }
 
         }
     }
 
     // Merge our new settings with the existing
-    $output = array_merge( $dntly_options, $output );
+    $output = array_merge( $dntly_settings, $output );
 
     // @TODO: Get Notices Working in the backend.
     //add_settings_error( 'dnlty-notices', '', __( 'Settings Updated', 'dntly' ), 'updated' );
@@ -798,11 +798,11 @@ function dntly_get_settings_tabs() {
  * Test Buttons
  *
  * @access private
- * @global $dntly_options Array of all the DNTLY Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @since 1.0.8.2
  */
 function dntly_sync_campaigns_buttons() {
-    global $dntly_options;
+    global $dntly_settings;
 
     ob_start();
     ?>
@@ -817,11 +817,11 @@ add_action( 'dntly_sync_campaigns', 'dntly_sync_campaigns_buttons' );
  * Test Buttons
  *
  * @access private
- * @global $dntly_options Array of all the DNTLY Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @since 1.0.8.2
  */
 function dntly_sync_stats_buttons() {
-    global $dntly_options;
+    global $dntly_settings;
 
     ob_start();
     ?>
