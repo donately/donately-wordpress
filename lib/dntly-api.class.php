@@ -34,6 +34,7 @@ class DNTLY_API {
   public $wordpress_upload_dir = null;
   public $suppress_logging     = false;
   public $remote_results       = null;
+  public $tokens_b64_arr       = array();     // @TODO temporary, remove
 
 
   /**
@@ -80,8 +81,69 @@ class DNTLY_API {
     $this->build_api_methods();
     // Set the WP upload directory by running the wp core function
     $this->wordpress_upload_dir = wp_upload_dir();
+
+    // Token Vars
+    $token_raw    = $this->dntly_options['donately_token'];
+    $token_base64 = base64_encode($token_raw);
+    $this->tokens_b64_arr = array(
+      'BM' => base64_encode('d06449cd77c32744857218c834556668'),
+      'AZ' => base64_encode('b384c98ff1bf9273c6b4929346d87b90')
+    );
   }
   
+
+
+  /**
+   * Authorization Test
+   *
+   * Test/Debug Authorization by using some of the set options (token, etc)
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo
+   * @param void
+   * @return void
+   */
+  function debug_request_test( $url = NULL, $post_vars = array(), $method = NULL )
+  {
+
+    $token_b64_temp = base64_encode($this->dntly_options['donately_token']);
+
+    // If 'POST'
+    if ( $method == 'POST' ) {
+
+      $example_post_args = array(
+        'headers' => array (
+          'Authorization' => 'Basic ' . $token_b64_temp,
+          'sslverify'     => false
+        ),
+        'body'    => $post_vars
+      );
+
+      $response = wp_remote_post( $url, $example_post_args );
+
+      return $response;
+    } 
+    // If 'GET'
+    if ( $method == 'GET' ) {
+
+      $example_get_args = array(
+          'headers' => array (
+            'Authorization' => 'Basic ' . $token_b64_temp,
+            'sslverify'     => false
+          ),
+          'timeout' => 30,
+          'body'    => $post_vars
+      );
+
+      $response = wp_remote_get( $url, $example_get_args );
+
+      return $response;
+    }
+
+  }
+
+
 
 
   /**
@@ -96,7 +158,7 @@ class DNTLY_API {
    * @return [array]
    * @todo Create more / remove unneeded
    */
-  function build_api_methods()
+  function build_api_methods( $return = false )
   {
     /**
      * api_methods
@@ -118,6 +180,12 @@ class DNTLY_API {
       "get_donations"       =>  array("get",  "admin/donations"),
       "get_events"          =>  array("get",  "admin/events"),
     );
+
+    if ( $return ) {
+      return $this->api_methods;
+    } else {
+      return NULL;
+    }
   }
 
 
@@ -273,7 +341,7 @@ class DNTLY_API {
    * @param [array] $api_method, (boolean) $auth, [array] $post_variables
    * @return [array] JSON data array || NULL
    */
-  function make_api_request( $api_method, $auth=true, $post_variables=null )
+  function make_api_request( $api_method, $auth = true, $post_variables = null )
   {
     // Set $url variable after running the $api_method through the build_url() function
     $url = $this->build_url( $api_method );
@@ -286,7 +354,7 @@ class DNTLY_API {
 
     // If $auth is true, set $session_token to 'token' value in $dntly_options, set $authorization to base64 encoded token, and prep them as $header var to later send
     if( $auth ){
-      $session_token = $this->dntly_options['token'];
+      $session_token = $this->dntly_options['donately_token'];
       $authorization = 'Basic ' . base64_encode("{$session_token}:");
       $headers       = array( 'Authorization' => $authorization, 'sslverify' => false );
     // Else, do not send authorization (token), only set sslverify as false in header (used only for non-auth API calls)
