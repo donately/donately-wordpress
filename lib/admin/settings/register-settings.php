@@ -167,14 +167,18 @@ function dntly_get_registered_settings() {
                     'desc' => '',
                     'type' => 'header'
                 ),
-                'donately_test' => array(
-                    'id' => 'donately_test',
-                    'name' => __( 'Donately Test', 'dntly' ),
-                    'desc' => __( 'Enter your dntly.com subdomain name here (http://example.dntly.com - example is the subdomain.', 'dntly' ),
-                    'type' => 'text',
-                    'size' => 'regular',
-                    'std' => ''
-                )
+                'disable_dntly_email' => array(
+                    'id' => 'disable_dntly_email',
+                    'name' => __( 'Disable Donately Emails', 'dntly' ),
+                    'desc' => __( 'Check this box to disable the Donately emails.', 'dntly' ),
+                    'type' => 'checkbox'
+                ),
+                'custom_donately_email' => array(
+                    'id' => 'custom_donately_email',
+                    'name' => __( 'Custom Donately Email', 'dntly' ),
+                    'desc' => __( 'If <em>disable Donately emails</em> is checked, then enter your custom email information here.', 'dntly' ),
+                    'type' => 'rich_editor'
+                ),
             )
         ),
         /** Sync Settings */
@@ -182,23 +186,30 @@ function dntly_get_registered_settings() {
             array(
                 'sync_settings' => array(
                     'id' => 'sync_settings',
-                    'name' => '<strong>' . __( 'Sync with Donately', 'dntly' ) . '</strong>',
+                    'name' => '<strong>' . __( 'Sync campaigns with Donately', 'dntly' ) . '</strong>',
                     'desc' => '',
                     'type' => 'header'
                 ),
-                'test_button' => array(
-                    'id' => 'test_button',
-                    'name' => __( 'Email Template', 'dntly' ),
-                    'desc' => __( 'Choose a template. Click "Save Changes" then "Preview Purchase Receipt" to see the new template.', 'dntly' ),
+                'sync_controls' => array(
+                    'id' => 'sync_controls',
+                    'name' => __( 'Sync Controls', 'dntly' ),
+                    'desc' => __( 'Select how you want your campaigns synched', 'dntly' ),
                     'type' => 'select',
                     'options' => array(
-                        'blah'  => 'blah',
-                        'heyo'  => 'heyo'
+                        'manual'  => 'Manual Syncing',
+                        'cron60'  => 'Auto Sync (every 60 mins)',
+                        'cron30'  => 'Auto Sync (every 30 mins)'
                         )
                 ),
-                'test_button2' => array(
-                    'id' => 'test_button2',
-                    'name' => '',
+                'sync_campaigns' => array(
+                    'id' => 'sync_campaigns',
+                    'name' => 'Sync Campaigns',
+                    'desc' => '',
+                    'type' => 'hook'
+                ),
+                'sync_account_stats' => array(
+                    'id' => 'sync_account_stats',
+                    'name' => 'Sync Accounts',
                     'desc' => '',
                     'type' => 'hook'
                 ),
@@ -437,30 +448,6 @@ function dntly_radio_callback( $args ) {
 }
 
 
-
-/**
- * Gateways Callback (drop down)
- *
- * Renders gateways select menu
- *
- * @since 1.5
- * @param array $args Arguments passed by the setting
- * @global $dntly_options Array of all the DNTLY Options
- * @return void
- */
-function dntly_gateway_select_callback($args) {
-    global $dntly_options;
-
-    echo '<select name="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']"" id="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']">';
-
-    foreach ( $args['options'] as $key => $option ) :
-        $selected = isset( $dntly_options[ $args['id'] ] ) ? selected( $key, $dntly_options[$args['id']], false ) : '';
-        echo '<option value="' . esc_attr( $key ) . '"' . $selected . '>' . esc_html( $option['admin_label'] ) . '</option>';
-    endforeach;
-
-    echo '</select>';
-    echo '<label for="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']"> '  . $args['desc'] . '</label>';
-}
 
 /**
  * Text Callback
@@ -808,20 +795,38 @@ function dntly_get_settings_tabs() {
 }
 
 /**
- * Email Template Preview
+ * Test Buttons
  *
  * @access private
  * @global $edd_options Array of all the EDD Options
  * @since 1.0.8.2
  */
-function dntly_test_button_again() {
+function dntly_sync_campaigns_buttons() {
     global $edd_options;
 
     ob_start();
     ?>
-    <a href="#nothing" class="button-secondary" title="<?php _e( 'Figured this Shit Out', 'dntly' ); ?> "><?php _e( 'Figured this Shit Out', 'dntly' ); ?></a>
-    <a href="#nothin" title="<?php _e( 'Hell Yeah', 'dntly' ); ?>" class="button-secondary"><?php _e( 'Hell Yea', 'dntly' ); ?></a>
+    <a href="#nothing" class="button-secondary" title="<?php _e( 'Sync Campaigns', 'dntly' ); ?> "><?php _e( 'Sync Campaigns', 'dntly' ); ?></a>
     <?php
     echo ob_get_clean();
 }
-add_action( 'dntly_test_button2', 'dntly_test_button_again' );
+add_action( 'dntly_sync_campaigns', 'dntly_sync_campaigns_buttons' );
+
+
+/**
+ * Test Buttons
+ *
+ * @access private
+ * @global $edd_options Array of all the EDD Options
+ * @since 1.0.8.2
+ */
+function dntly_sync_stats_buttons() {
+    global $edd_options;
+
+    ob_start();
+    ?>
+    <a href="#nothing" class="button-secondary" title="<?php _e( 'Sync Account Stats', 'dntly' ); ?> "><?php _e( 'Sync Account Stats', 'dntly' ); ?></a>
+    <?php
+    echo ob_get_clean();
+}
+add_action( 'dntly_sync_account_stats', 'dntly_sync_stats_buttons' );
