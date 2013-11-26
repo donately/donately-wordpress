@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @return void
  */
 function dntly_add_options_link() {
+
     global $dntly_settings_page;
 
 

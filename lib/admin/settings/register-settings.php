@@ -798,11 +798,11 @@ function dntly_get_settings_tabs() {
  * Test Buttons
  *
  * @access private
- * @global $edd_options Array of all the EDD Options
+ * @global $dntly_options Array of all the DNTLY Options
  * @since 1.0.8.2
  */
 function dntly_sync_campaigns_buttons() {
-    global $edd_options;
+    global $dntly_options;
 
     ob_start();
     ?>
@@ -817,11 +817,11 @@ add_action( 'dntly_sync_campaigns', 'dntly_sync_campaigns_buttons' );
  * Test Buttons
  *
  * @access private
- * @global $edd_options Array of all the EDD Options
+ * @global $dntly_options Array of all the DNTLY Options
  * @since 1.0.8.2
  */
 function dntly_sync_stats_buttons() {
-    global $edd_options;
+    global $dntly_options;
 
     ob_start();
     ?>

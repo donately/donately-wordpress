@@ -38,6 +38,7 @@ add_action('wp_dashboard_setup', 'dntly_register_dashboard_widgets', 10 );
  * @return void
  */
 function dntly_dashboard_stats_widget() { ?>
+
     <div class="dntly_dashboard_widget">
         <div class="table table_left table_current_month">
             <p class="sub"><?php _e( 'Current Month', 'dnlty' ) ?></p>
