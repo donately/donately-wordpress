@@ -46,6 +46,7 @@ class DNTLY_API {
    * @since 0.1
    * @package Donately Wordpress
    * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @todo combine isset and != '' 
    */
   function __construct()
   {
@@ -61,12 +62,12 @@ class DNTLY_API {
     // Get the dntly_settings array
     $this->dntly_settings = get_option('dntly_settings');
 
-    // If the account is set in the dntly_settings array,
-    if( isset($this->dntly_settings['account']) )
+    // If the donately_subdomain (previous 'account') is set in the dntly_settings array,
+    if( isset($this->dntly_settings['donately_subdomain']) )
     {
-      // If the account value is not empty in dntly_settings, set it as the subdomain, else set subomdian to default to 'www'
-      if ( $this->dntly_settings['account'] != '' ) {
-        $this->api_subdomain = $this->dntly_settings['account'];
+      // If the donately_subdomain value is not empty in dntly_settings, set it as the subdomain, else set subomdian to default to 'www'
+      if ( $this->dntly_settings['donately_subdomain'] != '' ) {
+        $this->api_subdomain = $this->dntly_settings['donately_subdomain'];
       } else {
         $this->api_subdomain = 'www';
       }
@@ -332,6 +333,8 @@ class DNTLY_API {
     // Set $url variable after running the $api_method through the build_url() function
     $url = $this->build_url( $api_method );
 
+    var_dump($url);
+
     // If console_calls is not empty in $dntly_settings AND logging is NOT suppressed
     if( !empty($this->dntly_settings['console_calls']) && !$this->do_not_log() ) {
       // Log the transaction with API url, API post args, then print the debug results
@@ -500,7 +503,7 @@ class DNTLY_API {
 
 
 
-
+ 
   /**
    * Get Campaigns
    *
@@ -543,8 +546,10 @@ class DNTLY_API {
       // Make API call for campaigns with each account_id in post vars, and also set a limit (can be overriden as second parameter)
       $get_campaigns = $this->make_api_request("get_campaigns", true, array('account_ids' => $this->dntly_account_id, 'count' => $campaign_count));
 
+      var_dump($get_campaigns);
+
       // Foreach campaign, update their data as an option using add_update_campaign() function
-      foreach($get_campaigns->campaigns as $campaign){
+      foreach( $get_campaigns->campaigns as $campaign ) {
         $count_campaigns = $this->add_update_campaign($campaign, $this->dntly_account_id, $count_campaigns);
       }
     }

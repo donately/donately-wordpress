@@ -806,7 +806,7 @@ function dntly_sync_campaigns_buttons() {
 
     ob_start();
     ?>
-    <a href="#nothing" class="button-secondary" title="<?php _e( 'Sync Campaigns', 'dntly' ); ?> "><?php _e( 'Sync Campaigns', 'dntly' ); ?></a>
+    <a href="javascript:;" id="dntly-sync-campaigns" class="button-secondary" title="<?php _e( 'Sync Campaigns', 'dntly' ); ?> "><?php _e( 'Sync Campaigns', 'dntly' ); ?></a>
     <?php
     echo ob_get_clean();
 }
@@ -825,7 +825,7 @@ function dntly_sync_stats_buttons() {
 
     ob_start();
     ?>
-    <a href="#nothing" class="button-secondary" title="<?php _e( 'Sync Account Stats', 'dntly' ); ?> "><?php _e( 'Sync Account Stats', 'dntly' ); ?></a>
+    <a href="javscript:;" class="button-secondary" title="<?php _e( 'Sync Account Stats', 'dntly' ); ?> "><?php _e( 'Sync Account Stats', 'dntly' ); ?></a>
     <?php
     echo ob_get_clean();
 }

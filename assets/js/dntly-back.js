@@ -9,7 +9,6 @@
 		dntly.resetToken();
 		dntly.getAccountStats();
 		dntly.getCampaigns();
-		dntly.getFundraisers();
 		jQuery(document).ajaxStart(function() {
 			jQuery('#spinner').show();
 		})
@@ -21,20 +20,19 @@
 
 	dntly.setElements = function() {
 		dntly.elems = {};
-		dntly.elems.form = {};
-		dntly.elems.form.form = jQuery('#dntly-form');
-		dntly.elems.form.username = dntly.elems.form.form.find('#dntly-user-name');
-		dntly.elems.form.password = dntly.elems.form.form.find('#dntly-user-password');
-		dntly.elems.form.environment = dntly.elems.form.form.find('#dntly-environment');
-		dntly.elems.form.account = dntly.elems.form.form.find('#dntly-account');
-		dntly.elems.form.token = dntly.elems.form.form.find('#dntly-user-token');
-		dntly.elems.form.tokenBtn = dntly.elems.form.form.find('#dntly-get-token');
+		dntly.elems.form                   = {};
+		dntly.elems.form.form              = jQuery('#dntly-form');
+		dntly.elems.form.username          = dntly.elems.form.form.find('#dntly-user-name');
+		dntly.elems.form.password          = dntly.elems.form.form.find('#dntly-user-password');
+		dntly.elems.form.environment       = dntly.elems.form.form.find('#dntly-environment');
+		dntly.elems.form.account           = dntly.elems.form.form.find('#dntly-account');
+		dntly.elems.form.token             = dntly.elems.form.form.find('#dntly-user-token');
+		dntly.elems.form.tokenBtn          = dntly.elems.form.form.find('#dntly-get-token');
 		dntly.elems.sync_account_stats_btn = jQuery('#dntly-sync-account-stats');
-		dntly.elems.sync_campaigns_btn = jQuery('#dntly-sync-campaigns');
-		dntly.elems.sync_fundraisers_btn = jQuery('#dntly-sync-fundraisers');
-		dntly.elems.account = jQuery('#dntly-account').val();
-		dntly.elems.dntly_reset_token_btn = jQuery('#dntly-reset-token');
-		dntly.elems.logging_container = jQuery('#dntly_table_logging');
+		dntly.elems.sync_campaigns_btn     = jQuery('#dntly-sync-campaigns');
+		dntly.elems.account                = jQuery('#dntly-account').val();
+		dntly.elems.dntly_reset_token_btn  = jQuery('#dntly-reset-token');
+		dntly.elems.logging_container      = jQuery('#dntly_table_logging');
 
 		dntly.properties = {};
 	};
@@ -128,20 +126,6 @@
 		});
 	}
 
-	dntly.getFundraisers = function() {
-		dntly.elems.sync_fundraisers_btn.bind('click', function(e) {
-			e.preventDefault();
-			jQuery.ajax({
-				'type'  : 'post',
-				'url'		: ajaxurl,
-				'data'	: {
-								'action'	: 'dntly_get_fundraisers'
-							  },
-				'success'	: function(response) { console.log(response); dntly.refreshLog(0); },
-				'error'	: function(response) { alert('Error Getting Campaigns'); console.log(response); }
-			})
-		});
-	}
 
 	dntly.refreshLog = function(page) {
 		jQuery.ajax({
