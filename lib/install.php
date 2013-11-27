@@ -44,6 +44,34 @@ function dntly_install() {
     if ( $current_version )
         update_option( 'dntly_version_upgraded_from', $current_version );
 
+    // Checks if the donation page option exists
+    if ( ! isset( $dntly_settings['donation_page'] ) ) {
+        // Checkout Page
+        $donation = wp_insert_post(
+            array(
+                'post_title'     => __( 'Donation', 'dntly' ),
+                'post_content'   => 'test',
+                'post_status'    => 'publish',
+                'post_author'    => 1,
+                'post_type'      => 'page',
+                'comment_status' => 'closed'
+            )
+        );
+
+    // Store our page IDs
+        $options = array(
+            'donation_page' => $donation
+        );
+
+        update_option( 'dntly_settings', $options );
+        update_option( 'dntly_version', EDD_VERSION );
+
+        $activation_pages = $options;
+        set_transient( '_dntly_activation_pages', $activation_pages, 30 );
+
+    }
+
+
 
     // Bail if activating from network, or bulk
     if ( is_network_admin() || isset( $_GET['activate-multi'] ) )

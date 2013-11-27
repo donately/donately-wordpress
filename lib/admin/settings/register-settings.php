@@ -155,7 +155,14 @@ function dntly_get_registered_settings() {
                     'type' => 'password',
                     'size' => 'regular',
                     'std' => ''
-                )
+                ),
+                'donation_page' => array(
+                    'id' => 'donation_page',
+                    'name' => __( 'Donation Page', 'dntly' ),
+                    'desc' => __( 'This is the page where all of donations will be processed', 'dntly' ),
+                    'type' => 'select',
+                    'options' => $pages_options
+                ),
             )
         ),
         /** Email Settings */
