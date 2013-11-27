@@ -124,7 +124,6 @@ final class DNTLY {
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/dntly-dashboard-widgets.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/settings/display-settings.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/plugins.php';
-      require_once DNTLY_PLUGIN_DIR . 'lib/dntly-options.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/dntly-welcome.php';
       
       if( version_compare( $wp_version, '3.6', '>=' ) ) {
