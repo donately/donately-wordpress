@@ -333,7 +333,7 @@ class DNTLY_API {
     // Set $url variable after running the $api_method through the build_url() function
     $url = $this->build_url( $api_method );
 
-    var_dump($url);
+    // var_dump($url);
 
     // If console_calls is not empty in $dntly_settings AND logging is NOT suppressed
     if( !empty($this->dntly_settings['console_calls']) && !$this->do_not_log() ) {
@@ -444,6 +444,64 @@ class DNTLY_API {
 
 
 
+
+  /**
+   * Build Account Select List
+   *
+   * Make an API request Donately account (subdomain) and build a <select> element of all accounts
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @return (int) $account_id
+   */
+  function build_account_list( $args = NULL )
+  {
+    // Params/Args
+    $id   = isset($args['id']) ? $args['id'] : 'accounts';
+    $name = isset($args['name']) ? $args['name'] : 'accounts';
+    $wrapper = isset($args['wrapper']) ? $args['wrapper'] : false;
+    $echo = isset($args['echo']) ? $args['echo'] : false;
+
+    // Use make_api_request function with method defined above
+    $accounts     = $this->make_api_request("get_my_accounts");
+
+    // If we do NOT have accounts, print error message
+    if( !$accounts ){
+      print '<div class="updated" id="message"><p><strong>Error retrieving Donately accounts!</strong> - ' . print_r($this->remote_results, true) . '</p></div>';
+    } else {
+      // Convert account object to array
+      $accounts_arr = get_object_vars($accounts);
+      $accounts_len = count($accounts->accounts);
+      $accounts_obj = $accounts->accounts;
+      $select       = '';
+
+      // If wrapper enable, close select tag
+      if ( $wrapper ) { $select .= '<select name="' . $name. '" id="' . $id . '">'; }
+
+      foreach( $accounts_obj as $key => $a ) {
+        $a_id   = $a->id;
+        $a_sub  = $a->subdomain;
+
+        $select .= '<option value="' . $a_id . '">' . $a_sub . '</option>';
+      }
+
+      // If wrapper enable, close select tag
+      if ( $wrapper ) { $select .= '</select>'; }
+
+
+      if ( $echo ) {
+        echo $select;
+      } else {
+        return $select;
+      }
+
+    }
+  }
+
+
+
+
   /**
    * Update Account Stats
    *
@@ -545,8 +603,6 @@ class DNTLY_API {
       $count_accounts++;
       // Make API call for campaigns with each account_id in post vars, and also set a limit (can be overriden as second parameter)
       $get_campaigns = $this->make_api_request("get_campaigns", true, array('account_ids' => $this->dntly_account_id, 'count' => $campaign_count));
-
-      var_dump($get_campaigns);
 
       // Foreach campaign, update their data as an option using add_update_campaign() function
       foreach( $get_campaigns->campaigns as $campaign ) {
