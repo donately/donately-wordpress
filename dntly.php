@@ -111,7 +111,7 @@ final class DNTLY {
 
     // ADDITIONAL INCLUDES
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-formjs.php';
-    require_once DNTLY_PLUGIN_DIR . 'lib/dntly-helpers.php';
+    require_once DNTLY_PLUGIN_DIR . 'lib/dntly-fields.php';
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-meta.php';
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-posttypes.php';
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-shortcodes.php';

@@ -2,10 +2,10 @@
 
 class DNTLY_FIELDS {
 
-  private $dntly_data;
-  private $dntly_camp_id;
-  private $dntly_account_id;
-  private $dntly_environment;
+  public $dntly_data;
+  public $dntly_camp_id;
+  public $dntly_account_id;
+  public $dntly_environment;
 
   function __construct() {
     // set locale for currenct conversion
@@ -296,12 +296,12 @@ function dntly_helper_functions()
    */  
   function dntly_get_the_account_id()
   {
-    $df = new Dntly_fields;
+    $df = new DNTLY_FIELDS;
     return $df->dntly_account_id;
   }
   function dntly_the_account_id()
   {
-    echo get_the_account_id();
+    echo dntly_get_the_account_id();
   }
 
 
@@ -312,12 +312,12 @@ function dntly_helper_functions()
    */  
   function dntly_get_the_account_title()
   {
-    $df = new Dntly_fields;
+    $df = new DNTLY_FIELDS;
     return $df->dntly_account_title;
   }
   function dntly_the_account_title()
   {
-    echo get_the_account_title();
+    echo dntly_get_the_account_title();
   }
 
 
@@ -328,7 +328,7 @@ function dntly_helper_functions()
    */  
   function dntly_get_the_campaign_id( $scope = NULL )
   {
-    $df = new Dntly_Fields;
+    $df = new DNTLY_FIELDS;
 
     if ( isset($scope) && $scope == 'parent') {
       return $df->dntly_parent_campaign_id();
@@ -339,9 +339,9 @@ function dntly_helper_functions()
   function dntly_the_campaign_id( $scope = NULL )
   {
     if ( isset($scope) && $scope == 'parent') {
-      echo get_the_campaign_id('parent');
+      echo dntly_get_the_campaign_id('parent');
     } else {
-      echo get_the_campaign_id();
+      echo dntly_get_the_campaign_id();
     }
     
   }
@@ -353,7 +353,7 @@ function dntly_helper_functions()
    */  
   function dntly_get_the_campaign_goal()
   {
-    $df = new Dntly_Fields;
+    $df = new DNTLY_FIELDS;
     return $df->dntly_campaign_goal();
   }
   function dntly_the_campaign_goal()
@@ -374,12 +374,12 @@ function dntly_helper_functions()
    */  
   function dntly_get_the_donations_count()
   {
-    $df = new Dntly_Fields;
+    $df = new DNTLY_FIELDS;
     return $df->dntly_donations_count();
   }
   function dntly_the_donations_count()
   {
-    echo get_the_donations_count();
+    echo dntly_get_the_donations_count();
   }
 
 
@@ -390,12 +390,12 @@ function dntly_helper_functions()
    */  
   function dntly_get_the_donors_count()
   {
-    $df = new Dntly_Fields;
+    $df = new DNTLY_FIELDS;
     return $df->dntly_donors_count();
   }
   function dntly_the_donors_count()
   {
-    echo get_the_donors_count();
+    echo dntly_get_the_donors_count();
   }
 
 
@@ -406,7 +406,7 @@ function dntly_helper_functions()
    */  
   function dntly_get_the_amount_raised()
   {
-    $df = new Dntly_Fields;
+    $df = new DNTLY_FIELDS;
     return $df->dntly_amount_raised();
   }
   function dntly_the_amount_raised( $format = NULL )
@@ -416,7 +416,7 @@ function dntly_helper_functions()
       $amount_raised_usd  = money_format('%.2n', $amount_raised);
       echo $amount_raised_usd;
     } else {
-      echo get_the_amount_raised();
+      echo dntly_get_the_amount_raised();
     }
   }
 
@@ -428,12 +428,12 @@ function dntly_helper_functions()
    */  
   function dntly_get_the_percentage_raised()
   {
-    $df = new Dntly_Fields;
+    $df = new DNTLY_FIELDS;
     return $df->dntly_percentage_raised();
   }
   function dntly_the_percentage_raised($type = NULL)
   {
-    echo get_the_percentage_raised();
+    echo dntly_get_the_percentage_raised();
   }
 
 
@@ -445,12 +445,12 @@ function dntly_helper_functions()
    */  
   function dntly_get_the_meta_general()
   {
-    $df = new Dntly_fields;
+    $df = new DNTLY_FIELDS;
     return $df->dntly_meta_general();
   }
   function dntly_the_meta_general()
   {
-    echo get_the_meta_general();
+    echo dntly_get_the_meta_general();
   }
 
 

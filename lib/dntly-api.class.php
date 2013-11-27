@@ -88,53 +88,45 @@ class DNTLY_API {
 
 
   /**
-   * Authorization Test
+   * Request Debug
    *
-   * Test/Debug Authorization by using some of the set options (token, etc)
+   * Test/Debug requests (more manual control and isolation from make_api_request() function)
    *
    * @since 0.1
    * @package Donately Wordpress
    * @author Alexander Zizzo
    * @param void
-   * @return void
+   * @return [array] $response
+   * @deprecated (old args) $url = NULL, $post_vars = array(), $method = NULL
    */
-  function debug_request_test( $url = NULL, $post_vars = array(), $method = NULL )
+  function request_debug( $args = NULL )
   {
+    // Args/Params/Vars
+    $url       = isset($args['url']) ? $args['url'] : null;
+    $method    = isset($args['method']) ? $args['method'] : 'GET';
+    $post_vars = isset($args['post_vars']) ? $args['post_vars'] : array();
+    $token     = isset($args['token']) ? $args['token'] : base64_encode($this->dntly_settings['donately_token']);
+    $timeout   = isset($args['timeout']) ? $args['timeout'] : 10;
 
-    $token_b64_temp = base64_encode($this->dntly_settings['donately_token']);
+    $request_args = array(
+      'headers' => array (
+        'Authorization' => 'Basic ' . $token,
+        'sslverify'     => false
+      ),
+      'timeout' => $timeout,
+      'body'    => $post_vars
+    );
 
     // If 'POST'
     if ( $method == 'POST' ) {
-
-      $example_post_args = array(
-        'headers' => array (
-          'Authorization' => 'Basic ' . $token_b64_temp,
-          'sslverify'     => false
-        ),
-        'body'    => $post_vars
-      );
-
-      $response = wp_remote_post( $url, $example_post_args );
-
+      $response = wp_remote_post( $url, $request_args );
       return $response;
     } 
     // If 'GET'
     if ( $method == 'GET' ) {
-
-      $example_get_args = array(
-          'headers' => array (
-            'Authorization' => 'Basic ' . $token_b64_temp,
-            'sslverify'     => false
-          ),
-          'timeout' => 30,
-          'body'    => $post_vars
-      );
-
-      $response = wp_remote_get( $url, $example_get_args );
-
+      $response = wp_remote_get( $url, $request_args );
       return $response;
     }
-
   }
 
 
@@ -375,15 +367,6 @@ class DNTLY_API {
       // Otherwise (not $post_variables passed), perform "GET" using wordpress' function, only sending headers and no post variables
       $this->remote_results = wp_remote_get($url, array('headers' => $headers));
     }
-
-    // @TODO temp, remove
-    print '$session_token';
-    var_dump($session_token);
-    print '$headers';
-    var_dump($headers);
-    print 'Remote Results';
-    print_r($this->remote_results);
-
 
     // If the results from the request is an object ...
     if( is_object($this->remote_results) ){
