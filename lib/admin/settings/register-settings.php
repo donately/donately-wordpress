@@ -155,7 +155,14 @@ function dntly_get_registered_settings() {
                     'type' => 'password',
                     'size' => 'regular',
                     'std' => ''
-                )
+                ),
+                'donation_page' => array(
+                    'id' => 'donation_page',
+                    'name' => __( 'Donation Page', 'dntly' ),
+                    'desc' => __( 'This is the page where all of donations will be processed', 'dntly' ),
+                    'type' => 'select',
+                    'options' => $pages_options
+                ),
             )
         ),
         /** Email Settings */
@@ -756,7 +763,7 @@ function dntly_settings_sanitize( $input = array() ) {
     $output = array_merge( $dntly_settings, $output );
 
     // @TODO: Get Notices Working in the backend.
-    //add_settings_error( 'dnlty-notices', '', __( 'Settings Updated', 'dntly' ), 'updated' );
+    add_settings_error( 'dntly-notices', '', __( 'Settings Updated', 'dntly' ), 'updated' );
 
     return $output;
 
