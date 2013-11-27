@@ -460,6 +460,7 @@ class DNTLY_API {
     // Params/Args
     $id   = isset($args['id']) ? $args['id'] : 'accounts';
     $name = isset($args['name']) ? $args['name'] : 'accounts';
+    $wrapper = isset($args['wrapper']) ? $args['wrapper'] : false;
     $echo = isset($args['echo']) ? $args['echo'] : false;
 
     // Use make_api_request function with method defined above
@@ -473,9 +474,10 @@ class DNTLY_API {
       $accounts_arr = get_object_vars($accounts);
       $accounts_len = count($accounts->accounts);
       $accounts_obj = $accounts->accounts;
-      
-      $select = '<select name="' . $name. '" id="' . $id . '">';
+      $select       = '';
 
+      // If wrapper enable, close select tag
+      if ( $wrapper ) { $select .= '<select name="' . $name. '" id="' . $id . '">'; }
 
       foreach( $accounts_obj as $key => $a ) {
         $a_id   = $a->id;
@@ -484,7 +486,9 @@ class DNTLY_API {
         $select .= '<option value="' . $a_id . '">' . $a_sub . '</option>';
       }
 
-      $select .= '</select>';
+      // If wrapper enable, close select tag
+      if ( $wrapper ) { $select .= '</select>'; }
+
 
       if ( $echo ) {
         echo $select;

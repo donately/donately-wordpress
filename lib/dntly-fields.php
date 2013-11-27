@@ -17,11 +17,11 @@ class DNTLY_FIELDS {
     global $post;
 
     // dntly fields
-    $this->dntly_data         = get_post_meta($post->ID, '_dntly_data', true);
-    $this->dntly_camp_id      = get_post_meta($post->ID, '_dntly_id', true);
-    $this->dntly_campaign_id  = get_post_meta($post->ID, '_dntly_campaign_id', true);
-    $this->dntly_account_id   = get_post_meta($post->ID, '_dntly_account_id', true);
-    $this->dntly_environment  = get_post_meta($post->ID, '_dntly_environment', true);
+    // $this->dntly_data         = get_post_meta($post->ID, '_dntly_data', true);
+    // $this->dntly_camp_id      = get_post_meta($post->ID, '_dntly_id', true);
+    // $this->dntly_campaign_id  = get_post_meta($post->ID, '_dntly_campaign_id', true);
+    // $this->dntly_account_id   = get_post_meta($post->ID, '_dntly_account_id', true);
+    // $this->dntly_environment  = get_post_meta($post->ID, '_dntly_environment', true);
   }
   
 
