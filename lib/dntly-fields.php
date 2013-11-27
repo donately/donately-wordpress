@@ -11,6 +11,8 @@ class DNTLY_FIELDS {
     // set locale for currenct conversion
     setlocale(LC_MONETARY, 'en_US');
 
+    require_once( 'dntly-api.class.php' );
+
     // needed for $post->ID
     global $post;
 
@@ -222,13 +224,13 @@ class DNTLY_FIELDS {
   }
 
   /**
-     * DNTLY Percentage Raised
-     *
-     * @since 0.1
-     * @package Donately Wordpress
-     * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
-     * @return (int) $percentage_raised
-     */
+   * DNTLY Percentage Raised
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @return (int) $percentage_raised
+   */
   function dntly_percentage_raised( $args = NULL ) {
 
     // Vars
@@ -245,6 +247,27 @@ class DNTLY_FIELDS {
   }
 
  
+
+  /**
+   * Build Account List
+   *
+   * Output a <select> element populated with accounts associated to authed user/token
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @param (in DNTLY_API) (string) 'id', (string) 'name', (boolean) 'echo'
+   * @return [HTML] <select>
+   */
+  function dntly_build_account_list( $args = NULL ) {
+    
+    // use DNTLY_API class
+    $da = new DNTLY_API;
+    
+    $account_list = $da->build_account_list(array( 'id' => 'accounts', 'name' => 'dntly_accounts' ));
+
+    return $account_list;
+  }
 
 
 
@@ -287,7 +310,6 @@ add_action('init', 'dntly_helper_functions');
 
 function dntly_helper_functions()
 {
-
 
   /**
    * Account ID
@@ -434,6 +456,23 @@ function dntly_helper_functions()
   function dntly_the_percentage_raised($type = NULL)
   {
     echo dntly_get_the_percentage_raised();
+  }
+
+
+
+  /**
+   * Build Account List
+   * 
+   * @since 0.1
+   */  
+  function dntly_get_the_account_list()
+  {
+    $df = new DNTLY_FIELDS;
+    return $df->dntly_build_account_list();
+  }
+  function dntly_the_account_list()
+  {
+    echo dntly_get_the_account_list();
   }
 
 
