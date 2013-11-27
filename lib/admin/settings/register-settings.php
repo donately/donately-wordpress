@@ -756,7 +756,7 @@ function dntly_settings_sanitize( $input = array() ) {
     $output = array_merge( $dntly_settings, $output );
 
     // @TODO: Get Notices Working in the backend.
-    //add_settings_error( 'dnlty-notices', '', __( 'Settings Updated', 'dntly' ), 'updated' );
+    add_settings_error( 'dntly-notices', '', __( 'Settings Updated', 'dntly' ), 'updated' );
 
     return $output;
 
