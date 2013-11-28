@@ -458,7 +458,7 @@ class DNTLY_API {
   function build_account_list( $args = NULL )
   {
     // Params/Args
-    $id   = isset($args['id']) ? $args['id'] : 'accounts';
+    $id   = isset( $args['id'] ) ? $args['id'] : 'accounts';
     $name = isset($args['name']) ? $args['name'] : 'accounts';
     $wrapper = isset($args['wrapper']) ? $args['wrapper'] : false;
     $echo = isset($args['echo']) ? $args['echo'] : false;
