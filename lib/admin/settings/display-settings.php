@@ -25,21 +25,25 @@ function dntly_settings_page() {
     global $dntly_settings;
 
 
+    $active_tab = isset( $_GET[ 'tab' ] ) && array_key_exists( $_GET['tab'], dntly_get_settings_tabs() ) ? $_GET[ 'tab' ] : 'general';
+
+    ob_start();
+
+
     /**
      * Set Additional Donately Data
      * @since 0.1
      * @author Alexander Zizzo
      * @todo Buggy as shit
      */
+    $D_API = new DNTLY_API;
+    // $get_account_title = $D_API->dntly_account_title();
     // update_option( 'dntly_settings', array(
     //     'account_title' => 'test_title'
     // ) );
 
-    
 
-    $active_tab = isset( $_GET[ 'tab' ] ) && array_key_exists( $_GET['tab'], dntly_get_settings_tabs() ) ? $_GET[ 'tab' ] : 'general';
 
-    ob_start();
     ?>
     <div class="wrap">
         <h2>Donately Settings</h2>

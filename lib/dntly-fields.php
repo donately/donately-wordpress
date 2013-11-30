@@ -11,17 +11,24 @@ class DNTLY_FIELDS {
     // set locale for currenct conversion
     setlocale(LC_MONETARY, 'en_US');
 
+    // required libraries/classes
     require_once( 'dntly-api.class.php' );
+
+    // add/update options tables
+    update_meta( $post->ID, '_dntly_data' );
+    update_meta( $post->ID, '_dntly_id' );
+    update_meta( $post->ID, '_dntly_campaign_id' );
+    update_meta( $post->ID, '_dntly_account_id' );
 
     // needed for $post->ID
     global $post;
 
     // dntly fields
-    // $this->dntly_data         = get_post_meta($post->ID, '_dntly_data', true);
-    // $this->dntly_camp_id      = get_post_meta($post->ID, '_dntly_id', true);
-    // $this->dntly_campaign_id  = get_post_meta($post->ID, '_dntly_campaign_id', true);
-    // $this->dntly_account_id   = get_post_meta($post->ID, '_dntly_account_id', true);
-    // $this->dntly_environment  = get_post_meta($post->ID, '_dntly_environment', true);
+    $this->dntly_data         = get_post_meta($post->ID, '_dntly_data', true);
+    $this->dntly_camp_id      = get_post_meta($post->ID, '_dntly_id', true);
+    $this->dntly_campaign_id  = get_post_meta($post->ID, '_dntly_campaign_id', true);
+    $this->dntly_account_id   = get_post_meta($post->ID, '_dntly_account_id', true);
+    $this->dntly_environment  = get_post_meta($post->ID, '_dntly_environment', true);
   }
   
 

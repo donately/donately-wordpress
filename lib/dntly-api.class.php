@@ -259,31 +259,49 @@ class DNTLY_API {
    * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
    * @param [array] $api_method
    * @return (string) $url
+   * @deprecated v0.1
    */
+  // function build_url( $api_method )
+  // {
+  //   // If the environment value in $dntly_settings is not empty, $url is the set environment (protocol : https), else default to production environment
+  //   if ( !empty($this->dntly_settings['environment']) ) {
+  //     $url = $this->api_scheme[$this->dntly_settings['environment']];
+  //   } else {
+  //     $url = $this->api_scheme['production'] . '://';
+  //   }
+  //   // Append the subdomain and a period (Ex: __SUBDOMAIN__.dntly.com/ ... )
+  //   $url .= $this->api_subdomain . '.';
+
+  //   // If the environment value in $dntly_settings is not empty, append $url with the api_domain (dntly.com), else default to api_domain (production)
+  //   if ( !empty($this->dntly_settings['environment']) ) {
+  //     $url .= $this->api_domain[$this->dntly_settings['environment']];
+  //   } else {
+  //     $url .= $this->api_domain['production'];
+  //   }
+  //   // If the $api_method is NOT 'root', append $url with the $api_endpoint (API path)
+  //   if ( $api_method != 'root' ) {
+  //     $url .= $this->api_endpoint . $this->api_methods[$api_method][1];
+  //   }
+  //   // Return the built URL
+  //   return $url;
+  // } 
   function build_url( $api_method )
   {
-    // If the environment value in $dntly_settings is not empty, $url is the set environment (protocol : https), else default to production environment
-    if ( !empty($this->dntly_settings['environment']) ) {
-      $url = $this->api_scheme[$this->dntly_settings['environment']];
-    } else {
-      $url = $this->api_scheme['production'] . '://';
-    }
+    // Always use production environment @TODO accomodate for dev/staging
+    $url = $this->api_scheme['production'] . '://';
     // Append the subdomain and a period (Ex: __SUBDOMAIN__.dntly.com/ ... )
     $url .= $this->api_subdomain . '.';
-
-    // If the environment value in $dntly_settings is not empty, append $url with the api_domain (dntly.com), else default to api_domain (production)
-    if ( !empty($this->dntly_settings['environment']) ) {
-      $url .= $this->api_domain[$this->dntly_settings['environment']];
-    } else {
-      $url .= $this->api_domain['production'];
-    }
+    // Append the domain (always production) @TODO accomodate for dev/staging
+    $url .= $this->api_domain['production'];
     // If the $api_method is NOT 'root', append $url with the $api_endpoint (API path)
     if ( $api_method != 'root' ) {
       $url .= $this->api_endpoint . $this->api_methods[$api_method][1];
     }
     // Return the built URL
     return $url;
-  } 
+  }
+
+
 
 
 
@@ -793,6 +811,24 @@ class DNTLY_API {
     die();
   }
 
+
+
+  /**
+   * Setup Donately Settings
+   *
+   * Setup initial Donately settings array table
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @param void
+   * @return void
+   * @todo 
+   */
+  function setup_dntly_settings()
+  {
+
+  }
 
 
 }
