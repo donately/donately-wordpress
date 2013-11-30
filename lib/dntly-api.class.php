@@ -31,7 +31,7 @@ class DNTLY_API {
   public $api_methods          = array();
   public $api_runtime_id       = 0;
   public $dntly_account_id     = 0;
-  public $dntly_settings        = array();
+  public $dntly_settings       = array();
   public $wordpress_upload_dir = null;
   public $suppress_logging     = false;
   public $remote_results       = null;
@@ -458,10 +458,10 @@ class DNTLY_API {
   function build_account_list( $args = NULL )
   {
     // Params/Args
-    $id   = isset($args['id']) ? $args['id'] : 'accounts';
-    $name = isset($args['name']) ? $args['name'] : 'accounts';
+    $id      = isset($args['id']) ? $args['id'] : 'accounts';
+    $name    = isset($args['name']) ? $args['name'] : 'accounts';
     $wrapper = isset($args['wrapper']) ? $args['wrapper'] : false;
-    $echo = isset($args['echo']) ? $args['echo'] : false;
+    $echo    = isset($args['echo']) ? $args['echo'] : false;
 
     // Use make_api_request function with method defined above
     $accounts     = $this->make_api_request("get_my_accounts");

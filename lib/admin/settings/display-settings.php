@@ -24,6 +24,19 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function dntly_settings_page() {
     global $dntly_settings;
 
+
+    /**
+     * Set Additional Donately Data
+     * @since 0.1
+     * @author Alexander Zizzo
+     * @todo Buggy as shit
+     */
+    // update_option( 'dntly_settings', array(
+    //     'account_title' => 'test_title'
+    // ) );
+
+    
+
     $active_tab = isset( $_GET[ 'tab' ] ) && array_key_exists( $_GET['tab'], dntly_get_settings_tabs() ) ? $_GET[ 'tab' ] : 'general';
 
     ob_start();

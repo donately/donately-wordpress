@@ -263,8 +263,8 @@ class DNTLY_FIELDS {
     
     // use DNTLY_API class
     $da = new DNTLY_API;
-    
-    $account_list = $da->build_account_list(array( 'id' => 'accounts', 'name' => 'dntly_accounts' ));
+
+    $account_list = $da->build_account_list(array( 'id' => 'accounts', 'name' => 'dntly_accounts', 'wrapper' => true ));
 
     return $account_list;
   }

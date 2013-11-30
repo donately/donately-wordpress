@@ -11,10 +11,10 @@
 		dntly.getCampaigns();
 		jQuery(document).ajaxStart(function() {
 			jQuery('#spinner').show();
-		})
+		});
 		jQuery(document).ajaxStop(function() {
 			jQuery('#spinner').hide();
-		})
+		});
 
 	};
 
@@ -33,6 +33,7 @@
 		dntly.elems.account                = jQuery('#dntly-account').val();
 		dntly.elems.dntly_reset_token_btn  = jQuery('#dntly-reset-token');
 		dntly.elems.logging_container      = jQuery('#dntly_table_logging');
+		dntly.elems.settings_submit_btn    = jQuery('#tab_container #submit');
 
 		dntly.properties = {};
 	};
@@ -125,6 +126,26 @@
 			})
 		});
 	}
+
+
+	/**
+	 * AJAX TEST
+	 */
+	 dntly.ajaxTest = function() {
+	 	dntly.elems.settings_submit_btn.bind('click', function(e) {
+	 		e.preventDefault();
+	 		jQuery.ajax({
+	 			'type'  : 'post',
+	 			'url'		: ajaxurl,
+	 			'data'	: {
+	 				'action'	: 'dntly_ajax_test'
+	 			},
+	 			'success'	: function(response) { console.log(response); console.log('Success'); },
+	 			'error'	  : function(response) { alert('Error Saving Settings'); console.log(response); }
+	 		})
+	 	});
+	 }
+	
 
 
 	dntly.refreshLog = function(page) {
