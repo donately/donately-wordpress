@@ -15,10 +15,10 @@ class DNTLY_FIELDS {
     require_once( 'dntly-api.class.php' );
 
     // add/update options tables
-    update_meta( $post->ID, '_dntly_data' );
-    update_meta( $post->ID, '_dntly_id' );
-    update_meta( $post->ID, '_dntly_campaign_id' );
-    update_meta( $post->ID, '_dntly_account_id' );
+    // update_post_meta( $post->ID, '_dntly_data' );
+    // update_post_meta( $post->ID, '_dntly_id' );
+    // update_post_meta( $post->ID, '_dntly_campaign_id' );
+    // update_post_meta( $post->ID, '_dntly_account_id' );
 
     // needed for $post->ID
     global $post;

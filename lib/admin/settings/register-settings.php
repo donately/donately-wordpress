@@ -131,7 +131,15 @@ function dntly_get_registered_settings() {
                     'desc' => '',
                     'type' => 'header'
                 ),
-                
+                // 'donately_environment' => array(
+                //     'id' => 'donately_environment',
+                //     'name' => __( 'Donately Environment', 'dntly' ),
+                //     'desc' => __( '(Hidden, v0.1 should always be production)', 'dntly' ),
+                //     'type' => 'text',
+                //     'size' => 'regular',
+                //     'value' => 'production',
+                //     'std' => ''
+                // ),
                 'donately_subdomain' => array(
                     'id' => 'donately_subdomain',
                     'name' => __( 'Donately Subdomain', 'dntly' ),

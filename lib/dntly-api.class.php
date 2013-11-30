@@ -16,7 +16,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 class DNTLY_API {
 
-
   /**
    * Variables & Conditionals
    *  
@@ -46,10 +45,19 @@ class DNTLY_API {
    * @since 0.1
    * @package Donately Wordpress
    * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
-   * @todo combine isset and != '' 
+   * @todo combine isset and != '', accomodate for dev/staging evnrionments
    */
   function __construct()
   {
+    // Set environment setting to production @TODO accomodate for dev/staging, remove hard-coding
+    // if ( !isset($this->dntly_settings['environment']) ) {
+    //   update_option( 'dntly_settings', array('environment' => 'production') );
+    // }
+    // Set account_title
+    // if ( !isset($this->dntly_settings['account_title']) ) {
+    //   update_option( 'dntly_settings', array('environment' => 'production') )
+    // }
+
     // If debugging is enabled, change $api_scheme from production to staging/dev
     if( DNTLY_DEBUG )
     { // Staging
@@ -106,7 +114,7 @@ class DNTLY_API {
     $url       = isset($args['url']) ? $args['url'] : null;
     $method    = isset($args['method']) ? $args['method'] : 'GET';
     $post_vars = isset($args['post_vars']) ? $args['post_vars'] : array();
-    $token     = isset($args['token']) ? $args['token'] : base64_encode($this->dntly_settings['donately_token']);
+    $token     = isset($args['token']) ? $args['token'] : null; // base64_encode($this->dntly_settings['donately_token'])
     $timeout   = isset($args['timeout']) ? $args['timeout'] : 10;
 
     $request_args = array(
@@ -300,8 +308,6 @@ class DNTLY_API {
     // Return the built URL
     return $url;
   }
-
-
 
 
 
@@ -667,7 +673,7 @@ class DNTLY_API {
     // Create $_dntly_data array from the $campaign object
     $_dntly_data = array(
       'dntly_id'               => $campaign->id,
-      'account_title'          => $this->dntly_settings['account_title'],
+      // 'account_title'          => $this->dntly_settings['account_title'],
       'account_id'             => $account_id,
       'campaign_goal'          => $campaign->campaign_goal,
       'donations_count'        => $campaign->donations_count,
@@ -709,7 +715,7 @@ class DNTLY_API {
         'post_type'     => 'dntly_campaigns',
         'post_title'    => $campaign->title,
         'post_content'  => $campaign->description,
-        'post_status'   => ($this->dntly_settings['sync_to_private']?'private':'publish'),
+        // 'post_status'   => ($this->dntly_settings['sync_to_private']?'private':'publish'),
       );
       // Set post ID and run wp_insert_post (inserts post in the database and sanitize variables)
       $post_id = wp_insert_post($post_params);
@@ -823,11 +829,11 @@ class DNTLY_API {
    * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
    * @param void
    * @return void
-   * @todo 
+   * @todo Do here instead of in constructor (?)
    */
   function setup_dntly_settings()
   {
-
+    // Done in constructor for now.
   }
 
 
