@@ -105,6 +105,7 @@ final class DNTLY {
 
     
     // PLUGIN REQUIRED INCLUDES
+    require_once DNTLY_PLUGIN_DIR . '/lib/dntly-display-functions.php';
     require_once DNTLY_PLUGIN_DIR . '/lib/dntly-donatey-button.php';
     require_once DNTLY_PLUGIN_DIR . '/lib/donations/functions.php';
 
