@@ -28,6 +28,15 @@ function dntly_settings_page() {
     $active_tab = isset( $_GET[ 'tab' ] ) && array_key_exists( $_GET['tab'], dntly_get_settings_tabs() ) ? $_GET[ 'tab' ] : 'general';
 
     ob_start();
+    // Set environment setting to production @TODO accomodate for dev/staging, remove hard-coding
+    if ( !isset($this->dntly_settings['environment']) ) {
+      update_option( 'dntly_settings', array('environment' => 'production') );
+    }
+    // Set account_title
+    if ( !isset($this->dntly_settings['account_title']) ) {
+      update_option( 'dntly_settings', array('account_title' => 'Default Account Title') );
+    }
+
     ?>
     <div class="wrap">
         <h2>Donately Settings</h2>

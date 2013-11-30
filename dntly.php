@@ -100,9 +100,11 @@ final class DNTLY {
 
     // CLASSES
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-api.class.php';
+
     // SCRIPTS
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-scripts.php';
 
+    // PAGE TEMPLATES @TODO find solution to include basic page templates
     
     // PLUGIN REQUIRED INCLUDES
     require_once DNTLY_PLUGIN_DIR . '/lib/dntly-display-functions.php';

@@ -94,6 +94,21 @@ class DNTLY_FIELDS {
   }
 
   /**
+     * DNTLY Campaigns
+     *
+     * @since 0.1
+     * @package Donately Wordpress
+     * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+     * @return [array] '_dntly_campaign_id' post meta
+     */
+  function dntly_campaigns( $args = NULL )
+  {
+    // return $this->dntly_camp_id;
+  }
+
+
+
+  /**
      * DNTLY Campaign ID
      *
      * @since 0.1
