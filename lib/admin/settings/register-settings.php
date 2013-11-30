@@ -163,6 +163,14 @@ function dntly_get_registered_settings() {
                     'type' => 'select',
                     'options' => $pages_options
                 ),
+                'donation_button_text' => array(
+                    'id' => 'donation_button_text',
+                    'name' => __( 'Donately Button Text', 'dntly' ),
+                    'desc' => __( 'Use custom text for your donation button', 'dntly' ),
+                    'type' => 'text',
+                    'size' => 'medium',
+                    'std' => ''
+                ),
             )
         ),
         /** Email Settings */

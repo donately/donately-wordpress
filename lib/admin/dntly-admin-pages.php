@@ -52,6 +52,7 @@ function dntly_add_menu_page() {
     $dntly_dashboard_page   = add_submenu_page( 'dntly', __( 'Dashboard', 'dntly' ), __( 'Dashboard', 'dtly'), 'edit_pages', 'dntly-dashboard', 'dntly_dashboard_page' );
     $dntly_settings_page    = add_submenu_page( 'dntly', __( 'Donately Settings', 'dntly' ), __( 'Settings', 'dtly'), 'edit_pages', 'dntly-settings', 'dntly_settings_page' );
     $dntly_system_info_page = add_submenu_page( 'dntly', __( 'Donately System Info', 'dntly' ), __( 'System Info', 'dntly' ), 'install_plugins', 'dntly-system-info', 'dntly_system_info' );
+    
 }
 add_action( 'admin_menu', 'dntly_add_menu_page', 10 );
 
