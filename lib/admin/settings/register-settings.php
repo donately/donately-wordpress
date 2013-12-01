@@ -718,6 +718,9 @@ function dntly_color_callback( $args ) {
  */
 function dntly_hook_callback( $args ) {
     do_action( 'dntly_' . $args['id'] );
+
+
+    
 }
 
 /**
