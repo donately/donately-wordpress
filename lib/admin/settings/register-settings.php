@@ -131,15 +131,24 @@ function dntly_get_registered_settings() {
                     'desc' => '',
                     'type' => 'header'
                 ),
-                // 'donately_environment' => array(
-                //     'id' => 'donately_environment',
-                //     'name' => __( 'Donately Environment', 'dntly' ),
-                //     'desc' => __( '(Hidden, v0.1 should always be production)', 'dntly' ),
-                //     'type' => 'text',
-                //     'size' => 'regular',
-                //     'value' => 'production',
-                //     'std' => ''
-                // ),
+                'environment' => array(
+                    'id' => 'environment',
+                    'name' => __( 'Donately Environment', 'dntly' ),
+                    'desc' => __( '(Hidden, v0.1 should always be production)', 'dntly' ),
+                    'type' => 'hidden',
+                    'size' => 'regular',
+                    'std' => 'production'
+                ),
+                'sync_to_private' => array(
+                    'id' => 'sync_to_private',
+                    'name' => sprintf(__( 'Donately %1s Post Status', 'dntly' ), dntly_campaigns_get_label_singular() ),
+                    'desc' => sprintf( __( 'Choose whether you want newly sync\'d %1s to be set as private (drafts) or published by default.' , 'dntly' ), dntly_campaigns_get_label_plural() ),
+                    'type' => 'select',
+                    'options' => array(
+                        0 => __( 'Published', 'dntly' ),
+                        1 => __( 'Private', 'dntly' )
+                    )
+                ),
                 'donately_subdomain' => array(
                     'id' => 'donately_subdomain',
                     'name' => __( 'Donately Subdomain', 'dntly' ),
@@ -235,7 +244,7 @@ function dntly_get_registered_settings() {
                     'name' => 'Sync Accounts',
                     'desc' => '',
                     'type' => 'hook'
-                ),
+                ),                
             )
         ),
         /** Misc Settings */
@@ -496,6 +505,38 @@ function dntly_text_callback( $args ) {
 
     echo $html;
 }
+
+
+/**
+ * DNTLY Hidden Text Field Callback
+ *
+ * Renders text fields (Hidden, for necessary values in dntly_settings in the wp_options table)
+ *
+ * @since 1.0
+ * @param array $args Arguments passed by the setting
+ * @global $dntly_settings Array of all the DNTLY Options
+ * @return void
+ * @todo refactor it is not needed entirely
+ */
+function dntly_hidden_callback( $args ) {
+    global $dntly_settings;
+
+    $hidden = isset($args['hidden']) ? $args['hidden'] : false;
+
+    if ( isset( $dntly_settings[ $args['id'] ] ) )
+        $value = $dntly_settings[ $args['id'] ];
+    else
+        $value = isset( $args['std'] ) ? $args['std'] : '';
+
+    $size = ( isset( $args['size'] ) && ! is_null( $args['size'] ) ) ? $args['size'] : 'regular';
+    $html = '<input type="hidden" class="' . $size . '-text" id="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']" name="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']" value="' . esc_attr( stripslashes( $value ) ) . '"/>';
+    $html .= '<label for="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']"> '  . $args['std'] . '</label>';
+
+    echo $html;
+}
+
+
+
 
 /**
  * Textarea Callback

@@ -707,7 +707,7 @@ class DNTLY_API {
         'post_type'     => 'dntly_campaigns',
         'post_title'    => $campaign->title,
         'post_content'  => $campaign->description,
-        // 'post_status'   => ($this->dntly_settings['sync_to_private']?'private':'publish'),
+        'post_status'   => ($this->dntly_settings['sync_to_private']?'private':'publish'),
       );
       // Set post ID and run wp_insert_post (inserts post in the database and sanitize variables)
       $post_id = wp_insert_post($post_params);
