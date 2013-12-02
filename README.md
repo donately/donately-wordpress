@@ -11,7 +11,7 @@ Utlizize the processing power of Donately with the flexibility of WordPress.
 * ADDITIONAL / FUTURE GOALS - Please view the Issues page.
 
 
-### Version 0.1 Goal Checklist
+### Version 0.2 Goal Checklist
 * Change from _dntly_data array to values as individual meta values.
 
 ### Testing Template
