@@ -121,7 +121,13 @@
 				'data'	: {
 								'action'	: 'dntly_get_campaigns'
 							  },
-				'success'	: function(response) { console.log(response); dntly.refreshLog(0); },
+				// 'success'	: function(response) { console.log(response); dntly.refreshLog(0); },
+				'success'	: function(response) { 
+					// Append DOM with sync success message, use same class as settings-error hook
+					// @TODO do a remove on existing message alert (if to .remove)
+					var success_message_html = '<div id="setting-sync-success" class="updated settings-error"><p><strong>Sync Campaigns Success</strong></p></div>';
+					var wrap = jQuery('#wpbody-content .wrap').find('h2').eq(0).after(success_message_html);
+				 },
 				'error'	: function(response) { alert('Error Getting Campaigns'); console.log(response); }
 			})
 		});
