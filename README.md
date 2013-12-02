@@ -8,6 +8,7 @@ Utlizize the processing power of Donately with the flexibility of WordPress.
 * ~~Limit environment to production for now~~
 * ~~Get Campaign sync working~~
 * ~~Provide tabified options page for Donately options (general, sync, campaigns post list, etc)~~
+* Spinner for AJAX hooks (specific syncing campaigns)
 * ADDITIONAL / FUTURE GOALS - Please view the Issues page.
 
 
