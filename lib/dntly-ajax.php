@@ -49,6 +49,47 @@ function dntly_ajax_methods()
   }
   add_action( 'wp_ajax_dntly_get_account_stats', 'dntly_get_account_stats' );
 
+
+
+  /**
+   * Submit Button Hook - General Tab
+   * @since 0.1
+   */
+  function dntly_settings_submit_button_hook_general()
+  {
+    $dntly = new DNTLY_API;
+    // $dntly->get_account_stats();
+    if(isset($_GET['tab']) && $_GET['tab']) {
+
+      ?> <script>console.log('General Tab');</script> <?php
+    
+      if(isset($_GET['settings-updated']) && $_GET['settings-updated'])
+       {
+          ?>
+            <script>console.log('test');</script>
+          <?php
+       }
+
+     }
+  }
+  add_action( 'wp_ajax_dntly_settings_submit_button_hook_general', 'dntly_settings_submit_button_hook_general' );
+
+
+
+  /**
+   * AJAX TEST
+   * @since 0.1
+   */
+  function dntly_ajax_test()
+  {
+    ?>
+      <script>console.log('Ajax Testing Success');</script>
+    <?php
+  }
+  add_action( 'wp_ajax_dntly_ajax_test', 'dntly_ajax_test' );
+
+
+
   /**
    * Lookup a Person
    * @since 0.1

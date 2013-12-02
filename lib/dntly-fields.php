@@ -11,17 +11,24 @@ class DNTLY_FIELDS {
     // set locale for currenct conversion
     setlocale(LC_MONETARY, 'en_US');
 
+    // required libraries/classes
     require_once( 'dntly-api.class.php' );
+
+    // add/update options tables
+    // update_post_meta( $post->ID, '_dntly_data' );
+    // update_post_meta( $post->ID, '_dntly_id' );
+    // update_post_meta( $post->ID, '_dntly_campaign_id' );
+    // update_post_meta( $post->ID, '_dntly_account_id' );
 
     // needed for $post->ID
     global $post;
 
     // dntly fields
-    // $this->dntly_data         = get_post_meta($post->ID, '_dntly_data', true);
-    // $this->dntly_camp_id      = get_post_meta($post->ID, '_dntly_id', true);
-    // $this->dntly_campaign_id  = get_post_meta($post->ID, '_dntly_campaign_id', true);
-    // $this->dntly_account_id   = get_post_meta($post->ID, '_dntly_account_id', true);
-    // $this->dntly_environment  = get_post_meta($post->ID, '_dntly_environment', true);
+    $this->dntly_data         = get_post_meta($post->ID, '_dntly_data', true);
+    $this->dntly_camp_id      = get_post_meta($post->ID, '_dntly_id', true);
+    $this->dntly_campaign_id  = get_post_meta($post->ID, '_dntly_campaign_id', true);
+    $this->dntly_account_id   = get_post_meta($post->ID, '_dntly_account_id', true);
+    $this->dntly_environment  = get_post_meta($post->ID, '_dntly_environment', true);
   }
   
 
@@ -85,6 +92,21 @@ class DNTLY_FIELDS {
     }
     return $account_title;
   }
+
+  /**
+     * DNTLY Campaigns
+     *
+     * @since 0.1
+     * @package Donately Wordpress
+     * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+     * @return [array] '_dntly_campaign_id' post meta
+     */
+  function dntly_campaigns( $args = NULL )
+  {
+    // return $this->dntly_camp_id;
+  }
+
+
 
   /**
      * DNTLY Campaign ID
@@ -263,8 +285,8 @@ class DNTLY_FIELDS {
     
     // use DNTLY_API class
     $da = new DNTLY_API;
-    
-    $account_list = $da->build_account_list(array( 'id' => 'accounts', 'name' => 'dntly_accounts' ));
+
+    $account_list = $da->build_account_list(array( 'id' => 'accounts', 'name' => 'dntly_accounts', 'wrapper' => true ));
 
     return $account_list;
   }

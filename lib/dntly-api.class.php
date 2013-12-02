@@ -16,7 +16,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 class DNTLY_API {
 
-
   /**
    * Variables & Conditionals
    *  
@@ -31,7 +30,7 @@ class DNTLY_API {
   public $api_methods          = array();
   public $api_runtime_id       = 0;
   public $dntly_account_id     = 0;
-  public $dntly_settings        = array();
+  public $dntly_settings       = array();
   public $wordpress_upload_dir = null;
   public $suppress_logging     = false;
   public $remote_results       = null;
@@ -46,10 +45,11 @@ class DNTLY_API {
    * @since 0.1
    * @package Donately Wordpress
    * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
-   * @todo combine isset and != '' 
+   * @todo combine isset and != '', accomodate for dev/staging evnrionments
    */
   function __construct()
   {
+
     // If debugging is enabled, change $api_scheme from production to staging/dev
     if( DNTLY_DEBUG )
     { // Staging
@@ -106,7 +106,7 @@ class DNTLY_API {
     $url       = isset($args['url']) ? $args['url'] : null;
     $method    = isset($args['method']) ? $args['method'] : 'GET';
     $post_vars = isset($args['post_vars']) ? $args['post_vars'] : array();
-    $token     = isset($args['token']) ? $args['token'] : base64_encode($this->dntly_settings['donately_token']);
+    $token     = isset($args['token']) ? $args['token'] : null; // base64_encode($this->dntly_settings['donately_token'])
     $timeout   = isset($args['timeout']) ? $args['timeout'] : 10;
 
     $request_args = array(
@@ -259,31 +259,47 @@ class DNTLY_API {
    * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
    * @param [array] $api_method
    * @return (string) $url
+   * @deprecated v0.1
    */
+  // function build_url( $api_method )
+  // {
+  //   // If the environment value in $dntly_settings is not empty, $url is the set environment (protocol : https), else default to production environment
+  //   if ( !empty($this->dntly_settings['environment']) ) {
+  //     $url = $this->api_scheme[$this->dntly_settings['environment']];
+  //   } else {
+  //     $url = $this->api_scheme['production'] . '://';
+  //   }
+  //   // Append the subdomain and a period (Ex: __SUBDOMAIN__.dntly.com/ ... )
+  //   $url .= $this->api_subdomain . '.';
+
+  //   // If the environment value in $dntly_settings is not empty, append $url with the api_domain (dntly.com), else default to api_domain (production)
+  //   if ( !empty($this->dntly_settings['environment']) ) {
+  //     $url .= $this->api_domain[$this->dntly_settings['environment']];
+  //   } else {
+  //     $url .= $this->api_domain['production'];
+  //   }
+  //   // If the $api_method is NOT 'root', append $url with the $api_endpoint (API path)
+  //   if ( $api_method != 'root' ) {
+  //     $url .= $this->api_endpoint . $this->api_methods[$api_method][1];
+  //   }
+  //   // Return the built URL
+  //   return $url;
+  // } 
   function build_url( $api_method )
   {
-    // If the environment value in $dntly_settings is not empty, $url is the set environment (protocol : https), else default to production environment
-    if ( !empty($this->dntly_settings['environment']) ) {
-      $url = $this->api_scheme[$this->dntly_settings['environment']];
-    } else {
-      $url = $this->api_scheme['production'] . '://';
-    }
+    // Always use production environment @TODO accomodate for dev/staging
+    $url = $this->api_scheme['production'] . '://';
     // Append the subdomain and a period (Ex: __SUBDOMAIN__.dntly.com/ ... )
     $url .= $this->api_subdomain . '.';
-
-    // If the environment value in $dntly_settings is not empty, append $url with the api_domain (dntly.com), else default to api_domain (production)
-    if ( !empty($this->dntly_settings['environment']) ) {
-      $url .= $this->api_domain[$this->dntly_settings['environment']];
-    } else {
-      $url .= $this->api_domain['production'];
-    }
+    // Append the domain (always production) @TODO accomodate for dev/staging
+    $url .= $this->api_domain['production'];
     // If the $api_method is NOT 'root', append $url with the $api_endpoint (API path)
     if ( $api_method != 'root' ) {
       $url .= $this->api_endpoint . $this->api_methods[$api_method][1];
     }
     // Return the built URL
     return $url;
-  } 
+  }
 
 
 
@@ -458,10 +474,10 @@ class DNTLY_API {
   function build_account_list( $args = NULL )
   {
     // Params/Args
-    $id   = isset( $args['id'] ) ? $args['id'] : 'accounts';
-    $name = isset($args['name']) ? $args['name'] : 'accounts';
+    $id      = isset($args['id']) ? $args['id'] : 'accounts';
+    $name    = isset($args['name']) ? $args['name'] : 'accounts';
     $wrapper = isset($args['wrapper']) ? $args['wrapper'] : false;
-    $echo = isset($args['echo']) ? $args['echo'] : false;
+    $echo    = isset($args['echo']) ? $args['echo'] : false;
 
     // Use make_api_request function with method defined above
     $accounts     = $this->make_api_request("get_my_accounts");
@@ -649,7 +665,7 @@ class DNTLY_API {
     // Create $_dntly_data array from the $campaign object
     $_dntly_data = array(
       'dntly_id'               => $campaign->id,
-      'account_title'          => $this->dntly_settings['account_title'],
+      // 'account_title'          => $this->dntly_settings['account_title'],
       'account_id'             => $account_id,
       'campaign_goal'          => $campaign->campaign_goal,
       'donations_count'        => $campaign->donations_count,
@@ -691,7 +707,7 @@ class DNTLY_API {
         'post_type'     => 'dntly_campaigns',
         'post_title'    => $campaign->title,
         'post_content'  => $campaign->description,
-        'post_status'   => ($this->dntly_settings['sync_to_private']?'private':'publish'),
+        // 'post_status'   => ($this->dntly_settings['sync_to_private']?'private':'publish'),
       );
       // Set post ID and run wp_insert_post (inserts post in the database and sanitize variables)
       $post_id = wp_insert_post($post_params);
@@ -793,6 +809,24 @@ class DNTLY_API {
     die();
   }
 
+
+
+  /**
+   * Setup Donately Settings
+   *
+   * Setup initial Donately settings array table
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @param void
+   * @return void
+   * @todo Do here instead of in constructor (?)
+   */
+  function setup_dntly_settings()
+  {
+    // Done in constructor for now.
+  }
 
 
 }
