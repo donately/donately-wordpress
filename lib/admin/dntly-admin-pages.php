@@ -48,7 +48,7 @@ function dntly_add_menu_page() {
 
     require_once 'dntly-system-info.php';
      
-    $dntly_top_level_page   = add_menu_page( __( 'Donately', 'dntly'), __( 'Donately', 'dntly' ), 'edit_pages', 'dntly', '', DNTLY_PLUGIN_URL . '/assets/images/campaigns.png', 27 ); 
+    $dntly_top_level_page   = add_menu_page( __( 'Donately', 'dntly'), __( 'Donately', 'dntly' ), 'edit_pages', 'dntly', '', DNTLY_PLUGIN_URL . '/assets/images/campaigns.png', 30 ); 
     $dntly_dashboard_page   = add_submenu_page( 'dntly', __( 'Dashboard', 'dntly' ), __( 'Dashboard', 'dtly'), 'edit_pages', 'dntly-dashboard', 'dntly_dashboard_page' );
     $dntly_settings_page    = add_submenu_page( 'dntly', __( 'Donately Settings', 'dntly' ), __( 'Settings', 'dtly'), 'edit_pages', 'dntly-settings', 'dntly_settings_page' );
     $dntly_form_builder     = add_submenu_page( 'dntly', __( 'Form Builder', 'dntly' ), __( 'Form Builder', 'dtly'), 'edit_pages', 'dntly-forms', 'dntly_form_builder' );
