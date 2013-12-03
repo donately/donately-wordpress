@@ -36,9 +36,13 @@ function dntly_dashboard_page()
             <div class="edd-badge"><?php printf( __( 'Version %s', 'dntly' ), $display_version ); ?></div>
 
             <h2 class="nav-tab-wrapper">
-                <a class="nav-tab nav-tab-active" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-dashboard' ), 'admin.php' ) ) ); ?>">
+                <a href="<?php echo esc_url( add_query_arg( array( 'page' => 'dntly-dashboard', 'admin.php' ) ) ); ?>" class="nav-tab nav-tab-active">
+                    <?php _e( 'Dashboard', 'dntly') ?>
+                </a>
+                <a class="nav-tab" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-dashboard' ), 'admin.php' ) ) ); ?>">
                     <?php _e( "About Donately", 'dntly' ); ?>
-                </a><a class="nav-tab" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-credits' ), 'index.php' ) ) ); ?>">
+                </a>
+                <a class="nav-tab" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-credits' ), 'index.php' ) ) ); ?>">
                     <?php _e( 'Credits', 'dntly' ); ?>
                 </a>
             </h2>
