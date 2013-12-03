@@ -127,27 +127,9 @@ function dntly_get_registered_settings() {
             array(
                 'api_settings' => array(
                     'id' => 'api_settings',
-                    'name' => '<strong>' . __( 'API Settings', 'dntly' ) . '</strong>',
+                    'name' => '<strong>' . __( 'Donately API Settings', 'dntly' ) . '</strong>',
                     'desc' => '',
                     'type' => 'header'
-                ),
-                'environment' => array(
-                    'id' => 'environment',
-                    'name' => __( 'Donately Environment', 'dntly' ),
-                    'desc' => __( '(Hidden, v0.1 should always be production)', 'dntly' ),
-                    'type' => 'hidden',
-                    'size' => 'regular',
-                    'std' => 'production'
-                ),
-                'sync_to_private' => array(
-                    'id' => 'sync_to_private',
-                    'name' => sprintf(__( 'Donately %1s Post Status', 'dntly' ), dntly_campaigns_get_label_singular() ),
-                    'desc' => sprintf( __( 'Choose whether you want newly sync\'d %1s to be set as private (drafts) or published by default.' , 'dntly' ), dntly_campaigns_get_label_plural() ),
-                    'type' => 'select',
-                    'options' => array(
-                        0 => __( 'Published', 'dntly' ),
-                        1 => __( 'Private', 'dntly' )
-                    )
                 ),
                 'donately_subdomain' => array(
                     'id' => 'donately_subdomain',
@@ -172,6 +154,30 @@ function dntly_get_registered_settings() {
                     'type' => 'password',
                     'size' => 'regular',
                     'std' => ''
+                ),
+                'general_settings' => array(
+                    'id' => 'general_settings',
+                    'name' => '<strong>' . __( 'General Settings', 'dntly' ) . '</strong>',
+                    'desc' => 'Set up and control your environment here.',
+                    'type' => 'header'
+                ),
+                'environment' => array(
+                    'id' => 'environment',
+                    'name' => __( 'Donately Environment', 'dntly' ),
+                    'desc' => __( '(Hidden, v0.1 should always be production)', 'dntly' ),
+                    'type' => 'hidden',
+                    'size' => 'regular',
+                    'std' => ucwords('production')
+                ),
+                'sync_to_private' => array(
+                    'id' => 'sync_to_private',
+                    'name' => sprintf(__( 'Donately %1s Post Status', 'dntly' ), dntly_campaigns_get_label_singular() ),
+                    'desc' => sprintf( __( 'Choose whether you want newly sync\'d %1s to be set as private (drafts) or published by default.' , 'dntly' ), dntly_campaigns_get_label_plural() ),
+                    'type' => 'select',
+                    'options' => array(
+                        0 => __( 'Published', 'dntly' ),
+                        1 => __( 'Private', 'dntly' )
+                    )
                 ),
                 'donation_page' => array(
                     'id' => 'donation_page',
