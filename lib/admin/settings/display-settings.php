@@ -58,6 +58,7 @@ function dntly_settings_page() {
                 </table>
                 <?php submit_button(); ?>
             </form>
+            <p>Need more help? Check out our <a href="#">Wiki</a>.
         </div><!-- #tab_container-->
     </div><!-- .wrap -->
     <?php

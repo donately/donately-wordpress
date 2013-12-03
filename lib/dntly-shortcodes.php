@@ -22,11 +22,13 @@ function dntly_donation_form( $atts, $content = null )
         ),
         $atts, 'donation_form' )
     );
-    $campaign_id = $_GET['cid'];
+    $campaign_id = isset ( $_GET['cid'] ) ? $_GET['cid'] : null;
     $campaign_title = get_the_title( $campaign_id );
-    
-    $dntly_form = "You're donating to " . $campaign_title . "<br />";
-    $dntly_form .= '<script src="https://www.dntly.com/assets/js/v1/form.js"
+
+    if( isset( $campaign_id ) ) {
+        echo "You're donating to " . $campaign_title . "<br />";
+    }
+    $dntly_form = '<script src="https://www.dntly.com/assets/js/v1/form.js"
       data-donately-id="1" 
       data-donately-campaign-id="1" 
       data-donately-address="true">

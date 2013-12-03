@@ -32,12 +32,12 @@ function dntly_dashboard_page()
 
     <div class="wrap about-wrap">
             <h1><?php printf( __( 'Donately for WordPress %s', 'dntly' ), $display_version ); ?></h1>
-            <div class="about-text"><?php printf( __( 'Thank you for updating to the latest version!', 'dntly' ), $display_version ); ?></div>
+            <div class="about-text"><?php printf( __( 'An integrated donation platform.', 'dntly' ), $display_version ); ?></div>
             <div class="edd-badge"><?php printf( __( 'Version %s', 'dntly' ), $display_version ); ?></div>
 
             <h2 class="nav-tab-wrapper">
-                <a class="nav-tab nav-tab-active" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-about' ), 'index.php' ) ) ); ?>">
-                    <?php _e( "What's New", 'dntly' ); ?>
+                <a class="nav-tab nav-tab-active" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-dashboard' ), 'admin.php' ) ) ); ?>">
+                    <?php _e( "About Donately", 'dntly' ); ?>
                 </a><a class="nav-tab" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-credits' ), 'index.php' ) ) ); ?>">
                     <?php _e( 'Credits', 'dntly' ); ?>
                 </a>
@@ -51,88 +51,75 @@ function dntly_dashboard_page()
                     <!-- <img src="<?php echo DNTLY_PLUGIN_URL . 'assets/images/screenshots/17checkout.png'; ?>" class="edd-welcome-screenshots"/> -->
 
                     <h4><?php _e( 'Simple, Donations', 'dntly' );?></h4>
-                    <p><?php _e( 'We have worked tirelessly to continually improve the checkout experience of Donately for WordPress, and with just a few subtle tweaks, we have made the experience in Donately for WordPress version 1.8 even better than before.', 'dntly' );?></p>
+                    <p><?php _e( 'When it comes to accepting donations, you need options. You need campaigns and fundraisers and secure donation forms. Donately was created to solve the problems all non-profits have without creating a ton of overhead.', 'dntly' );?></p>
 
-                    <h4><?php _e( 'Better Checkout Layout', 'dntly' );?></h4>
-                    <p><?php _e( 'The position of each field on the checkout has been carefully reconsidered to ensure it is in the proper location so as to best create high conversion rates.', 'dntly' );?></p>
+                    <h4><?php _e( 'It\'s free to sign up!', 'dntly' );?></h4>
+                    <p><?php _e( 'There are some transaction fees but you won\'t find a cheaper solution out there. Check out <a href="http://donate.ly">Donate.ly</a> for more information.', 'dntly' );?></p>
 
                 </div>
             </div>
 
             <div class="changelog">
-                <h3><?php _e( 'Cart Saving', 'dntly' );?></h3>
+                <h3><?php _e( 'The Platform', 'dntly' );?></h3>
 
                 <div class="feature-section">
 
                     <!-- <img src="<?php echo DNTLY_PLUGIN_URL . 'assets/images/screenshots/18cart-saving.png'; ?>" class="edd-welcome-screenshots"/> -->
 
-                    <h4><?php _e( 'Allow Customers to Save Their Carts for Later','dntly' );?></h4>
-                    <p><?php _e( 'With Cart Saving, customers can save their shopping carts and then come back and restore them at a later point.', 'dntly' );?></p>
+                    <h4><?php _e( 'About the Plugin','dntly' );?></h4>
+                    <p><?php _e( 'Donately is built on a powerful and flexible API. We built this plugin using the API to create a better experience for your donors. They can donate directly to your organization and campaigns without ever leaving your site!', 'dntly' );?></p>
 
-                    <h4><?php _e( 'Encourage Customers to Come Back', 'dntly' );?></h4>
-                    <p><?php _e( 'By making it easier for customers to save their cart and return later, you can increase the conversion rate of the customers that need time to think about their purchase.', 'dntly' );?></p>
+                    <h4><?php _e( 'Loads of Settings', 'dntly' );?></h4>
+                    <p><?php _e( 'We\'e given you a host of options, shortcodes and widgets. If you\'re a developer, you can find a ton of actions and filters to shape your experience. If you are interested in extending the plugin you can checkout our docs at <a href="http://support.donate.ly">http://support.donate.ly</a>.', 'dntly' );?></p>
 
 
                 </div>
             </div>
 
-            <div class="changelog">
-                <h3><?php _e( 'Better Purchase Button Colors', 'dntly' );?></h3>
+             <div class="changelog">
+                <h3><?php _e( 'Sign Up for Donately', 'dntly' );?></h3>
 
                 <div class="feature-section">
 
-                    <!-- <img src="<?php echo DNTLY_PLUGIN_URL . 'assets/images/screenshots/18-button-colors.png'; ?>" class="edd-welcome-screenshots"/> -->
+                    <!-- <img src="<?php echo DNTLY_PLUGIN_URL . 'assets/images/screenshots/18cart-saving.png'; ?>" class="edd-welcome-screenshots"/> -->
 
-                    <h4><?php _e( 'Eight Button Colors', 'dntly' );?></h4>
-                    <p><?php _e( 'With eight beautifully button colors to choose from, you will almost certainly find the color to match your site.', 'dntly' );?></p>
+                    <h4><?php _e( 'Create an Account','dntly' );?></h4>
+                    <p><?php _e( 'Need an account? No worries.', 'dntly' );?></p>
+                    <p><a href="http://dntly.com" class="button button-primary">Create an Account</a></p>
 
-                    <h4><?php _e( 'Simpler; Cleaner', 'dntly' );?></h4>
-                    <p><?php _e( 'Purchase buttons are cleaner, simpler, and just all around better with Donately for WordPress 1.8.', 'dntly' );?></p>
-                    <p><?php _e( 'By simplifying one of the most important aspects of your digital store, we ensure better compatibility with more themes and easier customization for advanced users and developers.', 'dntly' );?></p>
-
-                </div>
-            </div>
-
-            <div class="changelog">
-                <h3><?php _e( 'Better APIs for Developers', 'dntly' );?></h3>
-
-                <div class="feature-section">
-
-                    <h4><?php _e( 'EDD_Payment_Stats','dntly' );?></h4>
-                    <p><?php _e( 'The new EDD_Payment_Stats class provides a simple way to retrieve earnings and sales stats for the store, or any specific Download product, for any date range. Get sales or earnings for this month, last month, this year, or even any custom date range.', 'dntly' );?></p>
-
-                    <h4><?php _e( 'EDD_Payments_Query', 'dntly' ); ?></h4>
-                    <p><?php _e( 'Easily retrieve payment data for any Download product or the entire store. EDD_Payments_Query even allows you to pass in any date range to retrieve payments for a specific period. EDD_Payments_Query works nearly identical to WP_Query, so it is simple and familiar.', 'dntly' ); ?></p>
+                    <h4><?php _e( 'Have an account already?', 'dntly' );?></h4>
+                    <p><?php _e( 'Head over to our settings page and enter the details.', 'dntly' );?></p>
+                    <p><a href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-settings' ), 'admin.php' ) ) ); ?>" class="button">Donately for WordPress Settings</a></p>
 
                 </div>
             </div>
 
             <div class="changelog">
-                <h3><?php _e( 'Additional Updates', 'dntly' );?></h3>
+                <h3><?php _e( 'Additional Features', 'dntly' );?></h3>
 
                 <div class="feature-section col three-col">
                     <div>
-                        <h4><?php _e( 'Retina Ready Checkout', 'dntly' );?></h4>
-                        <p><?php _e( 'Every icon and image asset used by the Donately for WordPress checkout is now fully retina ready to ensure your most important page always looks great.', 'dntly' );?></p>
+                        <h4><?php _e( 'Widget Ready', 'dntly' );?></h4>
+                        <p><?php _e( 'Need a simple form in your sidebar? No problem, just drag and drop our widget and you are good to go.', 'dntly' );?></p>
 
-                        <h4><?php _e( 'Improved Settings API', 'dntly' );?></h4>
-                        <p><?php _e( 'The EDD settings API has been dramatically simplified to be more performant, provide better filters, and even support custom settings tabs.', 'dntly' );?></p>
+                        <h4><?php _e( 'Shortcodes', 'dntly' );?></h4>
+                        <p><?php _e( 'We have a number of shortcodes that output forms and donation statistics wherever you need them.', 'dntly' );?></p>
                     </div>
 
                     <div>
-                        <h4><?php _e( 'Live Dashboard Updates', 'dntly' );?></h4>
-                        <p><?php _e( 'The Dashboard summary widget now updates live with the WP Heartbeat API, meaning you can literally watch your stats update live as sales come in.', 'dntly' );?></p>
+                        <h4><?php _e( 'Custom Forms', 'dntly' );?></h4>
+                        <p><?php _e( 'You can enter your a URL for a custom css file and override the default styles.', 'dntly' );?></p>
 
-                        <h4><?php _e( 'Category Filters for Downloads Reports', 'dntly' );?></h4>
-                        <p><?php _e( 'The Downloads Reports view now supports filtering Downloads by category, making it easier to see earnings and sales based on product categories.', 'dntly' );?></p>
+                        <h4><?php _e( 'Campaigns', 'dntly' );?></h4>
+                        <p><?php _e( 'Create campaigns on Dntly and sync them to WordPress. Keep your followers in the loop with your goals and other statistics. You can change the name from campaigns to anything.', 'dntly' );?></p>
                     </div>
 
                     <div class="last-feature">
-                        <h4><?php _e( 'Tools Menu', 'dntly' );?></h4>
-                        <p><?php _e( 'A new Tools submenu has been added to the main Downloads menu that houses settings import / export, as well as other utilities added by extensions.' ,'dntly' );?></p>
+                        <h4><?php _e( 'Email', 'dntly' );?></h4>
+                        <p><?php _e( 'You can disable the email Donately sends and send your own from the settings panel.' ,'dntly' );?></p>
 
-                        <h4><?php _e( 'Bulk Payment History Update','dntly' );?></h4>
-                        <p><?php _e( 'The bulk update options for Payments have been updated to include all payment status options, making it easier to manage payment updates in bulk.', 'dntly' );?></p>
+                        <h4><?php _e( 'Form Builder','dntly' );?></h4>
+                        <p><?php _e( 'Sometimes you don\'t want to use the global settings. Create your form shortcode and use it wherever you need it.', 'dntly' );?></p>
                     </div>
                 </div>
             </div>
