@@ -6,7 +6,7 @@
  * @subpackage  Admin Options Page
  * @copyright   Copyright (c) 2012, Fifty and Fifty
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0
+ * @since       0.1
 */
 
 // Exit if accessed directly
@@ -18,9 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * Renders the options page contents.
  *
- * @access      private
- * @since       1.0
- * @return      void
+ * @access private
+ * @since 0.1
+ * @return void
 */
 
 function dntly_settings_page() {

@@ -28,7 +28,7 @@ function dntly_add_options_link() {
    // $dntly_settings_page = add_submenu_page( 'edit.php?post_type=dntly_campaigns', __( 'Donately for WordPress Settings', 'dntly' ), __( 'Settings', 'dntly' ), 'inall_plugins', 'dntly-settings', 'dntly_settings_page' );
 
 }
-add_action( 'admin_menu', 'dntly_add_options_link', 10 );
+add_action( 'admin_menu', 'dntly_add_options_link', 11 );
 
 
 
@@ -54,5 +54,5 @@ function dntly_add_menu_page() {
     $dntly_system_info_page = add_submenu_page( 'dntly', __( 'Donately System Info', 'dntly' ), __( 'System Info', 'dntly' ), 'install_plugins', 'dntly-system-info', 'dntly_system_info' );
     
 }
-add_action( 'admin_menu', 'dntly_add_menu_page', 10 );
+add_action( 'admin_menu', 'dntly_add_menu_page', 11 );
 

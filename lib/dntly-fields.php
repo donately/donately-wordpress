@@ -32,7 +32,6 @@ class DNTLY_FIELDS {
   }
   
 
-
   /**
    * DNTLY Data
    *
@@ -48,13 +47,13 @@ class DNTLY_FIELDS {
 
 
   /**
-     * DNTLY Environment
-     *
-     * @since 0.1
-     * @package Donately Wordpress
-     * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
-     * @return [array] '_dntly_environment' post meta
-     */
+   * DNTLY Environment
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @return [array] '_dntly_environment' post meta
+   */
   function dntly_environment( $args = NULL )
   {
     return $this->dntly_environment;
@@ -295,13 +294,13 @@ class DNTLY_FIELDS {
 
 
   /**
-     * DNTLY Meta General
-     *
-     * @since 0.1
-     * @package Donately Wordpress
-     * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
-     * @return [array]
-     */
+   * DNTLY Meta General
+   *
+   * @since 0.1
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @return [array]
+   */
   function dntly_meta_general() {
 
     if ( isset($post) && is_object($post) && isset($post->ID) && !empty($post->ID)) {
