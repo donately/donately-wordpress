@@ -125,10 +125,10 @@ class DNTLY_Welcome {
             <div class="edd-badge"><?php printf( __( 'Version %s', 'dntly' ), $display_version ); ?></div>
 
             <h2 class="nav-tab-wrapper">
-                <a href="<?php echo esc_url( add_query_arg( array( 'page' => 'dntly-dashboard', 'admin.php' ) ) ); ?>" class="nav-tab nav-tab-active">
+                <a href="<?php echo esc_url( add_query_arg( array( 'page' => 'dntly-dashboard' ) ) ); ?>" class="nav-tab">
                     <?php _e( 'Dashboard', 'dntly') ?>
                 </a>
-                <a class="nav-tab" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-dashboard' ), 'admin.php' ) ) ); ?>">
+                <a class="nav-tab nav-tab-active" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-dashboard' ) ) ) ); ?>">
                     <?php _e( "About Donately", 'dntly' ); ?>
                 </a>
                 <a class="nav-tab" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-credits' ), 'index.php' ) ) ); ?>">
@@ -178,7 +178,7 @@ class DNTLY_Welcome {
 
                     <h4><?php _e( 'Create an Account','dntly' );?></h4>
                     <p><?php _e( 'Need an account? No worries.', 'dntly' );?></p>
-                    <p><a href="http://dntly.com" class="button button-primary">Create an Account</a></p>
+                    <p><a href="https://www.dntly.com/a#/npo/signup" class="button button-primary">Create an Account</a></p>
 
                     <h4><?php _e( 'Have an account already?', 'dntly' );?></h4>
                     <p><?php _e( 'Head over to our settings page and enter the details.', 'dntly' );?></p>
