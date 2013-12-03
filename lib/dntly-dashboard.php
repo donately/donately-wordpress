@@ -32,12 +32,12 @@ function dntly_dashboard_page()
 
     <div class="wrap about-wrap">
             <h1><?php printf( __( 'Donately for WordPress %s', 'dntly' ), $display_version ); ?></h1>
-            <div class="about-text"><?php printf( __( 'Thank you for updating to the latest version!', 'dntly' ), $display_version ); ?></div>
+            <div class="about-text"><?php printf( __( 'An integrated donation platform.', 'dntly' ), $display_version ); ?></div>
             <div class="edd-badge"><?php printf( __( 'Version %s', 'dntly' ), $display_version ); ?></div>
 
             <h2 class="nav-tab-wrapper">
                 <a class="nav-tab nav-tab-active" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-dashboard' ), 'admin.php' ) ) ); ?>">
-                    <?php _e( "What's New", 'dntly' ); ?>
+                    <?php _e( "About Donately", 'dntly' ); ?>
                 </a><a class="nav-tab" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-credits' ), 'index.php' ) ) ); ?>">
                     <?php _e( 'Credits', 'dntly' ); ?>
                 </a>
@@ -51,58 +51,27 @@ function dntly_dashboard_page()
                     <!-- <img src="<?php echo DNTLY_PLUGIN_URL . 'assets/images/screenshots/17checkout.png'; ?>" class="edd-welcome-screenshots"/> -->
 
                     <h4><?php _e( 'Simple, Donations', 'dntly' );?></h4>
-                    <p><?php _e( 'We have worked tirelessly to continually improve the checkout experience of Donately for WordPress, and with just a few subtle tweaks, we have made the experience in Donately for WordPress version 1.8 even better than before.', 'dntly' );?></p>
+                    <p><?php _e( 'When it comes to accepting donations, you need options. You need campaigns and fundraisers and secure donation forms. Donately was created to solve the problems all non-profits have without creating a ton of overhead.', 'dntly' );?></p>
 
-                    <h4><?php _e( 'Better Checkout Layout', 'dntly' );?></h4>
-                    <p><?php _e( 'The position of each field on the checkout has been carefully reconsidered to ensure it is in the proper location so as to best create high conversion rates.', 'dntly' );?></p>
+                    <h4><?php _e( 'It\'s free to sign up!', 'dntly' );?></h4>
+                    <p><?php _e( 'There are some transaction fees but you won\'t find a cheaper solution out there. Check out <a href="http://donate.ly">Donate.ly</a> for more information.', 'dntly' );?></p>
 
                 </div>
             </div>
 
             <div class="changelog">
-                <h3><?php _e( 'Cart Saving', 'dntly' );?></h3>
+                <h3><?php _e( 'The Platform', 'dntly' );?></h3>
 
                 <div class="feature-section">
 
                     <!-- <img src="<?php echo DNTLY_PLUGIN_URL . 'assets/images/screenshots/18cart-saving.png'; ?>" class="edd-welcome-screenshots"/> -->
 
-                    <h4><?php _e( 'Allow Customers to Save Their Carts for Later','dntly' );?></h4>
-                    <p><?php _e( 'With Cart Saving, customers can save their shopping carts and then come back and restore them at a later point.', 'dntly' );?></p>
+                    <h4><?php _e( 'About the Plugin','dntly' );?></h4>
+                    <p><?php _e( 'Donately is built on a powerful and flexible API. We built this plugin using the API to create a better experience for your donors. They can donate directly to your organization and campaigns without ever leaving your site!', 'dntly' );?></p>
 
-                    <h4><?php _e( 'Encourage Customers to Come Back', 'dntly' );?></h4>
-                    <p><?php _e( 'By making it easier for customers to save their cart and return later, you can increase the conversion rate of the customers that need time to think about their purchase.', 'dntly' );?></p>
+                    <h4><?php _e( 'Loads of Settings', 'dntly' );?></h4>
+                    <p><?php _e( 'We\'e given you a host of options, shortcodes and widgets. If you\'re a developer, you can find a ton of actions and filters to shape your experience. If you are interested in extending the plugin you can checkout our docs at <a href="http://support.donate.ly">http://support.donate.ly</a>.', 'dntly' );?></p>
 
-
-                </div>
-            </div>
-
-            <div class="changelog">
-                <h3><?php _e( 'Better Purchase Button Colors', 'dntly' );?></h3>
-
-                <div class="feature-section">
-
-                    <!-- <img src="<?php echo DNTLY_PLUGIN_URL . 'assets/images/screenshots/18-button-colors.png'; ?>" class="edd-welcome-screenshots"/> -->
-
-                    <h4><?php _e( 'Eight Button Colors', 'dntly' );?></h4>
-                    <p><?php _e( 'With eight beautifully button colors to choose from, you will almost certainly find the color to match your site.', 'dntly' );?></p>
-
-                    <h4><?php _e( 'Simpler; Cleaner', 'dntly' );?></h4>
-                    <p><?php _e( 'Purchase buttons are cleaner, simpler, and just all around better with Donately for WordPress 1.8.', 'dntly' );?></p>
-                    <p><?php _e( 'By simplifying one of the most important aspects of your digital store, we ensure better compatibility with more themes and easier customization for advanced users and developers.', 'dntly' );?></p>
-
-                </div>
-            </div>
-
-            <div class="changelog">
-                <h3><?php _e( 'Better APIs for Developers', 'dntly' );?></h3>
-
-                <div class="feature-section">
-
-                    <h4><?php _e( 'EDD_Payment_Stats','dntly' );?></h4>
-                    <p><?php _e( 'The new EDD_Payment_Stats class provides a simple way to retrieve earnings and sales stats for the store, or any specific Download product, for any date range. Get sales or earnings for this month, last month, this year, or even any custom date range.', 'dntly' );?></p>
-
-                    <h4><?php _e( 'EDD_Payments_Query', 'dntly' ); ?></h4>
-                    <p><?php _e( 'Easily retrieve payment data for any Download product or the entire store. EDD_Payments_Query even allows you to pass in any date range to retrieve payments for a specific period. EDD_Payments_Query works nearly identical to WP_Query, so it is simple and familiar.', 'dntly' ); ?></p>
 
                 </div>
             </div>
