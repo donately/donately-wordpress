@@ -76,32 +76,50 @@ function dntly_dashboard_page()
                 </div>
             </div>
 
+             <div class="changelog">
+                <h3><?php _e( 'Sign Up for Donately', 'dntly' );?></h3>
+
+                <div class="feature-section">
+
+                    <!-- <img src="<?php echo DNTLY_PLUGIN_URL . 'assets/images/screenshots/18cart-saving.png'; ?>" class="edd-welcome-screenshots"/> -->
+
+                    <h4><?php _e( 'Create an Account','dntly' );?></h4>
+                    <p><?php _e( 'Need an account? No worries.', 'dntly' );?></p>
+                    <p><a href="http://dntly.com" class="button button-primary">Create an Account</a></p>
+
+                    <h4><?php _e( 'Have an account already?', 'dntly' );?></h4>
+                    <p><?php _e( 'Head over to our settings page and enter the details.', 'dntly' );?></p>
+                    <p><a href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-settings' ), 'admin.php' ) ) ); ?>" class="button">Donately for WordPress Settings</a></p>
+
+                </div>
+            </div>
+
             <div class="changelog">
-                <h3><?php _e( 'Additional Updates', 'dntly' );?></h3>
+                <h3><?php _e( 'Additional Features', 'dntly' );?></h3>
 
                 <div class="feature-section col three-col">
                     <div>
-                        <h4><?php _e( 'Retina Ready Checkout', 'dntly' );?></h4>
-                        <p><?php _e( 'Every icon and image asset used by the Donately for WordPress checkout is now fully retina ready to ensure your most important page always looks great.', 'dntly' );?></p>
+                        <h4><?php _e( 'Widget Ready', 'dntly' );?></h4>
+                        <p><?php _e( 'Need a simple form in your sidebar? No problem, just drag and drop our widget and you are good to go.', 'dntly' );?></p>
 
-                        <h4><?php _e( 'Improved Settings API', 'dntly' );?></h4>
-                        <p><?php _e( 'The EDD settings API has been dramatically simplified to be more performant, provide better filters, and even support custom settings tabs.', 'dntly' );?></p>
+                        <h4><?php _e( 'Shortcodes', 'dntly' );?></h4>
+                        <p><?php _e( 'We have a number of shortcodes that output forms and donation statistics wherever you need them.', 'dntly' );?></p>
                     </div>
 
                     <div>
-                        <h4><?php _e( 'Live Dashboard Updates', 'dntly' );?></h4>
-                        <p><?php _e( 'The Dashboard summary widget now updates live with the WP Heartbeat API, meaning you can literally watch your stats update live as sales come in.', 'dntly' );?></p>
+                        <h4><?php _e( 'Custom Forms', 'dntly' );?></h4>
+                        <p><?php _e( 'You can enter your a URL for a custom css file and override the default styles.', 'dntly' );?></p>
 
-                        <h4><?php _e( 'Category Filters for Downloads Reports', 'dntly' );?></h4>
-                        <p><?php _e( 'The Downloads Reports view now supports filtering Downloads by category, making it easier to see earnings and sales based on product categories.', 'dntly' );?></p>
+                        <h4><?php _e( 'Campaigns', 'dntly' );?></h4>
+                        <p><?php _e( 'Create campaigns on Dntly and sync them to WordPress. Keep your followers in the loop with your goals and other statistics. You can change the name from campaigns to anything.', 'dntly' );?></p>
                     </div>
 
                     <div class="last-feature">
-                        <h4><?php _e( 'Tools Menu', 'dntly' );?></h4>
-                        <p><?php _e( 'A new Tools submenu has been added to the main Downloads menu that houses settings import / export, as well as other utilities added by extensions.' ,'dntly' );?></p>
+                        <h4><?php _e( 'Email', 'dntly' );?></h4>
+                        <p><?php _e( 'You can disable the email Donately sends and send your own from the settings panel.' ,'dntly' );?></p>
 
-                        <h4><?php _e( 'Bulk Payment History Update','dntly' );?></h4>
-                        <p><?php _e( 'The bulk update options for Payments have been updated to include all payment status options, making it easier to manage payment updates in bulk.', 'dntly' );?></p>
+                        <h4><?php _e( 'Form Builder','dntly' );?></h4>
+                        <p><?php _e( 'Sometimes you don\'t want to use the global settings. Create your form shortcode and use it wherever you need it.', 'dntly' );?></p>
                     </div>
                 </div>
             </div>
