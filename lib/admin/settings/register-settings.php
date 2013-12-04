@@ -167,7 +167,7 @@ function dntly_get_registered_settings() {
                     'desc' => __( '(Hidden, v0.1 should always be production)', 'dntly' ),
                     'type' => 'hidden',
                     'size' => 'regular',
-                    'std' => ucwords('production')
+                    'std' =>  '<strong>Production</strong>'
                 ),
                 'sync_to_private' => array(
                     'id' => 'sync_to_private',

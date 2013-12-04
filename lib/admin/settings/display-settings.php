@@ -56,6 +56,12 @@ function dntly_settings_page() {
                 do_settings_fields( 'dntly_settings_' . $active_tab, 'dntly_settings_' . $active_tab );
                 ?>
                 </table>
+                <style>
+                p.submit{
+                    border-top:1px solid #DFDFDF;
+                    margin-top:30px;
+                }
+                </style>
                 <?php submit_button(); ?>
             </form>
             <p>Need more help? Check out our <a href="#">Wiki</a>.
