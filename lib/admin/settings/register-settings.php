@@ -44,9 +44,9 @@ function dntly_get_settings() {
         $general_settings = is_array( get_option( 'dntly_settings_general' ) )    ? get_option( 'dntly_settings_general' )      : array();
         $email_settings   = is_array( get_option( 'dntly_settings_email' ) )       ? get_option( 'dntly_settings_email' )         : array();
         $sync_settings    = is_array( get_option( 'dntly_settings_sync' ) )       ? get_option( 'dntly_settings_sync' )         : array();
-        $misc_settings    = is_array( get_option( 'dntly_settings_misc' ) )       ? get_option( 'dntly_settings_misc' )         : array();
+        $forms_settings    = is_array( get_option( 'dntly_settings_forms' ) )       ? get_option( 'dntly_settings_forms' )         : array();
 
-        $settings = array_merge( $general_settings, $email_settings, $sync_settings, $misc_settings );
+        $settings = array_merge( $general_settings, $email_settings, $sync_settings, $forms_settings );
 
         update_option( 'dntly_settings', $settings );
     }
@@ -278,57 +278,66 @@ function dntly_get_registered_settings() {
             )
         ),
         /** Misc Settings */
-        'misc' => apply_filters('dntly_settings_misc',
+        'forms' => apply_filters('dntly_settings_forms',
             array(
-                'disable_ajax_cart' => array(
-                    'id' => 'disable_ajax_cart',
-                    'name' => __( 'Disable Ajax', 'dntly' ),
-                    'desc' => __( 'Check this to disable AJAX for the shopping cart.', 'dntly' ),
+                'global_form_settings' => array(
+                    'id' => 'global_form_settings',
+                    'name' => '<strong>' . __( 'Global Form Settings', 'dntly' ) . '</strong>',
+                    'desc' => '<em>' . __( 'These are the default settings for your form. You can override them with your shortcode if you want.', 'dntly') . '</em>',
+                    'type' => 'header'
+                ),
+                'donately_address' => array(
+                    'id' => 'donately_address',
+                    'name' => __( 'Show address ields', 'dntly' ),
+                    'desc' => __( 'Check this to show the address field.', 'dntly' ),
                     'type' => 'checkbox'
                 ),
-                'redirect_on_add' => array(
-                    'id' => 'redirect_on_add',
-                    'name' => __( 'Redirect to Checkout', 'dntly' ),
-                    'desc' => __( 'Immediately redirect to checkout after adding an item to the cart?', 'dntly' ),
+                'donately_phone' => array(
+                    'id' => 'donately_phone',
+                    'name' => __( 'Show phone number field', 'dntly' ),
+                    'desc' => __( 'Check this to show the phone number field.', 'dntly' ),
                     'type' => 'checkbox'
                 ),
-                'live_cc_validation' => array(
-                    'id' => 'live_cc_validation',
-                    'name' => __( 'Disable Live Credit Card Validation', 'dntly' ),
-                    'desc' => __( 'Live credit card validation means that that card type and number will be validated as the customer enters the number.', 'dntly' ),
+                'donately_comment' => array(
+                    'id' => 'donately_comment',
+                    'name' => __( 'Show the comment field', 'dntly' ),
+                    'desc' => __( 'Check this to show the comment field.', 'dntly' ),
                     'type' => 'checkbox'
                 ),
-                'logged_in_only' => array(
-                    'id' => 'logged_in_only',
-                    'name' => __( 'Disable Guest Checkout', 'dntly' ),
-                    'desc' => __( 'Require that users be logged-in to purchase files.', 'dntly' ),
+                'donately_onbehalf' => array(
+                    'id' => 'donately_onbehalf',
+                    'name' => __( 'Show the "on-behalf-of field"', 'dntly' ),
+                    'desc' => __( 'Check this to allow supports to donate on behlaf of someone.', 'dntly' ),
                     'type' => 'checkbox'
                 ),
-                'show_register_form' => array(
-                    'id' => 'show_register_form',
-                    'name' => __( 'Show Register / Login Form?', 'dntly' ),
-                    'desc' => __( 'Display the registration and login forms on the checkout page for non-logged-in users.', 'dntly' ),
+                'donately_ssl' => array(
+                    'id' => 'donately_ssl',
+                    'name' => __( 'Donately SSL', 'dntly' ),
+                    'desc' => __( 'Check this to output standard HTML markup.', 'dntly' ) . '<strong>' . __( ' Warning, you MUST have an SSL Certificiate installed', 'dntly' ) . '</strong>',
                     'type' => 'checkbox'
                 ),
-                'item_quantities' => array(
-                    'id' => 'item_quantities',
-                    'name' => __('Item Quantities', 'dntly' ),
-                    'desc' => __('Allow item quantities to be changed at checkout.', 'dntly' ),
+                'donately_css' => array(
+                    'id' => 'donately_css',
+                    'name' => __('Custom CSS', 'dntly' ),
+                    'desc' => __('Paste a URL to your custom CSS file. ', 'dntly' ),
+                    'type' => 'text',
+                    'size'  => 'regular',
+                    'std' => ''
+                ),
+                'donately_embed_css' => array(
+                    'id' => 'donately_embed_css',
+                    'name' => __('Embed Your CSS', 'dntly' ),
+                    'desc' => __('If you have your own css, we recommend you check this and embed your CSS directly into our form.', 'dntly' ),
                     'type' => 'checkbox'
                 ),
-                'allow_multiple_discounts' => array(
-                    'id' => 'allow_multiple_discounts',
-                    'name' => __('Multiple Discounts', 'dntly' ),
-                    'desc' => __('Allow customers to use multiple discounts on the same purchase?', 'dntly' ),
-                    'type' => 'checkbox'
+                'donately_tracking_codes' => array(
+                    'id' => 'donately_tracking_codes',
+                    'name' => __( 'Donately Tracking Codes', 'dntly' ),
+                    'desc' => __( 'Paste your tracking code here and it will get loaded into the form.', 'dntly' ),
+                    'type' => 'textarea',
+                    'std'   => ''
                 ),
-                'disable_cart_saving' => array(
-                    'id' => 'disable_cart_saving',
-                    'name' => __( 'Disable Cart Saving', 'dntly' ),
-                    'desc' => __( 'Check this to disable cart saving on the checkout', 'dntly' ),
-                    'type' => 'checkbox'
-                ),
-                'field_downloads' => array(
+                /*'field_downloads' => array(
                     'id' => 'field_downloads',
                     'name' => '<strong>' . __( 'File Downloads', 'dntly' ) . '</strong>',
                     'desc' => '',
@@ -419,7 +428,7 @@ function dntly_get_registered_settings() {
                     'name' => __( 'Add to Cart Text', 'dntly' ),
                     'desc' => __( 'Text shown on the Add to Cart Buttons', 'dntly' ),
                     'type' => 'text'
-                )
+                )*/
             )
         )
     );
@@ -437,7 +446,8 @@ function dntly_get_registered_settings() {
  * @return void
  */
 function dntly_header_callback( $args ) {
-    echo '';
+    $html = '<label for="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']"> '  . $args['desc'] . '</label>';
+    echo $html;
 }
 
 /**
@@ -886,7 +896,7 @@ function dntly_get_settings_tabs() {
     $tabs['general'] = __( 'General', 'dntly' );
     $tabs['email']   = __( 'Email', 'dntly' );
     $tabs['sync']    = __( 'Sync', 'dntly' );
-    $tabs['misc']    = __( 'Misc', 'dntly' );
+    $tabs['forms']    = __( 'Forms', 'dntly' );
 
     return apply_filters( 'dntly_settings_tabs', $tabs );
 }
