@@ -896,7 +896,7 @@ function dntly_get_settings_tabs() {
     $tabs['general'] = __( 'General', 'dntly' );
     $tabs['email']   = __( 'Email', 'dntly' );
     $tabs['sync']    = __( 'Sync', 'dntly' );
-    $tabs['forms']    = __( 'Forms', 'dntly' );
+    $tabs['forms']   = __( 'Forms', 'dntly' );
 
     return apply_filters( 'dntly_settings_tabs', $tabs );
 }
