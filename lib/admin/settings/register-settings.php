@@ -179,6 +179,30 @@ function dntly_get_registered_settings() {
                         1 => __( 'Private', 'dntly' )
                     )
                 ),
+                'campaign_slug' => array(
+                    'id' => 'campaign_slug',
+                    'name' => __( dntly_campaigns_get_label_plural() . ' URL Slug', 'dntly' ),
+                    'desc' => __( 'Enter the slug you would like to use for your ' . strtolower( dntly_campaigns_get_label_plural() ) . '.'  , 'dntly' ),
+                    'type' => 'text',
+                    'size' => 'medium',
+                    'std' => strtolower( dntly_campaigns_get_label_plural() )
+                ),
+                'campaigns_label_plural' => array(
+                    'id' => 'campaigns_label_plural',
+                    'name' => __( dntly_campaigns_get_label_plural() . ' Label Plural', 'dntly' ),
+                    'desc' => __( 'Enter the label you would like to use for your ' . strtolower( dntly_campaigns_get_label_plural() ) . '.', 'dntly' ),
+                    'type' => 'text',
+                    'size' => 'medium',
+                    'std' => dntly_campaigns_get_label_plural()
+                ),
+                'campaigns_label_singular' => array(
+                    'id' => 'campaigns_label_singular',
+                    'name' => __( dntly_campaigns_get_label_singular() . ' Label Singular', 'dntly' ),
+                    'desc' => __( 'Enter the label you would like to use for your ' . strtolower( dntly_campaigns_get_label_singular() ) . '.', 'dntly' ),
+                    'type' => 'text',
+                    'size' => 'medium',
+                    'std' => dntly_campaigns_get_label_singular()
+                ),
                 'donation_page' => array(
                     'id' => 'donation_page',
                     'name' => __( 'Donation Page', 'dntly' ),

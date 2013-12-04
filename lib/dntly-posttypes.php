@@ -19,9 +19,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @return void
  */
 function setup_dntly_campaign_post_types() {
-
+    global $dntly_settings;
     $archives = defined( 'DNTLY_CAMPAIGNS_DISABLE_ARCHIVE' ) && DNTLY_CAMPAIGNS_DISABLE_ARCHIVE ? false : true;
-    $slug     = defined( 'DNTLY_CAMPAIGNS_SLUG' ) ? DNTLY_CAMPAIGNS_SLUG : 'campaigns';
+
+    if( !empty( $dntly_settings['campaign_slug'] ) ) {
+        $slug = defined( 'DNTLY_CAMPAIGNS_SLUG' ) ? DNTLY_CAMPAIGNS_SLUG : $dntly_settings['campaign_slug'];
+    } else {
+        $slug = defined( 'DNTLY_CAMPAIGNS_SLUG' ) ? DNTLY_CAMPAIGNS_SLUG : 'campaigns';
+    }
+
     $rewrite  = defined( 'DNTLY_CAMPAIGNS_DISABLE_REWRITE' ) && DNTLY_CAMPAIGNS_DISABLE_REWRITE ? false : array('slug' => $slug, 'with_front' => false);
 
     $dntly_campaign_labels =  apply_filters( 'dntly_campaign_labels', array(
@@ -71,10 +77,20 @@ add_action( 'init', 'setup_dntly_campaign_post_types', 1 );
  * @return array $defaults Default labels
  */
 function dntly_campaigns_get_default_labels() {
-    $defaults = array(
-       'singular' => __( 'Campaign', 'dntly' ),
-       'plural' => __( 'Campaigns', 'dntly')
-    );
+    global $dntly_settings;
+
+    if( !empty( $dntly_settings['campaigns_label_plural'] ) || !empty( $dntly_settings['campaigns_label_singular'] ) ) {
+        $defaults = array(
+           'singular' => $dntly_settings['campaigns_label_singular'],
+           'plural' => $dntly_settings['campaigns_label_plural']
+        );
+
+    } else{
+        $defaults = array(
+           'singular' => __( 'Campaign', 'dntly' ),
+           'plural' => __( 'Campaigns', 'dntly')
+        );        
+    }
     return apply_filters( 'dntly_campaigns_default_name', $defaults );
 }
 
