@@ -277,6 +277,10 @@ function dntly_get_registered_settings() {
                 ),                
             )
         ),
+        /** Fundraiser Settings */
+        'fundraisers' => apply_filters( 'dntly_settings_fundraiser',
+            array()
+        ),
         /** Misc Settings */
         'forms' => apply_filters('dntly_settings_forms',
             array(

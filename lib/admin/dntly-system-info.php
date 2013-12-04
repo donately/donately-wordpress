@@ -195,7 +195,6 @@ do_action( 'dntly_system_info_after' );
                 <input type="hidden" name="dntly-action" value="download_sysinfo" />
                 <?php submit_button( __( 'Download System Info File', 'dntly' ), 'primary', 'dntly-download-sysinfo', false ); ?>
             </p>
-            <p class="hint"><storng>@TODO:</storng> Download isn't working yet</p>
         </form>
         </div>
     </div>
@@ -215,6 +214,6 @@ function dntly_generate_sysinfo_download() {
     header( 'Content-Disposition: attachment; filename="dntly-system-info.txt"' );
 
     echo wp_strip_all_tags( $_POST['dntly-sysinfo'] );
-    wp_die('wah');
+    //wp_die();
 }
 add_action( 'dntly_download_sysinfo', 'dntly_generate_sysinfo_download' );
