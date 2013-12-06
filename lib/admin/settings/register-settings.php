@@ -292,7 +292,7 @@ function dntly_get_registered_settings() {
                 ),
                 'donately_address' => array(
                     'id' => 'donately_address',
-                    'name' => __( 'Show address ields', 'dntly' ),
+                    'name' => __( 'Show address fields', 'dntly' ),
                     'desc' => __( 'Check this to show the address field.', 'dntly' ),
                     'type' => 'checkbox'
                 ),
