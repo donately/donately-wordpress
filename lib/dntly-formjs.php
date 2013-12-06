@@ -11,11 +11,11 @@
 
 
 
-  $dntly = new DNTLY_API;
+/*  $dntly = new DNTLY_API;
   $form_js_url = ( isset($dntly->dntly_options['environment']) ? $dntly->api_scheme[$dntly->dntly_options['environment']] : $dntly->api_scheme['production'] ) . '://';
-  $form_js_url .= $dntly->api_subdomain . '.' . ( isset($dntly->dntly_options['environment']) ? $dntly->api_domain[$dntly->dntly_options['environment']] : $dntly->api_domain['production'] ) . '/assets/js/v1/form.js';
+  $form_js_url .= $dntly->api_subdomain . '.' . ( isset($dntly->dntly_options['environment']) ? $dntly->api_domain[$dntly->dntly_options['environment']] : $dntly->api_domain['production'] ) . '/assets/js/v1/form.js';*/
 ?>
-<script class="donately-formjs" src='<?php print $form_js_url ?>' type='text/javascript' async='async'
+<!-- <script class="donately-formjs" src='<?php print $form_js_url ?>' type='text/javascript' async='async'
   data-donately-id='<?php print ( isset( $account ) ? $account : $dntly->dntly_options['account_id'] ) ?>'
   data-donately-campaign-id='<?php print (isset($campaign)?$campaign:'0') ?>'
   data-donately-fundraiser-id='<?php print (isset($fundraiser)?$fundraiser:'0') ?>'
@@ -33,4 +33,4 @@
   data-donately-embed-css='<?php print (isset($embed_css)?(bool)$embed_css:'') ?>'
   data-donately-tracking-codes='<?php print (isset($tracking_codes)?$tracking_codes:'') ?>'
   data-donately-dont-send-receipt-email='<?php print (isset($dont_send_receipt_email)?(bool)$dont_send_receipt_email:'false') ?>' >
-</script>
+</script> -->
