@@ -31,7 +31,6 @@ function dntly_donation_form( $atts, $content = null )
 
     ob_start();
     ?>
-    what the hell
     <script src="https://www.dntly.com/assets/js/v1/form.js"
       data-donately-id="1" 
       data-donately-campaign-id="<?php echo $campaign_id; ?>" 

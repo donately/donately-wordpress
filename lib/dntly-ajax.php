@@ -19,10 +19,10 @@ function dntly_ajax_methods()
    */
   function dntly_get_accounts()
   {
-    $dntly      = new DNTLY_API;
-    $dntly_data = $dntly->get_accounts();
+    $dntly          = new DNTLY_API;
+    $dntly_accounts = $dntly->get_accounts();
 
-    return $dntly_data->accounts;
+    return $dntly_accounts->accounts;
   }
   add_action( 'wp_ajax_dntly_get_accounts', 'dntly_get_accounts' );
 
