@@ -684,11 +684,11 @@ class DNTLY_API {
       'post_status'    => array( 'publish', 'private', 'draft', 'pending', 'future', 'pending'), // essentially match any not in the trash
       'meta_query'     => array(
         array(
-          'key'   => '_dntly_id',
+          'key'   => 'dntly_campaign_id',
           'value' => $campaign->id
         ),
         array(
-          'key'   => '_dntly_environment',
+          'key'   => 'dntly_environment',
           'value' => $this->dntly_settings['environment'],
         )
       ))
@@ -707,10 +707,10 @@ class DNTLY_API {
         'post_type'     => 'dntly_campaigns',
         'post_title'    => $campaign->title,
         'post_content'  => $campaign->description,
-        'post_status'   => ($this->dntly_settings['sync_to_private']?'private':'publish'),
+        'post_status'   => ( $this->dntly_settings['sync_to_private'] ? 'private' : 'publish' ),
       );
       // Set post ID and run wp_insert_post (inserts post in the database and sanitize variables)
-      $post_id = wp_insert_post($post_params);
+      $post_id = wp_insert_post( $post_params );
 
       // If campaign photo has http (stristr finds first occurence of substring in a string), set the $image var 
       if ( (stristr($campaign->photo->original, 'http')) ) {
@@ -754,13 +754,35 @@ class DNTLY_API {
       $trans_type = "add";
     }
 
+    $campaign_photo_original = (stristr($campaign->photo->original, 'http') ? $campaign->photo->original : '');
+    
     // Update various _dntly_* meta
-    update_post_meta($post_id, '_dntly_data', $_dntly_data);
-    update_post_meta($post_id, '_dntly_id', $campaign->id );
-    update_post_meta($post_id, '_dntly_account_id', $account_id);
-    update_post_meta($post_id, '_dntly_environment', $this->dntly_settings['environment']);
-    update_post_meta($post_id, '_dntly_amount_raised', $campaign->amount_raised);
-    update_post_meta($post_id, '_dntly_goal', $campaign->campaign_goal);
+    //update_post_meta($post_id, '_dntly_data', $_dntly_data); BM: Moving away from an array to individual keys
+    //update_post_meta($post_id, '_dntly_id', $campaign->id ); BM: Changing to dntly_campaign_id
+    //Account Related
+    update_post_meta( $post_id, 'dntly_account_id', $account_id);
+    update_post_meta( $post_id, 'dntly_environment', $this->dntly_settings['environment'] );
+
+    //Campaign Related
+    update_post_meta( $post_id, 'dntly_campaign_id', $campaign->id );
+    update_post_meta( $post_id, 'dntly_campaign_goal', $campaign->campaign_goal );
+    update_post_meta( $post_id, 'dntly_donations_count', $campaign->donations_count );
+    update_post_meta( $post_id, 'dntly_donors_count', $campaign->donors_count );
+    update_post_meta( $post_id, 'dntly_amount_raised', $campaign->amount_raised );
+    update_post_meta( $post_id, 'dntly_amount_raised_in_cents', $campaign->amount_raised_in_cents );
+    update_post_meta( $post_id, 'dntly_percent_funded', $campaign->percent_funded );
+    update_post_meta( $post_id, 'dntly_photo_original', $campaign_photo_original );
+
+
+    
+    
+    
+    
+
+    /*
+    
+      'photo_original'         => ),
+     */
 
     // Return campaign array
     return array('add' => ($count_campaigns['add']+($trans_type=='add'?1:0)), 'update' => ($count_campaigns['update']+($trans_type=='update'?1:0)), 'skip' => $count_campaigns['skip']);

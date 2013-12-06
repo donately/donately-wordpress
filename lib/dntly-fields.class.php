@@ -24,11 +24,23 @@ class DNTLY_FIELDS {
     global $post;
 
     // dntly fields
-    $this->dntly_data         = get_post_meta( $post->ID, '_dntly_data', true );
-    $this->dntly_camp_id      = get_post_meta( $post->ID, '_dntly_id', true );
-    $this->dntly_campaign_id  = get_post_meta( $post->ID, '_dntly_campaign_id', true );
-    $this->dntly_account_id   = get_post_meta( $post->ID, '_dntly_account_id', true );
-    $this->dntly_environment  = get_post_meta( $post->ID, '_dntly_environment', true );
+    // $this->dntly_data         = get_post_meta( $post->ID, '_dntly_data', true );
+    // $this->dntly_camp_id      = get_post_meta( $post->ID, '_dntly_id', true );
+    // $this->dntly_campaign_id  = get_post_meta( $post->ID, '_dntly_campaign_id', true );
+    // $this->dntly_account_id   = get_post_meta( $post->ID, '_dntly_account_id', true );
+    // $this->dntly_environment  = get_post_meta( $post->ID, '_dntly_environment', true );
+    
+    $this->dntly_environment            = get_post_meta( $post->ID, 'dntly_environment', true );
+    
+    $this->dntly_account_id             = get_post_meta( $post->ID, 'dntly_account_id', true );
+    $this->dntly_campaign_id            = get_post_meta( $post->ID, 'dntly_campaign_id', true );
+    $this->dntly_campaign_goal          = get_post_meta( $post->ID, 'dntly_campaign_goal', true );
+    $this->dntly_donations_count        = get_post_meta( $post->ID, 'dntly_donations_count', true );
+    $this->dntly_donors_count           = get_post_meta( $post->ID, 'dntly_donors_count', true );
+    $this->dntly_amount_raised          = get_post_meta( $post->ID, 'dntly_amount_raised', true );
+    $this->dntly_amount_raised_in_cents = get_post_meta( $post->ID, 'dntly_amount_raised_in_cents', true );
+    $this->dntly_percent_funded         = get_post_meta( $post->ID, 'dntly_percent_funded', true );
+
   }
   
 
@@ -42,7 +54,17 @@ class DNTLY_FIELDS {
    */
   function dntly_data( $args = NULL )
   {
-    return $this->dntly_data;
+    $dntly_data = array(
+    'dntly_account_id'             => $this->dntly_account_id,
+    'dntly_campaign_id'            => $this->dntly_campaign_id,
+    'dntly_campaign_goal'          => $this->dntly_campaign_goal,
+    'dntly_donations_count'        => $this->dntly_donations_count,
+    'dntly_donors_count'           => $this->dntly_donors_count,
+    'dntly_amount_raised'          => $this->dntly_amount_raised,
+    'dntly_amount_raised_in_cents' => $this->dntly_amount_raised_in_cents,
+    'dntly_percent_funded'         => $this->dntly_percent_funded,
+    );
+    return $dntly_data;
   }
 
 
@@ -84,12 +106,12 @@ class DNTLY_FIELDS {
      */
   function dntly_account_title( $args = NULL )
   {
-    if ( isset($this->dntly_data['account_title']) ) {
+    /*if ( isset($this->dntly_data['account_title']) ) {
       $account_title = $this->dntly_data['account_title'];
     } else {
       $account_title = null;
     }
-    return $account_title;
+    return $account_title;*/
   }
 
   /**
@@ -117,7 +139,7 @@ class DNTLY_FIELDS {
      */
   function dntly_campaign_id( $args = NULL )
   {
-    return $this->dntly_camp_id;
+    return $this->dntly_campaign_id;
   }
 
 
@@ -138,9 +160,9 @@ class DNTLY_FIELDS {
     $currency = isset($args['currency']) ? $args['currency'] : '%i';
 
     // If 'campaign_goal' is set, set $campaign_goal as it's intval, else return 0
-    if ( isset($this->dntly_data['campaign_goal']) ) {
+    if ( isset( $this->dntly_campaign_goal ) ) {
       // if it is set and not NULL, get campaign goal integar.
-      $campaign_goal = intval($this->dntly_data['campaign_goal']);
+      $campaign_goal = intval( $this->dntly_campaign_goal );
     } else {
       // otherwise set it to zero.
       $campaign_goal = intval(0);
@@ -149,9 +171,9 @@ class DNTLY_FIELDS {
     // If format parameter is passed
     if ( $format ) {
       // Set locale
-      setlocale(LC_MONETARY, $locale);
+      setlocale( LC_MONETARY, $locale );
       // Format to USD
-      $campaign_goal_formatted = money_format($currency, $campaign_goal);
+      $campaign_goal_formatted = money_format( $currency, $campaign_goal );
       // Return the formatted goal integer
       return $campaign_goal_formatted;
     } else {
@@ -175,8 +197,8 @@ class DNTLY_FIELDS {
   function dntly_donations_count( $args = NULL )
   {     
     // If it is set and not NULL, get campaign goal integar.
-    if ( isset($this->dntly_data['donations_count']) ) {
-      $donations_count = intval($this->dntly_data['donations_count']);
+    if ( isset( $this->dntly_donations_count ) ) {
+      $donations_count = intval( $this->dntly_donations_count );
     } 
     // Otherwise set it to zero.
     else {
@@ -201,8 +223,8 @@ class DNTLY_FIELDS {
   function dntly_donors_count( $args = NULL )
   {      
     // If it is set and not NULL, get campaign goal integar.
-    if ( isset($this->dntly_data['donors_count']) ) {
-      $donors_count = intval($this->dntly_data['donors_count']);
+    if ( isset($this->dntly_donors_count ) ) {
+      $donors_count = intval( $this->dntly_donors_count );
     } 
     // Otherwise set it to zero.
     else {
@@ -228,15 +250,15 @@ class DNTLY_FIELDS {
     $locale   = isset($args['locale']) ? $args['locale'] : 'en_US';
     $currency = isset($args['currency']) ? $args['currency'] : '%i';  
 
-    if ( isset($this->dntly_data['amount_raised']) ) {
-      $amount_raised = intval($this->dntly_data['amount_raised']);
+    if ( isset( $this->dntly_amount_raised ) ) {
+      $amount_raised = intval( $this->dntly_amount_raised );
     } else {
       $amount_raised = intval(0);
     }
 
     if ( $format ) {
-      setlocale(LC_MONETARY, $locale);
-      $amount_raised_formatted = money_format($currency, $amount_raised);
+      setlocale( LC_MONETARY, $locale );
+      $amount_raised_formatted = money_format( $currency, $amount_raised );
       return $amount_raised_formatted;
     } else {
       return $amount_raised;
