@@ -57,8 +57,8 @@ class DNTLY_Welcome {
 
         // Credits Page
         add_dashboard_page(
-            __( 'Welcome to Donately for WordPress', 'dntly' ),
-            __( 'Welcome to Donately for WordPress', 'dntly' ),
+            __( 'Credits', 'dntly' ),
+            __( 'Credits', 'dntly' ),
             $this->minimum_capability,
             'dntly-credits',
             array( $this, 'credits_screen' )
@@ -125,7 +125,7 @@ class DNTLY_Welcome {
             <div class="edd-badge"><?php printf( __( 'Version %s', 'dntly' ), $display_version ); ?></div>
 
             <h2 class="nav-tab-wrapper">
-                <a href="<?php echo esc_url( add_query_arg( array( 'page' => 'dntly-dashboard' ) ) ); ?>" class="nav-tab">
+                <a href="<?php echo esc_url( add_query_arg( array( 'page' => 'dntly-dashboard' ) ), 'admin.php' ); ?>" class="nav-tab">
                     <?php _e( 'Dashboard', 'dntly') ?>
                 </a>
                 <a class="nav-tab nav-tab-active" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-dashboard' ) ) ) ); ?>">

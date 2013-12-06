@@ -214,6 +214,6 @@ function dntly_generate_sysinfo_download() {
     header( 'Content-Disposition: attachment; filename="dntly-system-info.txt"' );
 
     echo wp_strip_all_tags( $_POST['dntly-sysinfo'] );
-    //wp_die();
+    wp_die();
 }
 add_action( 'dntly_download_sysinfo', 'dntly_generate_sysinfo_download' );

@@ -30,7 +30,7 @@ function dntly_donation_form( $atts, $content = null )
     }
     $dntly_form = '<script src="https://www.dntly.com/assets/js/v1/form.js"
       data-donately-id="1" 
-      data-donately-campaign-id="1" 
+      data-donately-campaign-id="' . $campaign_id . '" 
       data-donately-address="true">
     </script>';
 

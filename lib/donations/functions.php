@@ -3,7 +3,7 @@
  * Donation Button Functions
  *
  * @package     Donately
- * @subpackage  Cart
+ * @subpackage  Donation
  * @copyright   Copyright (c) 2013, Fifty and Fifty
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0
@@ -14,7 +14,7 @@
  * Get the URL of the Checkout page
  *
  * @since 1.0.8
- * @global $dntly_settings Array of all the EDD Options
+ * @global $dntly_settings Array of all the Dntly Options
  * @param array $args Extra query args to add to the URI
  * @return mixed Full URL to the checkout page, if present | null if it doesn't exist
  */
@@ -43,4 +43,20 @@ function dntly_get_donation_page_uri( $args = array() ) {
 
 
     return apply_filters( 'dntly_get_donation_page_uri', $uri );
+}
+
+
+
+
+/**
+ * Output Donation Form
+ *
+ * @since  1.0
+ * @param  [type] $post [description]
+ * @return [type]       [description]
+ */
+function donately_form( $post )
+{
+    global $post, $dntly_settings;
+
 }

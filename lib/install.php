@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Runs on plugin install by setting up the post types, custom taxonomies,
  * flushing rewrite rules to initiate the new 'campaigns' slug and also
  * creates the plugin and populates the settings fields for those plugin
- * pages. After successful install, the user is redirected to the EDD Welcome
+ * pages. After successful install, the user is redirected to the DNTLY Welcome
  * screen.
  *
  * @since 1.0
@@ -64,7 +64,7 @@ function dntly_install() {
         );
 
         update_option( 'dntly_settings', $options );
-        update_option( 'dntly_version', EDD_VERSION );
+        update_option( 'dntly_version', DNTLY_VERSION );
 
         $activation_pages = $options;
         set_transient( '_dntly_activation_pages', $activation_pages, 30 );
@@ -80,7 +80,7 @@ function dntly_install() {
     // Add the transient to redirect
     set_transient( '_dntly_activation_redirect', true, 30 );
 }
-register_activation_hook( EDD_PLUGIN_FILE, 'dntly_install' );
+register_activation_hook( DNTLY_PLUGIN_FILE, 'dntly_install' );
 
 /**
  * Post-installation
