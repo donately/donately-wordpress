@@ -127,6 +127,7 @@ final class DNTLY {
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/admin-actions.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/dntly-admin-notices.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/admin-functions.php';
+      require_once DNTLY_PLUGIN_DIR . 'lib/admin/donations/metabox.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/dntly-admin-pages.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/dntly-dashboard-widgets.php';
       require_once DNTLY_PLUGIN_DIR . 'lib/admin/form-builder.php';
