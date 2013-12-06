@@ -134,7 +134,7 @@ function dntly_get_registered_settings() {
                 'donately_subdomain' => array(
                     'id' => 'donately_subdomain',
                     'name' => __( 'Donately Subdomain', 'dntly' ),
-                    'desc' => __( 'Enter your dntly.com subdomain name here (http://example.dntly.com - example is the subdomain.', 'dntly' ),
+                    'desc' => __( 'Enter your dntly.com subdomain name here (http://<strong>demo</strong>.dntly.com)', 'dntly' ),
                     'type' => 'text',
                     'size' => 'regular',
                     'std' => ''
