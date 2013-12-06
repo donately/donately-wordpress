@@ -103,14 +103,14 @@ class DNTLY_API {
   function request_debug( $args = NULL )
   {
     // Args/Params/Vars
-    $url       = isset($args['url']) ? $args['url'] : null;
-    $method    = isset($args['method']) ? $args['method'] : 'GET';
-    $post_vars = isset($args['post_vars']) ? $args['post_vars'] : array();
-    $token     = isset($args['token']) ? $args['token'] : null; // base64_encode($this->dntly_settings['donately_token'])
-    $timeout   = isset($args['timeout']) ? $args['timeout'] : 10;
+    $url       = isset( $args['url'] ) ? $args['url'] : null;
+    $method    = isset( $args['method'] ) ? $args['method'] : 'GET';
+    $post_vars = isset( $args['post_vars'] ) ? $args['post_vars'] : array();
+    $token     = isset( $args['token'] ) ? $args['token'] : null; // base64_encode($this->dntly_settings['donately_token'])
+    $timeout   = isset( $args['timeout'] ) ? $args['timeout'] : 10;
 
     $request_args = array(
-      'headers' => array (
+      'headers' => array(
         'Authorization' => 'Basic ' . $token,
         'sslverify'     => false
       ),
@@ -663,18 +663,18 @@ class DNTLY_API {
     $trans_type = null;
 
     // Create $_dntly_data array from the $campaign object
-    $_dntly_data = array(
-      'dntly_id'               => $campaign->id,
-      // 'account_title'          => $this->dntly_settings['account_title'],
-      'account_id'             => $account_id,
-      'campaign_goal'          => $campaign->campaign_goal,
-      'donations_count'        => $campaign->donations_count,
-      'donors_count'           => $campaign->donors_count,
-      'amount_raised'          => $campaign->amount_raised,
-      'amount_raised_in_cents' => $campaign->amount_raised_in_cents,
-      'percent_funded'         => $campaign->percent_funded,
-      'photo_original'         => (stristr($campaign->photo->original, 'http') ? $campaign->photo->original : ''),
-    );
+    // $_dntly_data = array(
+    //   'dntly_id'               => $campaign->id,
+    //   // 'account_title'          => $this->dntly_settings['account_title'],
+    //   'account_id'             => $account_id,
+    //   'campaign_goal'          => $campaign->campaign_goal,
+    //   'donations_count'        => $campaign->donations_count,
+    //   'donors_count'           => $campaign->donors_count,
+    //   'amount_raised'          => $campaign->amount_raised,
+    //   'amount_raised_in_cents' => $campaign->amount_raised_in_cents,
+    //   'percent_funded'         => $campaign->percent_funded,
+    //   'photo_original'         => (stristr($campaign->photo->original, 'http') ? $campaign->photo->original : ''),
+    // );
 
     // Does this exist in the DB already? If it does, update it.
     $post_exists = new WP_Query(
