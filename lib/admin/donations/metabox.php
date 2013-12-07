@@ -16,20 +16,8 @@ add_action('add_meta_boxes', 'dntly_add_custom_meta_box');
 // Field Array
 $prefix = 'dntly_';
 global $dntly_custom_meta_fields, $dntly_settings;
-$dntly_custom_meta_fields = array(
-/*  array(
-        'label' => 'Text Input',
-        'desc'  => 'A description for the field.',
-        'id'    => $prefix.'text',
-        'type'  => 'text'
-    ),
-    array(
-        'label' => 'Textarea',
-        'desc'  => 'A description for the field.',
-        'id'    => $prefix.'textarea',
-        'type'  => 'textarea'
-    ),*/
 
+$dntly_custom_meta_fields = array(
     array(
         'label' => 'Donately Account ID',
         'desc'  => 'This campaign is associated with this account ID.<em><strong>You cannot change this.</strong></em>',
@@ -44,7 +32,7 @@ $dntly_custom_meta_fields = array(
     ),
     array(
         'label' => 'Campaign Goal',
-        'desc'  => 'This is your campaign goal. <em><strong>You can change this on <a href="http://'. $dntly_settings["donately_subdomain"] .'.dntly.com">Donatley</a>.</strong></em>',
+        'desc'  => 'This is your campaign goal. <em><strong>You can change this on <a href="http://'. $dntly_settings["donately_subdomain"] .'.dntly.com">Donately</a>.</strong></em>',
         'id'    => $prefix.'campaign_goal',
         'type'  => 'disabled_dollar'
     ),
@@ -72,8 +60,20 @@ $dntly_custom_meta_fields = array(
         'id'    => $prefix.'donors_count',
         'type'  => 'disabled'
     ),
+    /*  array(
+            'label' => 'Text Input',
+            'desc'  => 'A description for the field.',
+            'id'    => $prefix.'text',
+            'type'  => 'text'
+        ),
+        array(
+            'label' => 'Textarea',
+            'desc'  => 'A description for the field.',
+            'id'    => $prefix.'textarea',
+            'type'  => 'textarea'
+        ),
 
-    /* array(
+         array(
         'label' => 'Gender',
         'desc'  => 'Which gender is racing?',
         'id'    => $prefix.'select',
@@ -89,7 +89,7 @@ $dntly_custom_meta_fields = array(
             )
         )
     ),
-array(
+    array(
         'label' => 'Radio Group',
         'desc'  => 'A description for the field.',
         'id'    => $prefix.'radio',
@@ -166,7 +166,7 @@ array(
             )
         )
     ),
- array(
+    array(
         'label' => 'Slider',
         'desc'  => 'A description for the field.',
         'id'    => $prefix.'slider',
@@ -175,7 +175,6 @@ array(
         'max'   => '100',
         'step'  => '5'
     ),
-
     array(
         'label' => 'Image',
         'desc'  => 'A description for the field.',

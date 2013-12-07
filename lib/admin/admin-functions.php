@@ -3,7 +3,7 @@
  * Admin Functions
  */
 
-    
+ /*   
     $dntly_settings_page = isset( $_GET['page'] ) ? $_GET['page'] : '';
     $tab_name            = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
     $settings_updated    = isset( $_GET['settings-updated'] ) ? $_GET['settings-updated'] : false;
@@ -26,3 +26,4 @@
         <?php
         echo ob_get_clean();
     }
+*/
