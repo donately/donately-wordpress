@@ -221,12 +221,12 @@ function dntly_show_custom_meta_box() {
                 switch( $field['type'] ) {
                     // disableddollar
                     case 'disabled_percent':
-                        echo '<input type="text" name="'.$field['id'].'" id="'.$field['id'].'" value="'. $meta .'%" size="10" disabled />
+                        echo '<input type="text" name="'.$field['id'].'" id="'.$field['id'].'" value="'. round((float)$meta * 100 ) . '" size="10" disabled />%
                                 <br /><span class="description">'.$field['desc'].'</span>';
                     break;
                     // disableddollar
                     case 'disabled_dollar':
-                        echo '<input type="text" name="'.$field['id'].'" id="'.$field['id'].'" value="$'.number_format( $meta ).'" size="10" disabled />
+                        echo '$<input type="text" name="'.$field['id'].'" id="'.$field['id'].'" value="'.number_format( $meta ).'" size="10" disabled />
                                 <br /><span class="description">'.$field['desc'].'</span>';
                     break;
                     // disabled

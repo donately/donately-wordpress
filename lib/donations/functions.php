@@ -184,15 +184,15 @@ function donately_form( $args=array() )
         //Start the Output Buffer
         ob_start();
         ?>
-        <ul>
-            <li>Title: <strong><?php echo get_the_title( $cid ); ?></strong></li>
-            <li>Dntly Form JS: <strong><?php echo $form_js_url; ?></strong></li>
-            <li>Account ID: <strong><?php echo dntly_get_account_id( $cid ); ?></strong></li>
-            <li>Campaign ID: <strong><?php echo dntly_get_donately_campaign_id( $cid ); ?></strong></li>
-            <li>Campagin Goal: <strong><?php echo dntly_get_campaign_goal( $cid ); ?></strong></li>
-            <li>Campaign Raised: <strong><?php echo dntly_get_amount_raised( $cid ); ?></strong></li>
-            <li>Percent Funded: <strong><?php echo dntly_get_percent_funded( $cid ); ?></strong></li>
-        </ul>
+       <!-- <ul>
+            <li>Title: <strong><?php //echo get_the_title( $cid ); ?></strong></li>
+            <li>Dntly Form JS: <strong><?php //echo $form_js_url; ?></strong></li>
+            <li>Account ID: <strong><?php //echo dntly_get_account_id( $cid ); ?></strong></li>
+            <li>Campaign ID: <strong><?php //echo dntly_get_donately_campaign_id( $cid ); ?></strong></li>
+            <li>Campagin Goal: <strong><?php //echo dntly_get_campaign_goal( $cid ); ?></strong></li>
+            <li>Campaign Raised: <strong><?php //echo dntly_get_amount_raised( $cid ); ?></strong></li>
+            <li>Percent Funded: <strong><?php //echo dntly_get_percent_funded( $cid ); ?></strong></li>
+        </ul> -->
         
        <div class="campaign alert">
         You're donating to <a href="<?php echo get_permalink( $cid ); ?>"><?php echo get_the_title( $cid ); ?></a>

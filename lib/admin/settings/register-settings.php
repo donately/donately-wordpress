@@ -323,15 +323,21 @@ function dntly_get_registered_settings() {
                 'donately_amount' => array(
                     'id' => 'donately_amount',
                     'name' => __('Default Amount', 'dntly' ),
-                    'desc' => __('Set your default amount. Otherwise it will be blank.', 'dntly' ),
+                    'desc' => __('Set your default amount. If not set, we\'ll default to 0.', 'dntly' ),
                     'type' => 'text',
                     'size'  => 'small',
                     'std' => ''
                 ),
+                'global_form_advanced_settings' => array(
+                    'id' => 'global_form_advanced_settings',
+                    'name' => '<strong>' . __( 'Advanced Form Settings', 'dntly' ) . '</strong>',
+                    'desc' => '',
+                    'type' => 'header'
+                ),
                 'donately_ssl' => array(
                     'id' => 'donately_ssl',
                     'name' => __( 'Donately SSL', 'dntly' ),
-                    'desc' => __( 'Check this to output standard HTML markup.', 'dntly' ) . '<strong>' . __( ' Warning, you MUST have an SSL Certificiate installed', 'dntly' ) . '</strong>',
+                    'desc' => __( 'Check this to output standard HTML markup.', 'dntly' ) . '<strong>' . __( ' <em>Note</em>: you MUST have an SSL Certificiate installed', 'dntly' ) . '</strong>',
                     'type' => 'checkbox'
                 ),
                 'donately_css' => array(
