@@ -311,8 +311,22 @@ function dntly_get_registered_settings() {
                 'donately_onbehalf' => array(
                     'id' => 'donately_onbehalf',
                     'name' => __( 'Show the "on-behalf-of field"', 'dntly' ),
-                    'desc' => __( 'Check this to allow supports to donate on behlaf of someone.', 'dntly' ),
+                    'desc' => __( 'Check this to allow support to donate on behlaf of someone.', 'dntly' ),
                     'type' => 'checkbox'
+                ),
+                'donately_anonymous' => array(
+                    'id' => 'donately_anonymous',
+                    'name' => __( 'Show "Donate Anonymously" field', 'dntly' ),
+                    'desc' => __( 'Check this to allow donors to contribute anonymously.', 'dntly' ),
+                    'type' => 'checkbox'
+                ),
+                'donately_amount' => array(
+                    'id' => 'donately_amount',
+                    'name' => __('Default Amount', 'dntly' ),
+                    'desc' => __('Set your default amount. Otherwise it will be blank.', 'dntly' ),
+                    'type' => 'text',
+                    'size'  => 'small',
+                    'std' => ''
                 ),
                 'donately_ssl' => array(
                     'id' => 'donately_ssl',

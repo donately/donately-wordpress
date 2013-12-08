@@ -49,49 +49,209 @@ function dntly_get_donation_page_uri( $args = array() ) {
 
 
 /**
- * Output Donation Form
+ * Output donation form.
  *
+ * Checks for global form setttings and then checks the args set in the function
+ * and then outputs the result.
  * @since  1.0
- * @param  [type] $post [description]
+ * @author  Bryan Monzon
+ * @param  array  $args accepts a series of arguments
  * @return [type]       [description]
+ * @todo  Add some actions & filter hooks to allow extensibility.
  */
-function donately_form( $post_id)
+function donately_form( $args=array() )
 {
     global $post, $dntly_settings;
 
     $dntly = new DNTLY_API;
     $form_js_url = 'http://'. $dntly->api_subdomain . '.dntly.com' . '/assets/js/v1/form.js';  //Needs to be refactored to included environment variables.
 
-    $cid = ( isset( $_GET['cid'] ) ) ? $_GET['cid'] : dntly_get_campaign_id();
-    ob_start();
-    ?>
-    <ul>
-        <li>Dntly Form JS: <strong><?php echo $form_js_url; ?></strong></li>
-        <li>Account ID: <strong><?php echo dntly_get_account_id( $cid ); ?></strong></li>
-        <li>Campaign ID: <strong><?php echo $cid; ?></strong></li>
-        <li>Campagin Goal: <strong><?php echo dntly_get_campaign_goal(); ?></strong></li>
-        <li>Campaign Raised: <strong><?php echo dntly_get_amount_raised(); ?></strong></li>
-        <li>Percent Funded: <strong><?php echo dntly_get_percent_funded(); ?></strong></li>
-    </ul>
+    //Debugging
+    // print '<pre>';
+    // print_r( $dntly_settings );
+    // print '</pre>';
     
-   <script class="donately-formjs" src='<?php echo $form_js_url; ?>' type='text/javascript' async='async'
-      data-donately-id='<?php //echo dntly_get_account_id(); ?>198'
-      data-donately-campaign-id='<?php echo $cid; ?>'
-     ></script>
-    <?php
-    $dntly_form = ob_get_clean();
+
+    /**
+     * Condtionals checking $dntly_settings first, then $args. We'll need
+     * this in the shortcode as well.
+     * @since  1.0
+     * @author  Bryan Monzon <[email]>
+     * @todo  We should refactor these conditionals
+     */
+    //Set $show_address
+    if( isset( $dntly_settings['donately_address'] ) && !isset( $args['show_address'] ) ) {
+        //If $dntly_settings is set but $args is not, use $dntly_settings
+        $show_address = $dntly_settings['donately_address'];
+    
+    }elseif( isset( $args['show_address'] ) ) {
+        // If $args is set, this overrides $dntly_settings
+        $show_address = $args['show_address'];
+    }else{
+       //If neither are set, set it to false
+        $show_address = false;
+    }
+
+
+    //Set $show_phone
+    if( isset( $dntly_settings['donately_phone'] ) && !isset( $args['show_phone'] ) ) {
+        //If $dntly_settings is set but $args is not, use $dntly_settings
+        $show_phone = $dntly_settings['donately_phone'];
+    
+    }elseif( isset( $args['show_phone'] ) ) {
+        // If $args is set, this overrides $dntly_settings
+        $show_phone = $args['show_phone'];
+
+    }else{
+        //If neither are set, set it to false
+        $show_phone = false;
+    }
+
+
+    //Set $show_comments
+    if( isset( $dntly_settings['donately_comments'] ) && !isset( $args['show_comments'] ) ) {
+        //If $dntly_settings is set but $args is not, use $dntly_settings
+        $show_comments = $dntly_settings['donately_comments'];
+    
+    }elseif( isset( $args['show_comments'] ) ) {
+        // If $args is set, this overrides $dntly_settings
+        $show_comments = $args['show_comments'];
+    }else{
+        //If neither are set, set it to false
+        $show_comments = false;
+    }
+
+
+    //Set $show_onbehalf
+    if( isset( $dntly_settings['donately_onbehalf'] ) && !isset( $args['show_onbehalf'] ) ) {
+        //If $dntly_settings is set but $args is not, use $dntly_settings
+        $show_onbehalf = $dntly_settings['donately_onbehalf'];
+    
+    }elseif( isset( $args['show_onbehalf'] ) ) {
+        // If $args is set, this overrides $dntly_settings
+        $show_onbehalf = $args['show_onbehalf'];
+
+    }else{
+        //If neither are set, set it to false
+        $show_onbehalf = false;
+    }
+
+
+    //Set $show_anonymous
+    if( isset( $dntly_settings['donately_anonymous'] ) && !isset( $args['show_anonymous'] ) ) {
+        //If $dntly_settings is set but $args is not, use $dntly_settings
+        $show_anonymous = $dntly_settings['donately_anonymous'];
+    
+    }elseif( isset( $args['show_anonymous'] ) ) {
+        // If $args is set, this overrides $dntly_settings
+        $show_anonymous = $args['show_anonymous'];
+
+    }else{
+        //If neither are set, set it to false
+        $show_anonymous = false;
+    }
+
+
+    //Set $amount
+    if( isset( $dntly_settings['donately_amount'] ) && !isset( $args['amount'] ) ) {
+        //If $dntly_settings is set but $args is not, use $dntly_settings
+        $amount = $dntly_settings['donately_amount'];
+    
+    }elseif( isset( $args['amount'] ) ) {
+        // If $args is set, this overrides $dntly_settings
+        $amount = $args['amount'];
+
+    }else{
+        //If neither are set, set it to false
+        $amount = 0;
+    }
+
+
+
+    //Set Donately Variables
+    //$show_address   = isset( $args['show_address'] ) ? $args['show_address'] : false;
+    //$show_phone     = isset( $args['show_phone'] ) ? $args['show_phone'] : false;
+    //$show_comments  = isset( $args['show_comments'] ) ? $args['show_comments'] : false;
+    //$show_onbehalf  = isset( $args['show_onbehalf'] ) ? $args['show_onbehalf'] : false;
+    //$show_anonymous = isset( $args['show_anonymous'] ) ? $args['show_anonymous'] : false;
+    //$amount         = isset( $args['amount'] ) ? $args['amount'] : 0;
+
+    $cid = ( isset( $_GET['cid'] ) ) ? $_GET['cid'] : dntly_get_donately_campaign_id();
+
+    //Check to see if the campaign ID is set. this is temporary
+    if( $cid ) {
+
+        //Start the Output Buffer
+        ob_start();
+        ?>
+        <ul>
+            <li>Title: <strong><?php echo get_the_title( $cid ); ?></strong></li>
+            <li>Dntly Form JS: <strong><?php echo $form_js_url; ?></strong></li>
+            <li>Account ID: <strong><?php echo dntly_get_account_id( $cid ); ?></strong></li>
+            <li>Campaign ID: <strong><?php echo dntly_get_donately_campaign_id( $cid ); ?></strong></li>
+            <li>Campagin Goal: <strong><?php echo dntly_get_campaign_goal( $cid ); ?></strong></li>
+            <li>Campaign Raised: <strong><?php echo dntly_get_amount_raised( $cid ); ?></strong></li>
+            <li>Percent Funded: <strong><?php echo dntly_get_percent_funded( $cid ); ?></strong></li>
+        </ul>
+        
+       <div class="campaign alert">
+        You're donating to <a href="<?php echo get_permalink( $cid ); ?>"><?php echo get_the_title( $cid ); ?></a>
+       </div> 
+
+       <script class="donately-formjs" src='<?php echo $form_js_url; ?>' type='text/javascript' async='async'
+          data-donately-id='<?php //echo dntly_get_account_id(); ?>198'
+          data-donately-campaign-id='<?php echo $cid; ?>' 
+          data-donately-address="<?php echo $show_address; ?>" 
+          data-donately-phone="<?php echo $show_phone; ?>" 
+          data-donately-comments="<?php echo $show_comments; ?>" 
+          data-donately-onbehalf="<?php echo $show_onbehalf; ?>" 
+          data-donately-anonymous="<?php echo $show_anonymous; ?>" 
+          data-donately-amount="<?php echo $amount; ?>"
+         ></script>
+        <?php
+        //Set the ob_get_clean to a variable
+        $dntly_form = ob_get_clean();
+
+    }else{
+        //If campaign ID isn't set
+         ob_start();
+         ?>
+         
+        <script class="donately-formjs" src='<?php echo $form_js_url; ?>' type='text/javascript' async='async'
+           data-donately-id='<?php //echo dntly_get_account_id(); ?>198' 
+           data-donately-address="<?php echo $show_address; ?>" 
+           data-donately-phone="<?php echo $show_phone; ?>" 
+           data-donately-comments="<?php echo $show_comments; ?>" 
+           data-donately-onbehalf="<?php echo $show_onbehalf; ?>" 
+           data-donately-anonymous="<?php echo $show_anonymous; ?>" 
+           data-donately-amount="<?php echo $amount; ?>"
+          ></script>
+
+         <?php
+
+         $dntly_form = ob_get_clean();
+
+    }
+
     echo $dntly_form;
 
 }
 
 
-function dntly_get_campaign_id()
+
+/**
+ * [dntly_get_donately_campaign_id description]
+ *
+ * Get the campaign ID.
+ * @return [string] Returns the ID of the campaign y
+ */
+function dntly_get_donately_campaign_id( $campaign_id=null)
 {
     global $post;
 
-    $dntly_campaign_meta = get_post_meta( $post->ID, 'dntly_campaign_id', true );
+    $dntly_campaign_meta = get_post_meta( $campaign_id, 'dntly_campaign_id', true );
 
-    return $dntly_campaign_meta;
+   return $dntly_campaign_meta;
 }
 
 function dntly_get_account_id()
@@ -103,34 +263,37 @@ function dntly_get_account_id()
     return $dntly_account_id;
 }
 
-function dntly_get_campaign_goal()
+function dntly_get_campaign_goal( $campaign_id = '' )
 {
     global $post;
 
-    $dntly_campaign_goal = get_post_meta( $post->ID, 'dntly_campaign_goal', true );
-
-    return '$'.number_format( $dntly_campaign_goal );
+    $dntly_campaign_goal = get_post_meta( $campaign_id, 'dntly_campaign_goal', true );
+    
+    return '$' . number_format( $dntly_campaign_goal );
 }
 
-function dntly_get_amount_raised()
+function dntly_get_amount_raised( $campaign_id= '' )
 {
     global $post;
 
-    $dntly_amount_raised = get_post_meta( $post->ID, 'dntly_amount_raised', true );
-    $dntly_amount_raised = isset( $dntly_amount_raised ) ? '$' . $dntly_amount_raised : 0;
+    $dntly_amount_raised = get_post_meta( $campaign_id, 'dntly_amount_raised', true );
+    $dntly_amount_raised = isset( $dntly_amount_raised ) ?  $dntly_amount_raised : 0;
 
-    return $dntly_amount_raised;
+    return '$' . number_format( $dntly_amount_raised );
 }
 
-function dntly_get_percent_funded()
+function dntly_get_percent_funded( $campaign_id = '')
 {
     global $post;
 
-    $dntly_percent_funded = get_post_meta( $post->ID, 'dntly_percent_funded', true );
+    $dntly_percent_funded = get_post_meta( $campaign_id, 'dntly_percent_funded', true );
     $dntly_percent_funded = round((float)$dntly_percent_funded * 100 ) . '%';
 
     return $dntly_percent_funded;
 }
+
+
+
 
 
 
