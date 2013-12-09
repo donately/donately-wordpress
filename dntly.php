@@ -111,6 +111,7 @@ final class DNTLY {
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-display-functions.php';
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-donatey-button.php';
     require_once DNTLY_PLUGIN_DIR . 'lib/donations/functions.php';
+    require_once DNTLY_PLUGIN_DIR . 'lib/widgets.php';
 
     // AJAX
     require_once DNTLY_PLUGIN_DIR . 'lib/dntly-ajax.php';

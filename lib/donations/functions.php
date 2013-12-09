@@ -196,6 +196,18 @@ function donately_form( $args=array() )
         
        <div class="campaign alert">
         You're donating to <a href="<?php echo get_permalink( $cid ); ?>"><?php echo get_the_title( $cid ); ?></a>
+       </div>
+
+       <div class="stats">
+           <div class="dntly-box amount-raised">
+               <strong>Raised:</strong> <?php echo dntly_get_amount_raised( $cid ); ?>
+           </div>
+           <div class="dntly-box campaign-goal">
+               <strong>Goal:</strong> <?php echo dntly_get_campaign_goal( $cid ); ?>
+           </div>
+           <div class="dntly-box percent-funded">
+               <strong>Percent Funded</strong> <?php echo dntly_get_percent_funded( $cid ); ?>
+           </div>
        </div> 
 
        <script class="donately-formjs" src='<?php echo $form_js_url; ?>' type='text/javascript' async='async'
