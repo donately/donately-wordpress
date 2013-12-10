@@ -45,7 +45,7 @@ class DNTLY_WIDGET extends WP_Widget
              $amount         = '';
              $ssl_true       = '';
              $custom_css     = '';
-             $embedd_css     = '';
+             $embed_css     = '';
              $tracking_codes     = '';
         }
         ?>
@@ -110,8 +110,8 @@ class DNTLY_WIDGET extends WP_Widget
         </p>
 
         <p>
-        <input id="<?php echo $this->get_field_id('embedd_css'); ?>" name="<?php echo $this->get_field_name('embedd_css'); ?>" type="checkbox" value="1" <?php checked( '1', $embedd_css ); ?> />
-        <label for="<?php echo $this->get_field_id('embedd_css'); ?>"><?php _e('Embed your css (recommended)', 'dntly'); ?></label>
+        <input id="<?php echo $this->get_field_id('embed_css'); ?>" name="<?php echo $this->get_field_name('embed_css'); ?>" type="checkbox" value="1" <?php checked( '1', $embed_css ); ?> />
+        <label for="<?php echo $this->get_field_id('embed_css'); ?>"><?php _e('Embed your css (recommended)', 'dntly'); ?></label>
         </p>
 
         <p>
@@ -148,14 +148,23 @@ class DNTLY_WIDGET extends WP_Widget
     // widget display
     function widget( $args, $instance ) {
         /* ... */
+        global $dntly_settings;
+        
         extract( $args );
         // these are the widget options
-        $title      = apply_filters('widget_title', $instance['title']);
-        $text       = $instance['text'];
-        $textarea   = $instance['textarea'];
-        $amount     = $instance['amount'];
-        $custom_css = $instance['custom_css'];
-        $tracking_codes   = $instance['tracking_codes'];
+        $title          = apply_filters('widget_title', $instance['title']);
+        $text           = $instance['text'];
+        $textarea       = $instance['textarea'];
+        $show_address   = $instance['show_address'];
+        $show_phone     = $instance['show_phone'];
+        $show_comments  = $instance['show_comments'];
+        $show_onbehalf  = $instance['show_onbehalf'];
+        $show_anonymous = $instance['show_anonymous'];
+        $ssl_true       = $instance['ssl_true'];
+        $amount         = $instance['amount'];
+        $embed_css      = $instance['embed_css'];
+        $custom_css     = $instance['custom_css'];
+        $tracking_codes = $instance['tracking_codes'];
 
         echo $before_widget;
         // Display the widget
@@ -165,65 +174,125 @@ class DNTLY_WIDGET extends WP_Widget
         if ( $title ) {
             echo $before_title . $title . $after_title;
         }
+    
+        //Set $show_address
+        if( isset( $dntly_settings['donately_address'] ) ) {
 
-        // Check if text is set
-        if( $text ) {
-            echo '<p class="dntly_text">'.$text.'</p>';
-        }
-        // Check if textarea is set
-        if( $textarea ) {
-            echo '<p class="dntly_textarea">'.$textarea.'</p>';
-        }
+            // If $dntly_settings is set but $args is not, use $dntly_settings
+            $show_address = $dntly_settings['donately_address'];
 
-        // Check if show_address is checked
-        if( $show_address AND $show_address == '1' ) {
-            echo '<p>'.__('Show address is checked', 'dntly').'</p>';
-        }
+        }elseif( isset( $instance['show_address'] ) && $instance != 0 ) {
 
-        // Check if show_phone is checked
-        if( $show_phone AND $show_phone == '1' ) {
-            echo '<p>'.__('Show phone is checked', 'dntly').'</p>';
+            // If $args is set, this overrides $dntly_settings                   
+            $show_address = $instance['show_address'];
+
+        }else{
+           
+            // If neither are set, set it to false
+            $show_address = false;
         }
 
-        // Check if show_comments is checked
-        if( $show_comments AND $show_comments == '1' ) {
-            echo '<p>'.__('Show comments is checked', 'dntly').'</p>';
+
+        //Set $show_phone
+        if( isset( $dntly_settings['donately_phone'] ) ) {
+
+            // If $dntly_settings is set but $args is not, use $dntly_settings
+            $show_phone = $dntly_settings['donately_phone'];
+
+        }elseif( isset( $instance['show_phone'] ) && $instance != 0 ) {
+
+            // If $args is set, this overrides $dntly_settings                   
+            $show_phone = $instance['show_phone'];
+
+        }else{
+           
+            // If neither are set, set it to false
+            $show_phone = false;
         }
 
-        // Check if show_onbehalf is checked
-        if( $show_onbehalf AND $show_onbehalf == '1' ) {
-            echo '<p>'.__('Show "on-behalf-of" field is checked', 'dntly').'</p>';
+
+        //Set $show_comments
+        if( isset( $dntly_settings['donately_comments'] ) ) {
+
+            // If $dntly_settings is set but $args is not, use $dntly_settings
+            $show_comments = $dntly_settings['donately_comments'];
+
+        }elseif( isset( $instance['show_comments'] ) && $instance != 0 ) {
+
+            // If $args is set, this overrides $dntly_settings                   
+            $show_comments = $instance['show_comments'];
+
+        }else{
+           
+            // If neither are set, set it to false
+            $show_comments = false;
         }
 
-        // Check if show_anoynmous is checked
-        if( $show_anoynmous AND $show_anoynmous == '1' ) {
-            echo '<p>'.__('Show anonymous field is checked', 'dntly').'</p>';
+
+        //Set $show_onbehalf
+        if( isset( $dntly_settings['donately_onbehalf'] ) ) {
+
+            // If $dntly_settings is set but $args is not, use $dntly_settings
+            $show_onbehalf = $dntly_settings['donately_onbehalf'];
+
+        }elseif( isset( $instance['show_onbehalf'] ) && $instance != 0 ) {
+
+            // If $args is set, this overrides $dntly_settings                   
+            $show_onbehalf = $instance['show_onbehalf'];
+
+        }else{
+           
+            // If neither are set, set it to false
+            $show_onbehalf = false;
         }
 
-        // Check if amount is set
-        if( $amount ) {
-            echo '<p class="dntly_amount">'.$amount.'</p>';
+
+        //Set $show_anonymous
+        if( isset( $dntly_settings['donately_anonymous'] ) ) {
+
+            // If $dntly_settings is set but $args is not, use $dntly_settings
+            $show_anonymous = $dntly_settings['donately_anonymous'];
+
+        }elseif( isset( $instance['show_anonymous'] ) && $instance != 0 ) {
+
+            // If $args is set, this overrides $dntly_settings                   
+            $show_anonymous = $instance['show_anonymous'];
+
+        }else{
+           
+            // If neither are set, set it to false
+            $show_anonymous = false;
         }
 
-        // Check if ssl_true is checked
-        if( $ssl_true AND $ssl_true == '1' ) {
-            echo '<p>'.__('SSL field is checked', 'dntly').'</p>';
+
+        //Set $amount
+        if( isset( $dntly_settings['donately_amount'] ) && !isset( $instance['amount'])) {
+            //If $dntly_settings is set but $instance is not, use $dntly_settings
+            $amount = $dntly_settings['donately_amount'];
+        
+        }elseif( !is_null( $instance['amount'] ) ) {
+            // If $instance is set, this overrides $dntly_settings
+            $amount = $instance['amount'];
+
+        }else{
+            //If neither are set, set it to false
+            $amount = 0;
         }
 
-        // Check if custom_css is set
-        if( $custom_css ) {
-            echo '<p class="dntly_custom_css">'.$custom_css.'</p>';
-        }
 
-        // Check if embed_css is checked
-        if( $embed_css AND $embed_css == '1' ) {
-            echo '<p>'.__('Embed CSS field is checked', 'dntly').'</p>';
-        }
 
-        // Check if textarea is set
-        if( $tracking_codes ) {
-            echo '<p class="dntly_tracking_codes">'.$tracking_codes.'</p>';
-        }
+        $donately_args = array(
+            'show_address'   => $show_address,
+            'show_phone'     => $show_phone,
+            'show_comments'  => $show_comments,
+            'show_onbehalf'  => $show_onbehalf,
+            'show_anonymous' => $show_anonymous,
+            'amount'         => $amount,
+        );
+        
+        donately_form( $donately_args );
+
+        
 
         echo '</div>';
         echo $after_widget;
