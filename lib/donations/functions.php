@@ -167,6 +167,36 @@ function donately_form( $args=array() )
     }
 
 
+    //Set $width
+    if( isset( $dntly_settings['donately_width'] ) && !isset( $args['width'] ) ) {
+        //If $dntly_settings is set but $args is not, use $dntly_settings
+        $width = $dntly_settings['donately_width'];
+    
+    }elseif( isset( $args['width'] ) ) {
+        // If $args is set, this overrides $dntly_settings
+        $width = $args['width'];
+
+    }else{
+        //If neither are set, set it to false
+        $width = '';
+    }
+
+
+    //Set $width
+    if( isset( $dntly_settings['donately_height'] ) && !isset( $args['height'] ) ) {
+        //If $dntly_settings is set but $args is not, use $dntly_settings
+        $height = $dntly_settings['donately_height'];
+    
+    }elseif( isset( $args['height'] ) ) {
+        // If $args is set, this overrides $dntly_settings
+        $height = $args['height'];
+
+    }else{
+        //If neither are set, set it to false
+        $height = '';
+    }
+
+
 
     //Set Donately Variables
     //$show_address   = isset( $args['show_address'] ) ? $args['show_address'] : false;
@@ -218,8 +248,11 @@ function donately_form( $args=array() )
           data-donately-comments="<?php echo $show_comments; ?>" 
           data-donately-onbehalf="<?php echo $show_onbehalf; ?>" 
           data-donately-anonymous="<?php echo $show_anonymous; ?>" 
-          data-donately-amount="<?php echo $amount; ?>"
+          data-donately-amount="<?php echo $amount; ?>" 
+          data-donately-iframe-width="<?php echo $width; ?>" 
+          data-donately-iframe-height="<?php echo $height; ?>"
          ></script>
+
         <?php
         //Set the ob_get_clean to a variable
         $dntly_form = ob_get_clean();
@@ -236,7 +269,9 @@ function donately_form( $args=array() )
            data-donately-comments="<?php echo $show_comments; ?>" 
            data-donately-onbehalf="<?php echo $show_onbehalf; ?>" 
            data-donately-anonymous="<?php echo $show_anonymous; ?>" 
-           data-donately-amount="<?php echo $amount; ?>"
+           data-donately-amount="<?php echo $amount; ?>" 
+           data-donately-iframe-width="<?php echo $width; ?>"
+           data-donately-iframe-height="<?php echo $height; ?>"
           ></script>
 
          <?php

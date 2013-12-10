@@ -361,6 +361,22 @@ function dntly_get_registered_settings() {
                     'type' => 'textarea',
                     'std'   => ''
                 ),
+                'donately_width' => array(
+                    'id' => 'donately_width',
+                    'name' => __('Custom Width', 'dntly' ),
+                    'desc' => __('px. Set the width of your form in pixels.', 'dntly' ),
+                    'type' => 'text',
+                    'size'  => 'small',
+                    'std' => ''
+                ),
+                'donately_height' => array(
+                    'id' => 'donately_height',
+                    'name' => __('Default height', 'dntly' ),
+                    'desc' => __('px. Set the height of your form in pixels.', 'dntly' ),
+                    'type' => 'text',
+                    'size'  => 'small',
+                    'std' => ''
+                ),
                 /*'field_downloads' => array(
                     'id' => 'field_downloads',
                     'name' => '<strong>' . __( 'File Downloads', 'dntly' ) . '</strong>',

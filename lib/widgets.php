@@ -280,7 +280,9 @@ class DNTLY_WIDGET extends WP_Widget
         }
 
 
-
+        /**
+         * Set up the arguments for donately_form();
+         */
         $donately_args = array(
             'show_address'   => $show_address,
             'show_phone'     => $show_phone,
@@ -289,10 +291,8 @@ class DNTLY_WIDGET extends WP_Widget
             'show_anonymous' => $show_anonymous,
             'amount'         => $amount,
         );
-        
-        donately_form( $donately_args );
 
-        
+        donately_form( $donately_args );
 
         echo '</div>';
         echo $after_widget;
