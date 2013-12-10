@@ -20,8 +20,6 @@ class DNTLY_WIDGET extends WP_Widget
         // Check values
         if( $instance ) {
              $title          = esc_attr($instance['title'] );
-             $text           = esc_attr($instance['text'] );
-             $textarea       = esc_textarea($instance['textarea'] );
              $show_address   = esc_attr( $instance['show_address']);
              $show_phone     = esc_attr( $instance['show_phone']);
              $show_comments  = esc_attr( $instance['show_comments']);
@@ -32,11 +30,11 @@ class DNTLY_WIDGET extends WP_Widget
              $custom_css     = esc_attr($instance['custom_css'] );
              $embed_css      = esc_attr( $instance['embed_css']);
              $tracking_codes = esc_textarea($instance['tracking_codes'] );
+             $width          = esc_attr($instance['width'] );
+             $height         = esc_attr($instance['height'] );
 
         } else {
              $title          = '';
-             $text           = '';
-             $textarea       = '';
              $show_address   = '';
              $show_phone     = '';
              $show_comments  = '';
@@ -45,26 +43,18 @@ class DNTLY_WIDGET extends WP_Widget
              $amount         = '';
              $ssl_true       = '';
              $custom_css     = '';
-             $embed_css     = '';
-             $tracking_codes     = '';
+             $embed_css      = '';
+             $tracking_codes = '';
+             $width          = '';
+             $height         = '';
         }
         ?>
         
         <p><strong>Basic Settings</strong></p>
         <p>These settings will override the ones set in your settings panel. They are all optional.</p>
         <p>
-        <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Form Title', 'dntly'); ?></label>
+        <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'dntly'); ?></label>
         <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
-        </p>
-
-        <p>
-        <label for="<?php echo $this->get_field_id('text'); ?>"><?php _e('Text:', 'dntly'); ?></label>
-        <input class="widefat" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>" type="text" value="<?php echo $text; ?>" />
-        </p>
-
-        <p>
-        <label for="<?php echo $this->get_field_id('textarea'); ?>"><?php _e('Textarea:', 'dntly'); ?></label>
-        <textarea class="widefat" id="<?php echo $this->get_field_id('textarea'); ?>" name="<?php echo $this->get_field_name('textarea'); ?>"><?php echo $textarea; ?></textarea>
         </p>
 
         <p>
@@ -119,6 +109,20 @@ class DNTLY_WIDGET extends WP_Widget
         <textarea class="widefat" id="<?php echo $this->get_field_id('tracking_codes'); ?>" name="<?php echo $this->get_field_name('tracking_codes'); ?>"><?php echo $tracking_codes; ?></textarea>
         </p>
 
+        <p style="display:block; clear:both;"></p>
+        <div style="width:100px; float:left;">
+            <label for="<?php echo $this->get_field_id('width'); ?>"><?php _e('Width:', 'dntly'); ?></label>
+            <input style="width:100px;" id="<?php echo $this->get_field_id('width'); ?>" name="<?php echo $this->get_field_name('width'); ?>" type="text" value="<?php echo $width; ?>" />
+        </div>
+        <div style="width:100px; float:right;">
+            <label for="<?php echo $this->get_field_id('height'); ?>"><?php _e('Height:', 'dntly'); ?></label>
+            <input style="width:100px;" id="<?php echo $this->get_field_id('height'); ?>" name="<?php echo $this->get_field_name('height'); ?>" type="text" value="<?php echo $height; ?>" />
+        </div>
+        <p style="display:block; clear:both;"></p>
+
+
+        
+
     <?php
     }
 
@@ -129,8 +133,6 @@ class DNTLY_WIDGET extends WP_Widget
         $instance = $old_instance;
              // Fields
              $instance['title']          = strip_tags( $new_instance['title'] );
-             $instance['text']           = strip_tags( $new_instance['text'] );
-             $instance['textarea']       = strip_tags( $new_instance['textarea'] );
              $instance['show_address']   = strip_tags( $new_instance['show_address'] );
              $instance['show_phone']     = strip_tags( $new_instance['show_phone'] );
              $instance['show_comments']  = strip_tags( $new_instance['show_comments'] );
@@ -141,6 +143,8 @@ class DNTLY_WIDGET extends WP_Widget
              $instance['custom_css']     = strip_tags( $new_instance['custom_css'] );
              $instance['embed_css']      = strip_tags( $new_instance['embed_css'] );
              $instance['tracking_codes'] = strip_tags( $new_instance['tracking_codes'] );
+             $instance['width']          = strip_tags( $new_instance['width'] );
+             $instance['height']         = strip_tags( $new_instance['height'] );
 
             return $instance;
     }
@@ -153,8 +157,6 @@ class DNTLY_WIDGET extends WP_Widget
         extract( $args );
         // these are the widget options
         $title          = apply_filters('widget_title', $instance['title']);
-        $text           = $instance['text'];
-        $textarea       = $instance['textarea'];
         $show_address   = $instance['show_address'];
         $show_phone     = $instance['show_phone'];
         $show_comments  = $instance['show_comments'];
@@ -165,6 +167,8 @@ class DNTLY_WIDGET extends WP_Widget
         $embed_css      = $instance['embed_css'];
         $custom_css     = $instance['custom_css'];
         $tracking_codes = $instance['tracking_codes'];
+        $width          = $instance['width'];
+        $height         = $instance['height'];
 
         echo $before_widget;
         // Display the widget
@@ -280,19 +284,53 @@ class DNTLY_WIDGET extends WP_Widget
         }
 
 
-        /**
-         * Set up the arguments for donately_form();
-         */
-        $donately_args = array(
-            'show_address'   => $show_address,
-            'show_phone'     => $show_phone,
-            'show_comments'  => $show_comments,
-            'show_onbehalf'  => $show_onbehalf,
-            'show_anonymous' => $show_anonymous,
-            'amount'         => $amount,
-        );
+        //Set $width
+        if( isset( $dntly_settings['donately_width'] ) && !isset( $instance['width'])) {
+            //If $dntly_settings is set but $instance is not, use $dntly_settings
+            $width = $dntly_settings['donately_width'];
+        
+        }elseif( !is_null( $instance['width'] ) ) {
+            // If $instance is set, this overrides $dntly_settings
+            $width = $instance['width'];
 
-        donately_form( $donately_args );
+        }else{
+            //If neither are set, set it to false
+            $width = '';
+        }
+
+
+        //Set $height
+        if( isset( $dntly_settings['donately_height'] ) && !isset( $instance['height'])) {
+            //If $dntly_settings is set but $instance is not, use $dntly_settings
+            $height = $dntly_settings['donately_height'];
+        
+        }elseif( !is_null( $instance['height'] ) ) {
+            // If $instance is set, this overrides $dntly_settings
+            $height = $instance['height'];
+
+        }else{
+            //If neither are set, set it to false
+            $height = '';
+        }
+
+
+        if( !is_page( $dntly_settings['donation_page'] ) ) {
+            /**
+             * Set up the arguments for donately_form();
+             */
+            $donately_args = array(
+                'show_address'   => $show_address,
+                'show_phone'     => $show_phone,
+                'show_comments'  => $show_comments,
+                'show_onbehalf'  => $show_onbehalf,
+                'show_anonymous' => $show_anonymous,
+                'amount'         => $amount,
+                'width'          => $width,
+                'height'         => $height
+            );
+
+            donately_form( $donately_args );
+        }
 
         echo '</div>';
         echo $after_widget;
