@@ -17,7 +17,7 @@ add_action('add_meta_boxes', 'dntly_add_custom_meta_box');
 $prefix = 'dntly_';
 global $dntly_custom_meta_fields, $dntly_settings;
 
-$dntly_custom_meta_fields = array(
+$dntly_custom_meta_fields = apply_filters( 'dntly_campaign_meta', array(
     array(
         'label' => 'Donately Account ID',
         'desc'  => 'This campaign is associated with this account ID.<em><strong>You cannot change this.</strong></em>',
@@ -187,6 +187,7 @@ $dntly_custom_meta_fields = array(
         'id'    => $prefix.'repeatable',
         'type'  => 'repeatable'
     )*/
+    )
 );
 
 

@@ -228,21 +228,11 @@ function donately_form( $args=array() )
         You're donating to <a href="<?php echo get_permalink( $cid ); ?>"><?php echo get_the_title( $cid ); ?></a>
        </div>
 
-       <div class="stats">
-           <div class="dntly-box amount-raised">
-               <strong>Raised:</strong> <?php echo dntly_get_amount_raised( $cid ); ?>
-           </div>
-           <div class="dntly-box campaign-goal">
-               <strong>Goal:</strong> <?php echo dntly_get_campaign_goal( $cid ); ?>
-           </div>
-           <div class="dntly-box percent-funded">
-               <strong>Percent Funded</strong> <?php echo dntly_get_percent_funded( $cid ); ?>
-           </div>
-       </div> 
+       <?php do_action( 'dntly_stats_bar'); ?>
 
        <script class="donately-formjs" src='<?php echo $form_js_url; ?>' type='text/javascript' async='async'
           data-donately-id='<?php //echo dntly_get_account_id(); ?>198'
-          data-donately-campaign-id='<?php echo $cid; ?>' 
+          data-donately-campaign-id='<?php echo dntly_get_donately_campaign_id( $cid ); ?>' 
           data-donately-address="<?php echo $show_address; ?>" 
           data-donately-phone="<?php echo $show_phone; ?>" 
           data-donately-comments="<?php echo $show_comments; ?>" 
@@ -339,6 +329,28 @@ function dntly_get_percent_funded( $campaign_id = '')
     return $dntly_percent_funded;
 }
 
+
+function print_dntly_stats_bar($cid)
+{
+  $cid = ( isset( $_GET['cid'] ) ) ? $_GET['cid'] : dntly_get_donately_campaign_id();
+  ob_start();
+  ?>
+  <div class="stats">
+      <div class="dntly-box amount-raised">
+          <strong>Raised:</strong> <?php echo dntly_get_amount_raised( $cid ); ?>
+      </div>
+      <div class="dntly-box campaign-goal">
+          <strong>Goal:</strong> <?php echo dntly_get_campaign_goal( $cid ); ?>
+      </div>
+      <div class="dntly-box percent-funded">
+          <strong>Percent Funded</strong> <?php echo dntly_get_percent_funded( $cid ); ?>
+      </div>
+  </div>
+  <?php
+
+  echo ob_get_clean();
+}
+add_action('dntly_stats_bar', 'print_dntly_stats_bar');
 
 
 
