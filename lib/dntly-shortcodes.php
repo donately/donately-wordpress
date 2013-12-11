@@ -13,31 +13,113 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 
-function dntly_donation_form( $atts, $content = null ) 
+function dntly_donation_form( $atts ) 
 {
     global $post, $dntly_settings;
+    
+    // print '<pre>';
+    // print_r( $dntly_settings );
+    // print '</pre>';
 
-    extract( shortcode_atts( array( 
-            'id'    =>  $post->ID
+    extract( shortcode_atts( array(
+            'campaign_id'    => '',
+            'show_address'   => false,
+            'show_phone'     => false,
+            'show_comments'  => false,
+            'show_onbehalf'  => false,
+            'show_anonymous' => false,
+            'amount'         => 0,
+            'width'          => '',
+            'height'         => ''
         ),
-        $atts, 'donation_form' )
+        $atts, 'donately_form' )
     );
-    $campaign_id = isset ( $_GET['cid'] ) ? $_GET['cid'] : null;
-    $campaign_title = get_the_title( $campaign_id );
 
-    if( isset( $campaign_id ) ) {
-        echo "You're donating to " . $campaign_title . "<br />";
+    // Set $show_address
+    if( isset( $dntly_settings['donately_address'] ) && false == $show_address ) {
+        
+        $show_address = $dntly_settings['donately_address'];
+
+    }elseif( true == $show_address ){
+        
+        $show_address = $show_address;
     }
 
-    ob_start();
-    ?>
-    <script src="https://www.dntly.com/assets/js/v1/form.js"
-      data-donately-id="1" 
-      data-donately-campaign-id="<?php echo $campaign_id; ?>" 
-      data-donately-address="true"
-    </script>';
-    <?php 
-    $dntly_form = ob_get_clean();
-    return $dntly_form;
+
+    // Set $show_phone
+    if( isset( $dntly_settings['donately_phone'] ) && false == $show_phone ) {
+        
+        $show_phone = $dntly_settings['donately_phone'];
+
+    }elseif( true == $show_phone ){
+        $show_phone = $show_phone;
+    }
+
+
+    // Set $show_comments
+    if( isset( $dntly_settings['donately_comment'] ) && false == $show_comments ) {
+        
+        $show_comments = $dntly_settings['donately_comment'];
+
+    }elseif( isset( $show_comments ) ){
+        
+        $show_comments = $show_comments;
+        
+    }
+
+    // Set $show_onbehalf
+    if( isset( $dntly_settings['donately_onbehalf'] ) && false == $show_onbehalf ) {
+        
+        $show_onbehalf = $dntly_settings['donately_onbehalf'];
+
+    }elseif( true == $show_onbehalf ){
+        
+        $show_onbehalf = $show_onbehalf;
+    }
+
+
+    // Set $amount
+    if( isset( $dntly_settings['donately_amount'] ) && $amount != 0 ) {
+        
+        $amount = $amount;
+    
+    }else{
+        
+        $amount = $dntly_settings['donately_amount'];
+    }
+
+
+    // Set $width
+    if( isset( $dntly_settings['donately_width'] ) && false == $width ) {
+        $width = $dntly_settings['donately_width'];
+
+    }elseif( true == $width ){
+        $width = $width;
+    }
+
+
+    // Set $height
+    if( isset( $dntly_settings['donately_height'] ) && false == $height ) {
+        $height = $dntly_settings['donately_height'];
+
+    }elseif( true == $height ){
+        $height = $height;
+    }
+
+
+
+    $donately_args = array(
+        'show_address'   => $show_address,
+        'show_phone'     => $show_phone,
+        'show_comments'  => $show_comments,
+        'show_onbehalf'  => $show_onbehalf,
+        'show_anonymous' => $show_anonymous,
+        'amount'         => $amount,
+        'width'          => $width,
+        'height'         => $height
+    );
+
+    echo donately_form( $donately_args );
+    
 }
-add_shortcode( 'donation_form', 'dntly_donation_form' );
+add_shortcode( 'donately_form', 'dntly_donation_form' );

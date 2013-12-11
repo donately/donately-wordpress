@@ -109,9 +109,9 @@ function donately_form( $args=array() )
 
 
     //Set $show_comments
-    if( isset( $dntly_settings['donately_comments'] ) && !isset( $args['show_comments'] ) ) {
+    if( isset( $dntly_settings['donately_comment'] ) && !isset( $args['show_comments'] ) ) {
         //If $dntly_settings is set but $args is not, use $dntly_settings
-        $show_comments = $dntly_settings['donately_comments'];
+        $show_comments = $dntly_settings['donately_comment'];
     
     }elseif( isset( $args['show_comments'] ) ) {
         // If $args is set, this overrides $dntly_settings
@@ -198,6 +198,7 @@ function donately_form( $args=array() )
 
 
 
+
     //Set Donately Variables
     //$show_address   = isset( $args['show_address'] ) ? $args['show_address'] : false;
     //$show_phone     = isset( $args['show_phone'] ) ? $args['show_phone'] : false;
@@ -214,15 +215,7 @@ function donately_form( $args=array() )
         //Start the Output Buffer
         ob_start();
         ?>
-       <!-- <ul>
-            <li>Title: <strong><?php //echo get_the_title( $cid ); ?></strong></li>
-            <li>Dntly Form JS: <strong><?php //echo $form_js_url; ?></strong></li>
-            <li>Account ID: <strong><?php //echo dntly_get_account_id( $cid ); ?></strong></li>
-            <li>Campaign ID: <strong><?php //echo dntly_get_donately_campaign_id( $cid ); ?></strong></li>
-            <li>Campagin Goal: <strong><?php //echo dntly_get_campaign_goal( $cid ); ?></strong></li>
-            <li>Campaign Raised: <strong><?php //echo dntly_get_amount_raised( $cid ); ?></strong></li>
-            <li>Percent Funded: <strong><?php //echo dntly_get_percent_funded( $cid ); ?></strong></li>
-        </ul> -->
+
         
        <div class="campaign alert">
         You're donating to <a href="<?php echo get_permalink( $cid ); ?>"><?php echo get_the_title( $cid ); ?></a>
@@ -235,7 +228,7 @@ function donately_form( $args=array() )
           data-donately-campaign-id='<?php echo dntly_get_donately_campaign_id( $cid ); ?>' 
           data-donately-address="<?php echo $show_address; ?>" 
           data-donately-phone="<?php echo $show_phone; ?>" 
-          data-donately-comments="<?php echo $show_comments; ?>" 
+          data-donately-comment="<?php echo $show_comments; ?>" 
           data-donately-onbehalf="<?php echo $show_onbehalf; ?>" 
           data-donately-anonymous="<?php echo $show_anonymous; ?>" 
           data-donately-amount="<?php echo $amount; ?>" 
@@ -256,7 +249,7 @@ function donately_form( $args=array() )
            data-donately-id='<?php //echo dntly_get_account_id(); ?>198' 
            data-donately-address="<?php echo $show_address; ?>" 
            data-donately-phone="<?php echo $show_phone; ?>" 
-           data-donately-comments="<?php echo $show_comments; ?>" 
+           data-donately-comment="<?php echo $show_comments; ?>" 
            data-donately-onbehalf="<?php echo $show_onbehalf; ?>" 
            data-donately-anonymous="<?php echo $show_anonymous; ?>" 
            data-donately-amount="<?php echo $amount; ?>" 
