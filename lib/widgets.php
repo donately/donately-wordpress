@@ -27,7 +27,7 @@ class DNTLY_WIDGET extends WP_Widget
              $show_anonymous = esc_attr( $instance['show_anonymous']);
              $amount         = esc_attr($instance['amount'] );
              $ssl_true       = esc_attr( $instance['ssl_true']);
-             $custom_css     = esc_attr($instance['custom_css'] );
+             $css_url        = esc_attr($instance['css_url'] );
              $embed_css      = esc_attr( $instance['embed_css']);
              $tracking_codes = esc_textarea($instance['tracking_codes'] );
              $width          = esc_attr($instance['width'] );
@@ -42,7 +42,7 @@ class DNTLY_WIDGET extends WP_Widget
              $show_anonymous = '';
              $amount         = '';
              $ssl_true       = '';
-             $custom_css     = '';
+             $css_url        = '';
              $embed_css      = '';
              $tracking_codes = '';
              $width          = '';
@@ -95,8 +95,8 @@ class DNTLY_WIDGET extends WP_Widget
         </p>
 
         <p>
-        <label for="<?php echo $this->get_field_id('custom_css'); ?>"><?php _e('Custom CSS URL:', 'dntly'); ?></label>
-        <input class="widefat" id="<?php echo $this->get_field_id('custom_css'); ?>" name="<?php echo $this->get_field_name('custom_css'); ?>" type="text" value="<?php echo $custom_css; ?>" />
+        <label for="<?php echo $this->get_field_id('css_url'); ?>"><?php _e('Custom CSS URL:', 'dntly'); ?></label>
+        <input class="widefat" id="<?php echo $this->get_field_id('css_url'); ?>" name="<?php echo $this->get_field_name('css_url'); ?>" type="text" value="<?php echo $css_url; ?>" />
         </p>
 
         <p>
@@ -140,7 +140,7 @@ class DNTLY_WIDGET extends WP_Widget
              $instance['show_anonymous'] = strip_tags( $new_instance['show_anonymous'] );
              $instance['amount']         = strip_tags( $new_instance['amount'] );
              $instance['ssl_true']       = strip_tags( $new_instance['ssl_true'] );
-             $instance['custom_css']     = strip_tags( $new_instance['custom_css'] );
+             $instance['css_url']        = strip_tags( $new_instance['css_url'] );
              $instance['embed_css']      = strip_tags( $new_instance['embed_css'] );
              $instance['tracking_codes'] = strip_tags( $new_instance['tracking_codes'] );
              $instance['width']          = strip_tags( $new_instance['width'] );
@@ -165,7 +165,7 @@ class DNTLY_WIDGET extends WP_Widget
         $ssl_true       = $instance['ssl_true'];
         $amount         = $instance['amount'];
         $embed_css      = $instance['embed_css'];
-        $custom_css     = $instance['custom_css'];
+        $css_url        = $instance['css_url'];
         $tracking_codes = $instance['tracking_codes'];
         $width          = $instance['width'];
         $height         = $instance['height'];
@@ -269,6 +269,39 @@ class DNTLY_WIDGET extends WP_Widget
         }
 
 
+        //Set $embed_css
+        if( isset( $dntly_settings['donately_embed_css'] ) ) {
+
+            // If $dntly_settings is set but $args is not, use $dntly_settings
+            $embed_css = $dntly_settings['donately_embed_css'];
+
+        }elseif( isset( $instance['embed_css'] ) && $instance != 0 ) {
+
+            // If $args is set, this overrides $dntly_settings                   
+            $embed_css = $instance['embed_css'];
+
+        }else{
+           
+            // If neither are set, set it to false
+            $embed_css = false;
+        }
+
+
+        //Set $css_url
+        if( isset( $dntly_settings['donately_css'] ) && !isset( $instance['css_url'])) {
+            //If $dntly_settings is set but $instance is not, use $dntly_settings
+            $css_url = $dntly_settings['donately_css'];
+        
+        }elseif( !is_null( $instance['css_url'] ) ) {
+            // If $instance is set, this overrides $dntly_settings
+            $css_url = $instance['css_url'];
+
+        }else{
+            //If neither are set, set it to false
+            $css_url = '';
+        }
+
+
         //Set $amount
         if( isset( $dntly_settings['donately_amount'] ) && !isset( $instance['amount'])) {
             //If $dntly_settings is set but $instance is not, use $dntly_settings
@@ -324,6 +357,8 @@ class DNTLY_WIDGET extends WP_Widget
                 'show_comments'  => $show_comments,
                 'show_onbehalf'  => $show_onbehalf,
                 'show_anonymous' => $show_anonymous,
+                'css_url'        => $css_url,
+                'embed_css'      => $embed_css,
                 'amount'         => $amount,
                 'width'          => $width,
                 'height'         => $height

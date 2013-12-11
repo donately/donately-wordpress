@@ -197,6 +197,36 @@ function donately_form( $args=array() )
     }
 
 
+    //Set $css_url
+    if( isset( $dntly_settings['donately_css'] ) && !isset( $args['css_url'] ) ) {
+        //If $dntly_settings is set but $args is not, use $dntly_settings
+        $css_url = $dntly_settings['donately_css'];
+    
+    }elseif( isset( $args['css_url'] ) ) {
+        // If $args is set, this overrides $dntly_settings
+        $css_url = $args['css_url'];
+
+    }else{
+        //If neither are set, set it to false
+        $css_url = '';
+    }
+
+
+    //Set $embed_css
+    if( isset( $dntly_settings['donately_embed_css'] ) && !isset( $args['embed_css'] ) ) {
+        //If $dntly_settings is set but $args is not, use $dntly_settings
+        $embed_css = $dntly_settings['donately_embed_css'];
+    
+    }elseif( isset( $args['embed_css'] ) ) {
+        // If $args is set, this overrides $dntly_settings
+        $embed_css = $args['embed_css'];
+
+    }else{
+        //If neither are set, set it to false
+        $embed_css = false;
+    }
+
+
 
 
     //Set Donately Variables
@@ -231,6 +261,8 @@ function donately_form( $args=array() )
           data-donately-comment="<?php echo $show_comments; ?>" 
           data-donately-onbehalf="<?php echo $show_onbehalf; ?>" 
           data-donately-anonymous="<?php echo $show_anonymous; ?>" 
+          data-donately-css-url="<?php echo $css_url; ?>" 
+          data-donately-embed-css="<?php echo $embed_css; ?>" 
           data-donately-amount="<?php echo $amount; ?>" 
           data-donately-iframe-width="<?php echo $width; ?>" 
           data-donately-iframe-height="<?php echo $height; ?>"
@@ -246,15 +278,17 @@ function donately_form( $args=array() )
          ?>
          
         <script class="donately-formjs" src='<?php echo $form_js_url; ?>' type='text/javascript' async='async'
-           data-donately-id='<?php //echo dntly_get_account_id(); ?>198' 
-           data-donately-address="<?php echo $show_address; ?>" 
-           data-donately-phone="<?php echo $show_phone; ?>" 
-           data-donately-comment="<?php echo $show_comments; ?>" 
-           data-donately-onbehalf="<?php echo $show_onbehalf; ?>" 
-           data-donately-anonymous="<?php echo $show_anonymous; ?>" 
-           data-donately-amount="<?php echo $amount; ?>" 
-           data-donately-iframe-width="<?php echo $width; ?>"
-           data-donately-iframe-height="<?php echo $height; ?>"
+          data-donately-id='<?php //echo dntly_get_account_id(); ?>198' 
+          data-donately-address="<?php echo $show_address; ?>" 
+          data-donately-phone="<?php echo $show_phone; ?>" 
+          data-donately-comment="<?php echo $show_comments; ?>" 
+          data-donately-onbehalf="<?php echo $show_onbehalf; ?>" 
+          data-donately-anonymous="<?php echo $show_anonymous; ?>" 
+          data-donately-css-url="<?php echo $css_url; ?>" 
+          data-donately-embed-css="<?php echo $embed_css; ?>" 
+          data-donately-amount="<?php echo $amount; ?>" 
+          data-donately-iframe-width="<?php echo $width; ?>" 
+          data-donately-iframe-height="<?php echo $height; ?>"
           ></script>
 
          <?php
