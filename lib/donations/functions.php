@@ -356,6 +356,13 @@ function dntly_get_percent_funded( $campaign_id = '')
     return $dntly_percent_funded;
 }
 
+function dntly_the_percent_funded()
+{
+  global $post;
+  $cid = isset( $_GET['cid'] ) ? $_GET['cid'] : $post->ID;
+
+  echo dntly_get_percent_funded( $cid );
+}
 
 function print_dntly_stats_bar($cid)
 {
