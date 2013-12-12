@@ -121,7 +121,7 @@ function dntly_render_campaign_fields( $post )
     <p>
         <label for="dntly_account_id">
             <input type="text" name="dntly_account_id" id="dntly_account_id" value="<?php echo $dntly_account_id; ?>" style="width:80px; cursor:not-allowed;" readonly />
-            <?php if( $dntly_account_id == 0 ) : ?><strong style="color:red;">  Link your account</strong>.  <a href="<?php echo admin_url( add_query_arg( array( 'post_type' => 'download', 'page' => 'dntly-settings' ), 'edit.php' ) ); ?>">Settings</a>
+            <?php if( $dntly_account_id == 0 ) : ?><strong style="color:red;">  Link your account</strong>.  <a href="<?php echo admin_url( add_query_arg( array( 'post_type' => 'download', 'page' => 'dntly-settings', 'tab' => 'general' ), 'admin.php' ) ); ?>">Settings</a>
             <?php else : ?>
             <?php _e( 'Donately Account ID', 'dntly' );  ?>
         <?php endif; ?>
