@@ -954,13 +954,13 @@ function dntly_get_settings_tabs() {
  * @global $dntly_settings Array of all the DNTLY Options
  * @since 1.0.8.2
  */
-function dntly_sync_campaigns_buttons() {
+function dntly_sync_campaigns_buttons( $args ) {
     global $dntly_settings;
 
     ob_start();
     ?>
     <a href="javascript:;" id="dntly-sync-campaigns" class="button-secondary" title="<?php _e( 'Sync Campaigns', 'dntly' ); ?> "><?php _e( 'Sync Campaigns', 'dntly' ); ?></a>
-    <label for="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']"> '  . $args['desc'] . '</label>
+    
     <?php
     echo ob_get_clean();
 }
@@ -976,6 +976,8 @@ add_action( 'dntly_sync_campaigns', 'dntly_sync_campaigns_buttons' );
  */
 function dntly_sync_stats_buttons() {
     global $dntly_settings;
+
+
 
     ob_start();
     ?>
