@@ -318,6 +318,12 @@ function dntly_get_donately_campaign_id( $campaign_id=null)
    return $dntly_campaign_meta;
 }
 
+/**
+ * Get the account ID from $dntly_settings
+ * @return [type] [description]
+ * @author  Bryan Monzon <bryanm@fiftyandfifty.org>
+ * @since  1.0
+ */
 function dntly_get_account_id()
 {
     global $post;
@@ -327,6 +333,15 @@ function dntly_get_account_id()
     return $dntly_account_id;
 }
 
+
+/**
+ * Function to get the campaign goal. 
+ *
+ * @since  1.0
+ * @author Bryan Monzon <[email]>
+ * @param  string $campaign_id [description]
+ * @return [type]              [description]
+ */
 function dntly_get_campaign_goal( $campaign_id = '' )
 {
     global $post;
@@ -336,6 +351,15 @@ function dntly_get_campaign_goal( $campaign_id = '' )
     return '$' . number_format( $dntly_campaign_goal );
 }
 
+
+/**
+ * Get the amount raised stored in Campaign Meta
+ *
+ * @since  1.0
+ * @author Bryan Monzon <[email]>
+ * @param  string $campaign_id [description]
+ * @return [type]              [description]
+ */
 function dntly_get_amount_raised( $campaign_id= '' )
 {
     global $post;
@@ -346,6 +370,15 @@ function dntly_get_amount_raised( $campaign_id= '' )
     return '$' . number_format( $dntly_amount_raised );
 }
 
+
+/**
+ * Get thepercent funded from Campaign Meta
+ *
+ * @since  1.0
+ * @author Bryan Monzon <[email]>
+ * @param  string $campaign_id [description]
+ * @return [type]              [description]
+ */
 function dntly_get_percent_funded( $campaign_id = '')
 {
     global $post;
@@ -356,6 +389,13 @@ function dntly_get_percent_funded( $campaign_id = '')
     return $dntly_percent_funded;
 }
 
+/**
+ * Echo the percent funded in the function
+ *
+ * @since  1.0
+ * @author Bryan Monzon <[email]>
+ * @return [type] [description]
+ */
 function dntly_the_percent_funded()
 {
   global $post;
@@ -364,27 +404,7 @@ function dntly_the_percent_funded()
   echo dntly_get_percent_funded( $cid );
 }
 
-function print_dntly_stats_bar($cid)
-{
-  $cid = ( isset( $_GET['cid'] ) ) ? $_GET['cid'] : dntly_get_donately_campaign_id();
-  ob_start();
-  ?>
-  <div class="stats">
-      <div class="dntly-box amount-raised">
-          <strong>Raised:</strong> <?php echo dntly_get_amount_raised( $cid ); ?>
-      </div>
-      <div class="dntly-box campaign-goal">
-          <strong>Goal:</strong> <?php echo dntly_get_campaign_goal( $cid ); ?>
-      </div>
-      <div class="dntly-box percent-funded">
-          <strong>Percent Funded</strong> <?php echo dntly_get_percent_funded( $cid ); ?>
-      </div>
-  </div>
-  <?php
 
-  echo ob_get_clean();
-}
-add_action('dntly_stats_bar', 'print_dntly_stats_bar');
 
 
 

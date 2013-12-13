@@ -27,7 +27,7 @@ function dntly_add_campaigns_meta_box() {
     foreach ( $post_types as $post_type ) {
 
         /** Download Configuration */
-        add_meta_box( 'campaigninfo', sprintf( __( '%1$s Configuration', 'edd' ), dntly_campaigns_get_label_singular(), dntly_campaigns_get_label_plural() ),  'dntly_render_campaigns_meta_box', $post_type, 'normal', 'default' );
+        add_meta_box( 'campaigninfo', sprintf( __( '%1$s Information', 'edd' ), dntly_campaigns_get_label_singular(), dntly_campaigns_get_label_plural() ),  'dntly_render_campaigns_meta_box', $post_type, 'normal', 'default' );
 
     }
 }
@@ -74,7 +74,7 @@ function dntly_campaigns_meta_box_save( $post_id) {
             $new = apply_filters( 'dntly_metabox_save_' . $field, $_POST[ $field ] );
             update_post_meta( $post_id, $field, $new );
         } else {
-            delete_post_meta( $post_id, $field );
+            //delete_post_meta( $post_id, $field );
         }
     }
 }
@@ -117,58 +117,60 @@ function dntly_render_campaign_fields( $post )
 
     ?>
     
-    <p><strong><?php _e( 'Campaign Information', 'dntly' ); ?></strong></p>
-    <p>
-        <label for="dntly_account_id">
-            <input type="text" name="dntly_account_id" id="dntly_account_id" value="<?php echo $dntly_account_id; ?>" style="width:80px; cursor:not-allowed;" readonly />
-            <?php if( $dntly_account_id == 0 ) : ?><strong style="color:red;">  Link your account</strong>.  <a href="<?php echo admin_url( add_query_arg( array( 'post_type' => 'download', 'page' => 'dntly-settings', 'tab' => 'general' ), 'admin.php' ) ); ?>">Settings</a>
-            <?php else : ?>
-            <?php _e( 'Donately Account ID', 'dntly' );  ?>
-        <?php endif; ?>
-        </label>
-    </p>
+    <div class="donately_information_metabox">
+        <p>Your last update was December 10, 2013 4:32pm</p>
+        <table class="widefat">
+            <thead>
+                <tr>
+                    <th colspan="2">Donately Information</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Account ID</strong></td>
+                    <td>
+                        <?php if( $dntly_account_id == 0 ) { ?>
+                            <strong style="color:#e74c3c;">  Link your account</strong>.  <a href="<?php echo admin_url( add_query_arg( array( 'post_type' => 'download', 'page' => 'dntly-settings', 'tab' => 'general' ), 'admin.php' ) ); ?>">Settings</a>
+                        <?php }else{ ?>
+                            <?php echo $dntly_account_id;  ?>
+                        <?php } ?>
+                    </td>
+                </tr>
 
-    <p>
-        <label for="dntly_campaign_id">
-            <input type="text" name="dntly_campaign_id" id="dntly_campaign_id" value="<?php echo $dntly_campaign_id; ?>" style="width:80px; cursor:not-allowed;" readonly />
-            <?php _e( 'Donately Campaign ID', 'dntly' );  ?>
-        </label>
-    </p>
+                <tr>
+                    <td><strong><?php _e( 'Campaign ID', 'dntly' );  ?></strong></td>
+                    <td><?php echo $dntly_campaign_id; ?> - <em class="hint"><?php _e( 'This is the campaign ID on Donately', 'dntly' ); ?></em></td>
+                </tr>
 
-    <p>
-        <label for="dntly_campaign_goal">
-            $<input type="text" name="dntly_campaign_goal" id="dntly_campaign_goal" value="<?php echo $dntly_campaign_goal; ?>" style="width:80px; cursor:not-allowed;" readonly />
-            <?php _e( 'Campaign goal', 'dntly' );  ?>
-        </label>
-    </p>
+                <tr>
+                    <td><strong><?php _e( 'Campaign Goal', 'dntly' );  ?></strong></td>
+                    <td><?php echo '$' . number_format( $dntly_campaign_goal ); ?></td>
+                </tr>
 
-    <p>
-        <label for="dntly_amount_raised">
-            $<input type="text" name="dntly_amount_raised" id="dntly_amount_raised" value="<?php echo $dntly_amount_raised; ?>"  style="width:80px; cursor:not-allowed;" readonly />
-            <?php _e( 'Amount raised', 'dntly' );  ?>
-        </label>
-    </p>
+                <tr>
+                    <td><strong><?php _e( 'Amount Raised', 'dntly' );  ?></strong></td>
+                    <td><?php echo '$' . number_format( $dntly_amount_raised ); ?></td>
+                </tr>
 
-    <p>
-        <label for="dntly_percent_funded">
-            <input type="text" name="dntly_percent_funded" id="dntly_percent_funded" value="<?php echo $dntly_percent_funded; ?>" style="width:80px; cursor:not-allowed;" readonly />
-            <?php _e( '% Percent funded', 'dntly' );  ?>
-        </label>
-    </p>
+                <tr>
+                    <td><strong><?php _e( 'Percent Funded', 'dntly' );  ?></strong></td>
+                    <td><?php echo round((float)$dntly_percent_funded * 100 ) . '%'; ?></td>
+                </tr>
 
-    <p>
-        <label for="dntly_donations_count">
-            <input type="text" name="dntly_donations_count" id="dntly_donations_count" value="<?php echo $dntly_donations_count; ?>" style="width:80px; cursor:not-allowed;" readonly />
-            <?php _e( 'Donations count (the number of donations received).', 'dntly' );  ?>
-        </label>
-    </p>
+                <tr>
+                    <td><strong><?php _e( 'Donations Count', 'dntly' );  ?></strong></td>
+                    <td><?php echo $dntly_donations_count; ?> <em class="hint"><?php _e( 'total donations', 'dntly'); ?></em></td>
+                </tr>
 
-    <p>
-        <label for="dntly_donors_count">
-            <input type="text" name="dntly_donors_count" id="dntly_donors_count" value="<?php echo $dntly_donors_count; ?>" style="width:80px; cursor:not-allowed;" readonly />
-            <?php _e( 'Donors Count (the number of people who have donated to this campaign).', 'dntly' );  ?>
-        </label>
-    </p>
+                <tr>
+                    <td><strong><?php _e( 'Donor Count', 'dntly' );  ?></strong></td>
+                    <td><?php echo $dntly_donors_count; ?> <em class="hint">people have contributed to <?php echo get_the_title($post->ID); ?></em></td>
+                </tr>
+                <?php do_action('after_campaign_rows_metabox'); ?>
+            </tbody>
+        </table>
+    </div>
+
 
     <?php
 
@@ -176,15 +178,18 @@ function dntly_render_campaign_fields( $post )
 add_action( 'dntly_meta_box_fields', 'dntly_render_campaign_fields', 10 );
 
 
-function dntly_render_primer_fields()
+function dntly_meta_box_footer_fields()
 {
     global $post, $dntly_settings;
     $dntly_campaign_primer = get_post_meta( $post->ID, 'dntly_campaign_primer', true );
     ?>
-    <hr>
-    <p><strong>Campaign Primer</strong></p>
-    <textarea rows="3" cols="40" class="large-texarea" name="dntly_campaign_primer" id="dntly_campaign_primer"><?php echo esc_textarea( $dntly_campaign_primer ); ?></textarea>
-    <p><?php _e( 'Special notes or instructions for this product. These notes will be added to the purchase receipt.', 'edd' ); ?></p>
+    
+    <h4>Thanks for using Donately and Donately for WordPress</h4>
+    <p>When using this plugin, you're taking advantage of WordPress' flexibility and the processing power of Donately. If you have any questions about this plugin and/or Donately please shoot us an email and we'll do our best to support your needs. </p>
+    <p><a href="mailto:support@donate.ly&subject=Donately+for+WordPress" class="button button-secondary">Email Support</a></p>
+
     <?php
+
+    do_action( 'dntly_meta_box_after_footer');
 }
-add_action( 'dntly_meta_box_fields', 'dntly_render_primer_fields', 15);
+add_action( 'dntly_meta_box_fields', 'dntly_meta_box_footer_fields', 100);

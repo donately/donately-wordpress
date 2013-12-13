@@ -216,6 +216,12 @@ function dntly_get_registered_settings() {
                     'type' => 'select',
                     'options' => $pages_options
                 ),
+                'show_stats' => array(
+                    'id' => 'show_stats',
+                    'name' => __( 'Stats Bar', 'dntly' ),
+                    'desc' => __( 'Show the stats bar above the Donation form.', 'dntly' ),
+                    'type' => 'checkbox'
+                ),
                 'donation_button_text' => array(
                     'id' => 'donation_button_text',
                     'name' => __( 'Donately Button Text', 'dntly' ),
