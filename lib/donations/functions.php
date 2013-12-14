@@ -346,6 +346,8 @@ function dntly_get_campaign_goal( $campaign_id = '' )
 {
     global $post;
 
+    $campaign_id = isset( $campaign_id ) ? $campaign_id : $post->ID;
+
     $dntly_campaign_goal = get_post_meta( $campaign_id, 'dntly_campaign_goal', true );
     
     return '$' . number_format( $dntly_campaign_goal );
@@ -363,6 +365,8 @@ function dntly_get_campaign_goal( $campaign_id = '' )
 function dntly_get_amount_raised( $campaign_id= '' )
 {
     global $post;
+
+    $campaign_id = isset( $campaign_id ) ? $campaign_id : $post->ID;
 
     $dntly_amount_raised = get_post_meta( $campaign_id, 'dntly_amount_raised', true );
     $dntly_amount_raised = isset( $dntly_amount_raised ) ?  $dntly_amount_raised : 0;
@@ -382,11 +386,31 @@ function dntly_get_amount_raised( $campaign_id= '' )
 function dntly_get_percent_funded( $campaign_id = '')
 {
     global $post;
+    $campaign_id = isset( $campaign_id ) ? $campaign_id : $post->ID;
 
     $dntly_percent_funded = get_post_meta( $campaign_id, 'dntly_percent_funded', true );
     $dntly_percent_funded = round((float)$dntly_percent_funded * 100 ) . '%';
 
     return $dntly_percent_funded;
+}
+
+/**
+ * Get the number of donors
+ *
+ * @since  1.0
+ * @author Bryan Monzon <[email]>
+ * @param  string $campaign_id [description]
+ * @return [type]              [description]
+ */
+function dntly_get_donors_count( $campaign_id = '')
+{
+    global $post;
+
+    $campaign_id = isset( $campaign_id ) ? $campaign_id : $post->ID;
+
+    $dntly_donors_count = get_post_meta( $campaign_id, 'dntly_donors_count', true );
+
+    return $dntly_donors_count;
 }
 
 /**
