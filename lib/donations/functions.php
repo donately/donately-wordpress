@@ -395,6 +395,23 @@ function dntly_get_percent_funded( $campaign_id = '')
 }
 
 /**
+ * Echo the percent funded in the function
+ *
+ * @since  1.0
+ * @author Bryan Monzon <[email]>
+ * @return [type] [description]
+ */
+function dntly_the_percent_funded()
+{
+  global $post;
+  $cid = isset( $_GET['cid'] ) ? $_GET['cid'] : $post->ID;
+
+  echo dntly_get_percent_funded( $cid );
+}
+
+
+
+/**
  * Get the number of donors
  *
  * @since  1.0
@@ -413,20 +430,6 @@ function dntly_get_donors_count( $campaign_id = '')
     return $dntly_donors_count;
 }
 
-/**
- * Echo the percent funded in the function
- *
- * @since  1.0
- * @author Bryan Monzon <[email]>
- * @return [type] [description]
- */
-function dntly_the_percent_funded()
-{
-  global $post;
-  $cid = isset( $_GET['cid'] ) ? $_GET['cid'] : $post->ID;
-
-  echo dntly_get_percent_funded( $cid );
-}
 
 
 
