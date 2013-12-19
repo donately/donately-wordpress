@@ -230,6 +230,12 @@ function dntly_get_registered_settings() {
                     'size' => 'medium',
                     'std' => ''
                 ),
+                'test_uploader' => array(
+                    'id' => 'test_uploader',
+                    'name' => __( 'Header image', 'dntly' ),
+                    'desc' => __( 'Upload a default header image.', 'dntly' ),
+                    'type' => 'upload'
+                ),
             )
         ),
         /** Email Settings */
@@ -804,8 +810,8 @@ function dntly_upload_callback( $args ) {
 
     $size = ( isset( $args['size'] ) && ! is_null( $args['size'] ) ) ? $args['size'] : 'regular';
     $html = '<input type="text" class="' . $size . '-text dntly_upload_field" id="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']" name="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']" value="' . esc_attr( stripslashes( $value ) ) . '"/>';
-    $html .= '<span>&nbsp;<input type="button" class="dntly_settings_upload_button button-secondary" value="' . __( 'Upload File', 'dntly' ) . '"/></span>';
-    $html .= '<label for="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']"> '  . $args['desc'] . '</label>';
+    $html .= '<span>&nbsp;<input type="button" class="dntly_upload_button button-secondary" value="' . __( 'Upload File', 'dntly' ) . '"/></span>';
+    $html .= '<label for="dntly_settings_' . $args['section'] . '[' . $args['id'] . ']"> '  . $args['desc'] . ' <a href="#" class="custom_clear_image_button">Remove Image</a></label>';
 
     echo $html;
 }

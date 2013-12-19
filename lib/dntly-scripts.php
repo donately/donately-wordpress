@@ -35,7 +35,8 @@ function dntly_load_admin_scripts()
     // Styles
     wp_register_style( 'dntly-admin', $css_dir . 'dntly-admin' . $suffix . '.css', DNTLY_VERSION );
     // Scripts
-    wp_register_script( 'dntly-back', $js_dir . 'dntly-back.js', array('jquery'), '0.1', true );
+    wp_register_script( 'dntly-back', $js_dir . 'dntly-back.js', array('jquery'), DNTLY_VERSION, true );
+    wp_register_script( 'dntly-media', $js_dir . 'admin-upload.js', array('jquery'), DNTLY_VERSION, true );
 
 
 
@@ -44,9 +45,12 @@ function dntly_load_admin_scripts()
      * @since 0.1
      */
     // Styles
+    wp_enqueue_style( 'thickbox' );
     wp_enqueue_style( 'dntly-admin' );
     // Scripts
     wp_enqueue_script( 'dntly-back' );
+    wp_enqueue_script( 'thickbox' );
+    wp_enqueue_script( 'dntly-media' );
 }
 add_action( 'admin_enqueue_scripts', 'dntly_load_admin_scripts', 100 );
 
