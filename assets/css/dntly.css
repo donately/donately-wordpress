@@ -1,4 +1,17 @@
-/* dntly.scss */
 #dntly_settings {
   background-color: transparent;
+}
+
+.donation_button_wrapper a.button{
+    background: #3279A0;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 3px;
+    font-size: 1.3em;
+    font-family:helvetica, arial, sans-serif;
+}
+
+.donation_button_wrapper a.button:hover{
+    background: #126FA0;
+    text-decoration: none;
 }

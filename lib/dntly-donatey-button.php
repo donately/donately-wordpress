@@ -21,15 +21,17 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @return [type]              [description]
  */
 function dntly_donate_link( $args = array() ) {
-    global $dntly_settings, $post;
+    global $post, $dntly_settings;
 
     $defaults = apply_filters( 'dntly_donation_link_defaults', array(
-        'campaign_id' => $post->ID,
-        'text'        => !empty( $dntly_settings[ 'donation_button_text' ] ) ? $dntly_settings[ 'donation_button_text' ] : __( 'Donation', 'dntly' ),
+        'campaign_id' => !empty( $dntly_settings[ 'donation_button_text' ] ) ? $dntly_settings[ 'donation_button_text' ] : __( 'Donation', 'dntly' ),
+        'text'        => '',
         'class'       => 'button'
     ) );
 
     $args = wp_parse_args( $args, $defaults );
+
+
 
 
     if( 'publish' != get_post_field( 'post_status', $args['campaign_id'] ) && ! current_user_can( 'edit_pages', $args['campaign_id'] ) ) {
@@ -38,21 +40,7 @@ function dntly_donate_link( $args = array() ) {
 
     //  ob_start(); 
 ?>
-    <style>
-    .donation_button_wrapper a.button{
-        background: #3279A0;
-        color: #fff;
-        padding: 10px 20px;
-        border-radius: 3px;
-        font-size: 1.3em;
-        font-family:helvetica, arial, sans-serif;
-    }
 
-    .donation_button_wrapper a.button:hover{
-        background: #126FA0;
-        text-decoration: none;
-    }
-    </style>
     <div class="donation_button_wrapper">
         <?php 
         printf(

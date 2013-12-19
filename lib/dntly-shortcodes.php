@@ -123,3 +123,31 @@ function dntly_donation_form( $atts )
     
 }
 add_shortcode( 'donately_form', 'dntly_donation_form' );
+
+
+
+function dntly_render_button_shortcode( $atts )
+{
+    global $dntly_settings;
+    extract( shortcode_atts( array(
+            'campaign_id' => '',
+            'class'       => 'button',
+            'text'        => null
+        ),
+        $atts, 'donately_button' )
+    );
+
+    $cid = isset( $campaign_id ) ? $campaign_id : $post->ID;
+    
+    $btn_text = isset( $text ) ? $text : $dntly_settings['donation_button_text'];
+
+    $args = array(
+        'campaign_id' => $cid,
+        'class'       => $class,
+        'text'        => $btn_text
+    );
+
+    dntly_donate_link( $args );
+
+}
+add_shortcode( 'donately_button', 'dntly_render_button_shortcode' );

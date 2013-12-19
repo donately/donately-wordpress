@@ -35,7 +35,7 @@ function dntly_display_donate_button( $content )
 
     return $content;
 }
-add_filter( 'the_content', 'dntly_display_donate_button' );     
+//add_filter( 'the_content', 'dntly_display_donate_button' );     
 
 
 /**

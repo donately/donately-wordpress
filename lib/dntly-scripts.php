@@ -49,3 +49,15 @@ function dntly_load_admin_scripts()
     wp_enqueue_script( 'dntly-back' );
 }
 add_action( 'admin_enqueue_scripts', 'dntly_load_admin_scripts', 100 );
+
+
+function dntly_load_front_end_styles()
+{
+    $css_dir = DNTLY_PLUGIN_URL . 'assets/css/';
+
+    wp_register_style( 'dntly-styles', $css_dir . 'dntly.css', DNTLY_VERSION );
+
+    wp_enqueue_style('dntly-styles' );
+
+}
+add_action( 'wp_enqueue_scripts', 'dntly_load_front_end_styles' );
