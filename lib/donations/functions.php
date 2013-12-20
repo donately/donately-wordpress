@@ -353,6 +353,22 @@ function dntly_get_campaign_goal( $campaign_id = '' )
     return '$' . number_format( $dntly_campaign_goal );
 }
 
+/**
+ * Echo the percent funded in the function
+ *
+ * @since  1.0
+ * @author Bryan Monzon <[email]>
+ * @return [type] [description]
+ */
+function dntly_the_campaign_goal()
+{
+  global $post;
+  $cid = isset( $_GET['cid'] ) ? $_GET['cid'] : $post->ID;
+
+  echo dntly_get_campaign_goal( $cid );
+}
+
+
 
 /**
  * Get the amount raised stored in Campaign Meta
@@ -372,6 +388,21 @@ function dntly_get_amount_raised( $campaign_id= '' )
     $dntly_amount_raised = isset( $dntly_amount_raised ) ?  $dntly_amount_raised : 0;
 
     return '$' . number_format( $dntly_amount_raised );
+}
+
+/**
+ * Echo the amount raised in the function
+ *
+ * @since  1.0
+ * @author Bryan Monzon <[email]>
+ * @return [type] [description]
+ */
+function dntly_the_amount_raised()
+{
+  global $post;
+  $cid = isset( $_GET['cid'] ) ? $_GET['cid'] : $post->ID;
+
+  echo dntly_get_amount_raised( $cid );
 }
 
 
@@ -428,6 +459,21 @@ function dntly_get_donors_count( $campaign_id = '')
     $dntly_donors_count = get_post_meta( $campaign_id, 'dntly_donors_count', true );
 
     return $dntly_donors_count;
+}
+
+/**
+ * Echo the percent funded in the function
+ *
+ * @since  1.0
+ * @author Bryan Monzon <[email]>
+ * @return [type] [description]
+ */
+function dntly_the_donors_count()
+{
+  global $post;
+  $cid = isset( $_GET['cid'] ) ? $_GET['cid'] : $post->ID;
+
+  echo dntly_get_donors_count( $cid );
 }
 
 

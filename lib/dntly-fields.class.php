@@ -421,14 +421,7 @@ function dntly_helper_functions()
     $df = new DNTLY_FIELDS;
     return $df->dntly_campaign_goal();
   }
-  function dntly_the_campaign_goal()
-  {
-
-    $campaign_goal      = get_the_campaign_goal();
-    $campaign_goal_usd  = number_format( $campaign_goal );
-
-    echo '$'.$campaign_goal_usd;
-  }
+ 
 
 
 
@@ -458,10 +451,7 @@ function dntly_helper_functions()
     $df = new DNTLY_FIELDS;
     return $df->dntly_donors_count();
   }
-  function dntly_the_donors_count()
-  {
-    echo dntly_get_the_donors_count();
-  }
+
 
 
   /**
@@ -474,16 +464,7 @@ function dntly_helper_functions()
     $df = new DNTLY_FIELDS;
     return $df->dntly_amount_raised();
   }
-  function dntly_the_amount_raised( $format = NULL )
-  {
-    if ( isset($format) && $format == 'usd' ) {
-      $amount_raised      = get_the_amount_raised();
-      $amount_raised_usd  = money_format('%.2n', $amount_raised);
-      echo $amount_raised_usd;
-    } else {
-      echo dntly_get_the_amount_raised();
-    }
-  }
+
 
 
   /**
