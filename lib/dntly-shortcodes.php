@@ -141,6 +141,8 @@ function dntly_render_button_shortcode( $atts )
     
     $btn_text = isset( $text ) ? $text : $dntly_settings['donation_button_text'];
 
+    ob_start();
+
     $args = array(
         'campaign_id' => $cid,
         'class'       => $class,
@@ -148,6 +150,6 @@ function dntly_render_button_shortcode( $atts )
     );
 
     dntly_donate_link( $args );
-
+    return ob_get_clean();
 }
 add_shortcode( 'donately_button', 'dntly_render_button_shortcode' );
