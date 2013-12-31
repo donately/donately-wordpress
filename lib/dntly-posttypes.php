@@ -56,7 +56,7 @@ function setup_dntly_campaign_post_types() {
         'publicly_queryable'=> true,
         'show_ui'           => true,
         'show_in_menu'      => 'dntly',
-        'menu_icon'         => DNTLY_PLUGIN_URL . '/assets/images/campaigns.png',
+        'menu_icon'         => 'dashicons-groups',
         'query_var'         => true,
         'rewrite'           => $rewrite,
         'map_meta_cap'      => true,
