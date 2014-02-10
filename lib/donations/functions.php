@@ -153,18 +153,28 @@ function donately_form( $args=array() )
 
 
     //Set $amount
-    if( isset( $dntly_settings['donately_amount'] ) && !isset( $args['amount'] ) ) {
-        //If $dntly_settings is set but $args is not, use $dntly_settings
-        $amount = $dntly_settings['donately_amount'];
     
+    if( isset( $dntly_settings['donately_amount'] ) && !isset( $args['amount'] ) && !isset( $_GET['amount'])) {
+        //If $dntly_settings is set but $args is not, use $dntly_settings
+        
+        $amount = $dntly_settings['donately_amount'];
+   
     }elseif( isset( $args['amount'] ) ) {
+      
         // If $args is set, this overrides $dntly_settings
         $amount = $args['amount'];
 
+    }elseif( isset( $_GET['amount'] ) ) {
+
+        //Check query string for an amount
+        $amount = $_GET['amount'];
+   
     }else{
         //If neither are set, set it to false
         $amount = 0;
     }
+
+    
 
 
     //Set $width
@@ -237,7 +247,8 @@ function donately_form( $args=array() )
     //$show_anonymous = isset( $args['show_anonymous'] ) ? $args['show_anonymous'] : false;
     //$amount         = isset( $args['amount'] ) ? $args['amount'] : 0;
 
-    $cid = ( isset( $_GET['cid'] ) ) ? $_GET['cid'] : dntly_get_donately_campaign_id();
+    $cid    = ( isset( $_GET['cid'] ) ) ? $_GET['cid'] : dntly_get_donately_campaign_id();
+
 
     //Check to see if the campaign ID is set. this is temporary
     if( $cid ) {
