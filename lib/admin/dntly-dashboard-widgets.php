@@ -24,7 +24,7 @@ function dntly_register_dashboard_widgets() {
         wp_add_dashboard_widget( 'dntly_dashboard_stats', __('Donately for WordPress stats Summary', 'dntly'), 'dntly_dashboard_stats_widget' );
     }
 }
-add_action('wp_dashboard_setup', 'dntly_register_dashboard_widgets', 10 );
+//add_action('wp_dashboard_setup', 'dntly_register_dashboard_widgets', 10 );
 
 /**
  * Sales Summary Dashboard Widget
