@@ -133,7 +133,7 @@ function dntly_render_button_shortcode( $atts )
     extract( shortcode_atts( array(
             'campaign_id' => null,
             'class'       => 'button',
-            'amount'      => 6565,
+            'amount'      => null,
             'text'        => null
         ),
         $atts, 'donately_button' )
