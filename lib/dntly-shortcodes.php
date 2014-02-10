@@ -128,28 +128,33 @@ add_shortcode( 'donately_form', 'dntly_donation_form' );
 
 function dntly_render_button_shortcode( $atts )
 {
-    global $dntly_settings;
+    global $post, $dntly_settings;
+    
     extract( shortcode_atts( array(
-            'campaign_id' => '',
+            'campaign_id' => null,
             'class'       => 'button',
+            'amount'      => 6565,
             'text'        => null
         ),
         $atts, 'donately_button' )
     );
 
-    $cid = isset( $campaign_id ) ? $campaign_id : $post->ID;
+    //$cid = isset( $campaign_id ) ? $campaign_id : $post->ID;
     
     $btn_text = isset( $text ) ? $text : $dntly_settings['donation_button_text'];
+    $cid      = isset( $campaign_id ) ? $campaign_id : $post->ID;
 
     ob_start();
 
     $args = array(
         'campaign_id' => $cid,
         'class'       => $class,
-        'text'        => $btn_text
+        'text'        => $btn_text,
+        'amount'      => $amount
     );
 
     dntly_donate_link( $args );
+    
     return ob_get_clean();
 }
 add_shortcode( 'donately_button', 'dntly_render_button_shortcode' );

@@ -23,22 +23,31 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function dntly_donate_link( $args = array() ) {
     global $post, $dntly_settings;
 
+
     $defaults = apply_filters( 'dntly_donation_link_defaults', array(
-        'campaign_id' => !empty( $dntly_settings[ 'donation_button_text' ] ) ? $dntly_settings[ 'donation_button_text' ] : __( 'Donation', 'dntly' ),
-        'text'        => '',
+        'campaign_id' => $post->ID,
+        'text'        => !empty( $dntly_settings[ 'donation_button_text' ] ) ? $dntly_settings[ 'donation_button_text' ] : __( 'Donation', 'dntly' ),
+        'amount'      => isset( $args['amount'] ) ? $args['amount'] : 123,
         'class'       => 'button'
     ) );
+
 
     $args = wp_parse_args( $args, $defaults );
 
 
 
 
-    if( 'publish' != get_post_field( 'post_status', $args['campaign_id'] ) && ! current_user_can( 'edit_pages', $args['campaign_id'] ) ) {
-        return false; // Product not published or user doesn't have permission to view drafts
-    }
+    if( isset( $args['campaign_id'] ) && isset( $args['amount'] ) ) {
+        
+        $append_url = '?cid=' . $args['campaign_id'] . '&amount=' . $args['amount'];
 
-    //  ob_start(); 
+    }else{
+        
+        $append_url = '?cid=' . $args['campaign_id'];
+    }
+    
+
+    
 ?>
 
     <div class="donation_button_wrapper">
@@ -46,14 +55,13 @@ function dntly_donate_link( $args = array() ) {
         printf(
         '<a href="%2$s" class="%3$s">%4$s</a>',
         implode( ' ', array( trim( $args['class'] ), $args['text'] ) ),
-        esc_url( dntly_get_donation_page_uri() . '?cid=' . $post->ID ),
+        esc_url( dntly_get_donation_page_uri() . $append_url ),
         esc_attr( $args['class'] ),
         esc_attr( $args['text'] )
         )
         ?>
     </div>
 <?php
-    //$donation_button = ob_clean();
 
     return apply_filters( 'dntly_donately_button', $args );
 }
