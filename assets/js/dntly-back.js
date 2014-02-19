@@ -9,6 +9,7 @@
 		dntly.resetToken();
 		dntly.getAccountStats();
 		dntly.getCampaigns();
+		dntly.linkAccounts();
 		jQuery(document).ajaxStart(function() {
 			jQuery('#spinner').show();
 		});
@@ -30,6 +31,7 @@
 		dntly.elems.form.tokenBtn          = dntly.elems.form.form.find('#dntly-get-token');
 		dntly.elems.sync_account_stats_btn = jQuery('#dntly-sync-account-stats');
 		dntly.elems.sync_campaigns_btn     = jQuery('#dntly-sync-campaigns');
+		dntly.elems.link_accounts_btn      = jQuery('#dntly-link-accounts');
 		dntly.elems.account                = jQuery('#dntly-account').val();
 		dntly.elems.dntly_reset_token_btn  = jQuery('#dntly-reset-token');
 		dntly.elems.logging_container      = jQuery('#dntly_table_logging');
@@ -106,11 +108,28 @@
 				'data'	: {
 								'action'	: 'dntly_get_account_stats'
 							  },
-				'success'	: function(response) { console.log(response); dntly.refreshLog(0); },
-				'error'	: function(response) { alert('Error Getting Account Stats'); console.log(response); }
+				'success'	: function(response) { console.log(response); /* dntly.refreshLog(0); */ },
+				'error'	  : function(response) { alert('Error Getting Account Stats'); console.log(response); }
 			})
 		});
 	}
+
+	dntly.linkAccounts = function() {
+		dntly.elems.link_accounts_btn.bind('click', function (e) {
+			e.preventDefault();
+
+			jQuery.ajax({
+				'type'  : 'post',
+				'url'		: ajaxurl,
+				'data'	: {
+						'action'	: 'dntly_get_accounts'
+				},
+				'success'	: function(response) { console.log('response: ' + response); /* dntly.refreshLog(0); */ },
+				'error'		: function(response) { alert('Error Getting Account Stats'); console.log(response); }
+			})
+		});
+	}
+
 
 	dntly.getCampaigns = function() {
 		dntly.elems.sync_campaigns_btn.bind('click', function(e) {

@@ -450,9 +450,9 @@ class DNTLY_API {
     $accounts = $this->make_api_request("get_my_accounts");
 
     // If we do NOT have accounts, print error message
-    if( !$accounts ){
-      print '<div class="updated" id="message"><p><strong>Error retrieving Donately accounts!</strong> - ' . print_r($this->remote_results, true) . '</p></div>';
-    }
+    // if( !$accounts ){
+    //   print '<div class="updated" id="message"><p><strong>Error retrieving Donately accounts!</strong> - ' . print_r($this->remote_results, true) . '</p></div>';
+    // }
     // If all is good, return $accounts array 
     return $accounts;
   }
@@ -545,6 +545,21 @@ class DNTLY_API {
   }
 
 
+  /**
+   * Get Account ID
+   * 
+   * Get the account ID and updating wp option
+   * 
+   * @since 1.0
+   * @package Donately Wordpress
+   * @author Alexander Zizzo, Bryan Shanaver, Bryan Monzon (Fifty and Fifty, LLC)
+   * @return [array] json array containing success and ID
+   */
+  function get_account_id() {
+    $accounts = $this->make_api_request("get_my_accounts", true);
+
+    var_dump($accounts);
+  }
 
 
   /**

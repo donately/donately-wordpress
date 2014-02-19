@@ -983,8 +983,6 @@ add_action( 'dntly_sync_campaigns', 'dntly_sync_campaigns_buttons' );
 function dntly_sync_stats_buttons() {
     global $dntly_settings;
 
-
-
     ob_start();
     ?>
     <a href="javscript:;" class="button-secondary" title="<?php _e( 'Sync Account Stats', 'dntly' ); ?> "><?php _e( 'Sync Account Stats', 'dntly' ); ?></a>
@@ -1004,8 +1002,7 @@ add_action( 'dntly_sync_account_stats', 'dntly_sync_stats_buttons' );
 function dntly_link_account_button( $args ) {
     global $dntly_settings;
 
-
-    $html = '<a href="javscript:;" class="button-secondary" title="'. __( 'Link Account', 'dntly' ) . '">' . __( 'Link Account', 'dntly' ) . '</a>';
+    $html = '<a href="javscript:;" id="dntly-link-accounts" class="button-secondary" title="'. __( 'Link Account', 'dntly' ) . '">' . __( 'Link Account', 'dntly' ) . '</a>';
     $html .= '<label for="dntly_link_account" class="unlinked"> Once you\'ve added your subdomain and token, click the button to link your account.</label>';
 
     echo $html;
