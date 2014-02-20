@@ -30,6 +30,7 @@ function dntly_settings_page() {
     ob_start();
     ?>
     <div class="wrap">
+
         <h2>Donately Settings</h2>
         <h2 class="nav-tab-wrapper">
             <?php

@@ -44,7 +44,7 @@ function dntly_get_settings() {
         $general_settings = is_array( get_option( 'dntly_settings_general' ) )    ? get_option( 'dntly_settings_general' )      : array();
         $email_settings   = is_array( get_option( 'dntly_settings_email' ) )       ? get_option( 'dntly_settings_email' )         : array();
         $sync_settings    = is_array( get_option( 'dntly_settings_sync' ) )       ? get_option( 'dntly_settings_sync' )         : array();
-        $forms_settings    = is_array( get_option( 'dntly_settings_forms' ) )       ? get_option( 'dntly_settings_forms' )         : array();
+        $forms_settings   = is_array( get_option( 'dntly_settings_forms' ) )       ? get_option( 'dntly_settings_forms' )         : array();
 
         $settings = array_merge( $general_settings, $email_settings, $sync_settings, $forms_settings );
 
@@ -155,8 +155,8 @@ function dntly_get_registered_settings() {
                     'size' => 'regular',
                     'std' => ''
                 ),
-                'link_account' => array(
-                    'id' => 'link_account',
+                'dntly_account_id' => array(
+                    'id' => 'dntly_account_id',
                     'name' => 'Link Your Account',
                     'desc' => 'Once you enter your subdomain and token, click this button to link your account.',
                     'type' => 'hook'
@@ -1001,13 +1001,13 @@ add_action( 'dntly_sync_account_stats', 'dntly_sync_stats_buttons' );
  * @global $dntly_settings Array of all the DNTLY Options
  * @since 1.0.8.2
  */
-function dntly_link_account_button( $args ) {
+function dntly_dntly_account_id_button( $args ) {
     global $dntly_settings;
 
 
     $html = '<a href="javscript:;" class="button-secondary" title="'. __( 'Link Account', 'dntly' ) . '">' . __( 'Link Account', 'dntly' ) . '</a>';
-    $html .= '<label for="dntly_link_account" class="unlinked"> Once you\'ve added your subdomain and token, click the button to link your account.</label>';
+    $html .= '<label for="dntly_dntly_account_id" class="unlinked"> Once you\'ve added your subdomain and token, click the button to link your account.</label>';
 
     echo $html;
 }
-add_action( 'dntly_link_account', 'dntly_link_account_button' );
+add_action( 'dntly_dntly_account_id', 'dntly_dntly_account_id_button' );

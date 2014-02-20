@@ -618,7 +618,7 @@ class DNTLY_API {
       // Count up accounts so we can reach a total
       $count_accounts++;
       // Make API call for campaigns with each account_id in post vars, and also set a limit (can be overriden as second parameter)
-      $get_campaigns = $this->make_api_request("get_campaigns", true, array('account_ids' => $this->dntly_account_id, 'count' => $campaign_count));
+      $get_campaigns = $this->make_api_request( "get_campaigns", true, array( 'account_ids' => $this->dntly_account_id, 'count' => $campaign_count ) );
 
       // Foreach campaign, update their data as an option using add_update_campaign() function
       foreach( $get_campaigns->campaigns as $campaign ) {
