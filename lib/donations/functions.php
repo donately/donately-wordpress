@@ -64,7 +64,7 @@ function donately_form( $args=array() )
     global $post, $dntly_settings;
 
     $dntly = new DNTLY_API;
-    $form_js_url = 'http://'. $dntly->api_subdomain . '.dntly.com' . '/assets/js/v1/form.js';  //Needs to be refactored to included environment variables.
+    $form_js_url = 'https://'. $dntly->api_subdomain . '.dntly.com' . '/assets/js/v1/form.js';  //Needs to be refactored to included environment variables.
 
     //Debugging
     // print '<pre>';
