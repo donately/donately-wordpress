@@ -57,6 +57,7 @@ function setup_dntly_campaign_post_types() {
         'show_ui'           => true,
         'show_in_menu'      => 'dntly',
         'menu_icon'         => 'dashicons-groups',
+        'menu_position'     => '152.55',
         'query_var'         => true,
         'rewrite'           => $rewrite,
         'map_meta_cap'      => true,

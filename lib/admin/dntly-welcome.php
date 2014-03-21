@@ -125,15 +125,15 @@ class DNTLY_Welcome {
             <div class="edd-badge"><?php printf( __( 'Version %s', 'dntly' ), $display_version ); ?></div>
 
             <h2 class="nav-tab-wrapper">
-                <a href="<?php echo esc_url( add_query_arg( array( 'page' => 'dntly-dashboard' ) ), 'admin.php' ); ?>" class="nav-tab">
-                    <?php _e( 'Dashboard', 'dntly') ?>
-                </a>
                 <a class="nav-tab nav-tab-active" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-dashboard' ) ) ) ); ?>">
                     <?php _e( "About Donately", 'dntly' ); ?>
                 </a>
-                <a class="nav-tab" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-credits' ), 'index.php' ) ) ); ?>">
-                    <?php _e( 'Credits', 'dntly' ); ?>
+                <a href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-settings' ), 'admin.php' ) ) ); ?>" class="nav-tab">
+                    <?php _e( 'Settings', 'dntly') ?>
                 </a>
+                <!-- <a class="nav-tab" href="<?php //echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-credits' ), 'index.php' ) ) ); ?>">
+                    <?php _e( 'Credits', 'dntly' ); ?>
+                </a> -->
             </h2>
 
             <div class="changelog">
@@ -218,7 +218,7 @@ class DNTLY_Welcome {
             </div>
 
             <div class="return-to-dashboard">
-                <a href="<?php echo esc_url( admin_url( add_query_arg( array( 'post_type' => 'download', 'page' => 'dntly-settings' ), 'edit.php' ) ) ); ?>"><?php _e( 'Go to Donately for WordPress Settings', 'dntly' ); ?></a>
+                <a href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'dntly-settings' ), 'admin.php' ) ) ); ?>"><?php _e( 'Go to Donately for WordPress Settings', 'dntly' ); ?></a>
             </div>
         </div>
         <?php
