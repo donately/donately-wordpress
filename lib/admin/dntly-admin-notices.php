@@ -2,9 +2,9 @@
 /**
  * Admin Notices
  *
- * @package     EDD
+ * @package     DNTLY
  * @subpackage  Admin/Notices
- * @copyright   Copyright (c) 2013, Pippin Williamson
+ * @copyright   Copyright (c) 2013, Fifty & Fifty
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0
 */
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Admin Messages
  *
  * @since 1.0
- * @global $edd_options Array of all the EDD Options
+ * @global $edd_options Array of all the DNTLY Options
  * @return void
  */
 function dntly_admin_messages() {

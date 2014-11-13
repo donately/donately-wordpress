@@ -33,7 +33,7 @@ final class DNTLY {
    *
    * Insures only one instance of DNTLY exists in memory at any one
    * time & prevents needing to define globals all over the place. 
-   * Inspired by and credit to EDD.
+   * Inspired by and credit to DNTLY.
    *
    * @since 0.1
    * @static
@@ -158,7 +158,7 @@ endif; // End if class_exists check
  * Use this function like you would a global variable, except without needing
  * to declare the global.
  *
- * Example: <?php $edd = EDD(); ?>
+ * Example: <?php $edd = DNTLY(); ?>
  *
  * @since 0.1
  * @return object The one true DNTLY Instance

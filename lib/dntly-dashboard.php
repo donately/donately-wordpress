@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Renders the options page contents.
  *
  * @since 1.0
- * @global $dntly_settings Array of all the EDD Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @return void
  */
 function dntly_dashboard_page() 

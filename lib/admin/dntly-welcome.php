@@ -227,12 +227,12 @@ class DNTLY_Welcome {
 
 
     /**
-     * Sends user to the Welcome page on first activation of EDD as well as each
-     * time EDD is upgraded to a new version
+     * Sends user to the Welcome page on first activation of DNTLY as well as each
+     * time DNTLY is upgraded to a new version
      *
      * @access public
      * @since 1.4
-     * @global $dntly_settings Array of all the EDD Options
+     * @global $dntly_settings Array of all the DNTLY Options
      * @return void
      */
     public function welcome() {

@@ -2,9 +2,9 @@
 /**
  * Admin Options Page
  *
- * @package     EDD
+ * @package     DNTLY
  * @subpackage  Admin/Settings
- * @copyright   Copyright (c) 2013, Pippin Williamson
+ * @copyright   Copyright (c) 2013, Fifty & Fifty
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0
 */
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Renders the options page contents.
  *
  * @since 1.0
- * @global $dntly_settings Array of all the EDD Options
+ * @global $dntly_settings Array of all the DNTLY Options
  * @return void
  */
 function dntly_settings_page() {

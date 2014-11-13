@@ -6,7 +6,7 @@
  *
  * @package     dntly
  * @subpackage  Admin/System
- * @copyright   Copyright (c) 2013, Pippin Williamson
+ * @copyright   Copyright (c) 2013, Fifty & Fifty
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
 */
 
@@ -77,7 +77,7 @@ Multisite:                <?php echo is_multisite() ? 'Yes' . "\n" : 'No' . "\n"
 SITE_URL:                 <?php echo site_url() . "\n"; ?>
 HOME_URL:                 <?php echo home_url() . "\n"; ?>
 
-Dontely Version:           <?php echo DNTLY_VERSION . "\n"; ?>
+Dontely Version:          <?php echo DNTLY_VERSION . "\n"; ?>
 Upgraded From:            <?php echo get_option( 'dntly_version_upgraded_from', 'None' ) . "\n"; ?>
 WordPress Version:        <?php echo get_bloginfo( 'version' ) . "\n"; ?>
 Permalink Structure:      <?php echo get_option( 'permalink_structure' ) . "\n"; ?>

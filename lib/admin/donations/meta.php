@@ -126,7 +126,7 @@ function dntly_render_campaign_fields( $post )
             <tbody>
                 <tr>
                     <td><strong><?php _e( 'Campaign ID', 'dntly' );  ?></strong></td>
-                    <td><?php echo $dntly_campaign_id; ?> - <em class="hint"><?php _e( 'This is the campaign ID on Donately', 'dntly' ); ?></em></td>
+                    <td><?php echo $dntly_campaign_id; ?> - <em class="hint"><?php _e( 'This is the campaign ID from Donately', 'dntly' ); ?></em></td>
                 </tr>
 
                 <tr>
