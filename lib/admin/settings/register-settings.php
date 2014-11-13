@@ -155,12 +155,6 @@ function dntly_get_registered_settings() {
                     'size' => 'regular',
                     'std' => ''
                 ),
-                'dntly_account_id' => array(
-                    'id' => 'dntly_account_id',
-                    'name' => 'Link Your Account',
-                    'desc' => 'Once you enter your subdomain and token, click this button to link your account.',
-                    'type' => 'hook'
-                ),
                 'general_settings' => array(
                     'id' => 'general_settings',
                     'name' => '<strong>' . __( 'General Settings', 'dntly' ) . '</strong>',
@@ -992,22 +986,3 @@ function dntly_sync_stats_buttons() {
     echo ob_get_clean();
 }
 add_action( 'dntly_sync_account_stats', 'dntly_sync_stats_buttons' );
-
-
-/**
- * Link Account Button
- *
- * @access private
- * @global $dntly_settings Array of all the DNTLY Options
- * @since 1.0.8.2
- */
-function dntly_dntly_account_id_button( $args ) {
-    global $dntly_settings;
-
-
-    $html = '<a href="javscript:;" class="button-secondary" title="'. __( 'Link Account', 'dntly' ) . '">' . __( 'Link Account', 'dntly' ) . '</a>';
-    $html .= '<label for="dntly_dntly_account_id" class="unlinked"> Once you\'ve added your subdomain and token, click the button to link your account.</label>';
-
-    echo $html;
-}
-add_action( 'dntly_dntly_account_id', 'dntly_dntly_account_id_button' );

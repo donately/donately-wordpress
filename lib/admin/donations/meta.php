@@ -57,7 +57,6 @@ function dntly_campaigns_meta_box_save( $post_id) {
 
     // The default fields that get saved
     $fields = apply_filters( 'dntly_metabox_fields_save', array(
-            'dntly_account_id',
             'dntly_campaign_id',
             'dntly_campaign_goal',
             'dntly_amount_raised',
@@ -106,7 +105,6 @@ function dntly_render_campaign_fields( $post )
 {
     global $post, $dntly_settings;
 
-    $dntly_account_id      = get_post_meta( $post->ID, 'dntly_account_id', true );
     $dntly_campaign_id     = get_post_meta( $post->ID, 'dntly_campaign_id', true );
     $dntly_campaign_goal   = get_post_meta( $post->ID, 'dntly_campaign_goal', true );
     $dntly_amount_raised   = get_post_meta( $post->ID, 'dntly_amount_raised', true );
@@ -126,17 +124,6 @@ function dntly_render_campaign_fields( $post )
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><strong>Account ID</strong></td>
-                    <td>
-                        <?php if( $dntly_account_id == 0 ) { ?>
-                            <strong style="color:#e74c3c;">  Link your account</strong>.  <a href="<?php echo admin_url( add_query_arg( array( 'post_type' => 'download', 'page' => 'dntly-settings', 'tab' => 'general' ), 'admin.php' ) ); ?>">Settings</a>
-                        <?php }else{ ?>
-                            <?php echo $dntly_account_id;  ?>
-                        <?php } ?>
-                    </td>
-                </tr>
-
                 <tr>
                     <td><strong><?php _e( 'Campaign ID', 'dntly' );  ?></strong></td>
                     <td><?php echo $dntly_campaign_id; ?> - <em class="hint"><?php _e( 'This is the campaign ID on Donately', 'dntly' ); ?></em></td>
