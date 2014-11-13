@@ -50,7 +50,7 @@ function dntly_install() {
         $donation = wp_insert_post(
             array(
                 'post_title'     => __( 'Donation', 'dntly' ),
-                'post_content'   => '',
+                'post_content'   => '[donately_form]',
                 'post_status'    => 'publish',
                 'post_author'    => 1,
                 'post_type'      => 'page',

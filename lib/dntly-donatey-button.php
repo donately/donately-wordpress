@@ -35,8 +35,6 @@ function dntly_donate_link( $args = array() ) {
     $args = wp_parse_args( $args, $defaults );
 
 
-
-
     if( isset( $args['campaign_id'] ) && isset( $args['amount'] ) ) {
         
         $append_url = '?cid=' . $args['campaign_id'] . '&amount=' . $args['amount'];
@@ -45,9 +43,7 @@ function dntly_donate_link( $args = array() ) {
         
         $append_url = '?cid=' . $args['campaign_id'];
     }
-    
-
-    
+     
 ?>
 
     <div class="donation_button_wrapper">
