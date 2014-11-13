@@ -265,7 +265,7 @@ function donately_form( $args=array() )
        <?php do_action( 'dntly_stats_bar'); ?>
 
        <script class="donately-formjs" src='<?php echo $form_js_url; ?>' type='text/javascript' async='async'
-          data-donately-id='<?php //echo dntly_get_account_id(); ?>1165'
+          data-donately-id='<?php dntly_the_subdomain(); ?>'
           data-donately-campaign-id='<?php echo dntly_get_donately_campaign_id( $cid ); ?>' 
           data-donately-address="<?php echo $show_address; ?>" 
           data-donately-phone="<?php echo $show_phone; ?>" 
@@ -289,7 +289,7 @@ function donately_form( $args=array() )
          ?>
          
         <script class="donately-formjs" src='<?php echo $form_js_url; ?>' type='text/javascript' async='async'
-          data-donately-id='<?php //echo dntly_get_account_id(); ?>1165' 
+          data-donately-id='<?php dntly_the_subdomain(); ?>' 
           data-donately-address="<?php echo $show_address; ?>" 
           data-donately-phone="<?php echo $show_phone; ?>" 
           data-donately-comment="<?php echo $show_comments; ?>" 

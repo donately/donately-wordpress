@@ -72,3 +72,29 @@ function dntly_render_stats_bar( $cid )
   }
 }
 add_action('dntly_stats_bar', 'dntly_render_stats_bar');
+
+
+/**
+ * Echo the subdomain
+ *
+ * @uses  dntly_get_subdomain();
+ * @author  Bryan Monzon 
+ * @return string
+ */
+function dntly_the_subdomain()
+{   
+    echo dntly_get_subdomain();   
+}
+
+/**
+ * Gets the subdomain from the settings area
+ *
+ * @author  Bryan Monzon 
+ * @return [string]
+ */
+function dntly_get_subdomain()
+{
+    global $dntly_settings;
+    
+    return !empty( $dntly_settings['donately_subdomain'] ) ? $dntly_settings['donately_subdomain'] : false;
+}
