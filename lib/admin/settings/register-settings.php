@@ -227,7 +227,7 @@ function dntly_get_registered_settings() {
             )
         ),
         /** Email Settings */
-        'email' => apply_filters( 'dntly_settings_email',
+        /*'email' => apply_filters( 'dntly_settings_email',
             array(
                 'email_settings' => array(
                     'id' => 'email_settings',
@@ -248,7 +248,7 @@ function dntly_get_registered_settings() {
                     'type' => 'rich_editor'
                 ),
             )
-        ),
+        ), */
         /** Sync Settings */
         'sync' => apply_filters( 'dntly_settings_sync',
             array(
@@ -275,12 +275,12 @@ function dntly_get_registered_settings() {
                     'desc' => '',
                     'type' => 'hook'
                 ),
-                'sync_account_stats' => array(
+                /*'sync_account_stats' => array(
                     'id' => 'sync_account_stats',
                     'name' => 'Sync Accounts',
                     'desc' => '',
                     'type' => 'hook'
-                ),                
+                ), */              
             )
         ),
         /** Fundraiser Settings */
@@ -383,98 +383,6 @@ function dntly_get_registered_settings() {
                     'size'  => 'small',
                     'std' => ''
                 ),
-                /*'field_downloads' => array(
-                    'id' => 'field_downloads',
-                    'name' => '<strong>' . __( 'File Downloads', 'dntly' ) . '</strong>',
-                    'desc' => '',
-                    'type' => 'header'
-                ),
-                'download_method' => array(
-                    'id' => 'download_method',
-                    'name' => __( 'Download Method', 'dntly' ),
-                    'desc' => sprintf( __( 'Select the file download method. Note, not all methods work on all servers.', 'dntly' ), dntly_campaigns_get_label_singular() ),
-                    'type' => 'select',
-                    'options' => array(
-                        'direct' => __( 'Forced', 'dntly' ),
-                        'redirect' => __( 'Redirect', 'dntly' )
-                    )
-                ),
-                'symlink_file_downloads' => array(
-                    'id' => 'symlink_file_downloads',
-                    'name' => __( 'Symlink File Downloads?', 'dntly' ),
-                    'desc' => __( 'Check this if you are delivering really large files or having problems with file downloads completing.', 'dntly' ),
-                    'type' => 'checkbox'
-                ),
-                'file_download_limit' => array(
-                    'id' => 'file_download_limit',
-                    'name' => __( 'File Download Limit', 'dntly' ),
-                    'desc' => sprintf( __( 'The maximum number of times files can be downloaded for purchases. Can be overwritten for each %s.', 'dntly' ), dntly_campaigns_get_label_singular() ),
-                    'type' => 'text',
-                    'size' => 'small'
-                ),
-                'download_link_expiration' => array(
-                    'id' => 'download_link_expiration',
-                    'name' => __( 'Download Link Expiration', 'dntly' ),
-                    'desc' => __( 'How long should download links be valid for? Default is 24 hours from the time they are generated. Enter a time in hours.', 'dntly' ),
-                    'type' => 'text',
-                    'size' => 'small',
-                    'std'  => '24'
-                ),
-                'disable_redownload' => array(
-                    'id' => 'disable_redownload',
-                    'name' => __( 'Disable Redownload?', 'dntly' ),
-                    'desc' => __( 'Check this if you do not want to allow users to redownload items from their purchase history.', 'dntly' ),
-                    'type' => 'checkbox'
-                ),
-                'accounting_settings' => array(
-                    'id' => 'accounting_settings',
-                    'name' => '<strong>' . __( 'Accounting Settings', 'dntly' ) . '</strong>',
-                    'desc' => '',
-                    'type' => 'header'
-                ),
-                'enable_skus' => array(
-                    'id' => 'enable_skus',
-                    'name' => __( 'Enable SKU Entry', 'dntly' ),
-                    'desc' => __( 'Check this box to allow entry of product SKUs. SKUs will be shown on purchase receipt and exported purchase histories.', 'dntly' ),
-                    'type' => 'checkbox'
-                ),
-                'terms' => array(
-                    'id' => 'terms',
-                    'name' => '<strong>' . __( 'Terms of Agreement', 'dntly' ) . '</strong>',
-                    'desc' => '',
-                    'type' => 'header'
-                ),
-                'show_agree_to_terms' => array(
-                    'id' => 'show_agree_to_terms',
-                    'name' => __( 'Agree to Terms', 'dntly' ),
-                    'desc' => __( 'Check this to show an agree to terms on the checkout that users must agree to before purchasing.', 'dntly' ),
-                    'type' => 'checkbox'
-                ),
-                'agree_label' => array(
-                    'id' => 'agree_label',
-                    'name' => __( 'Agree to Terms Label', 'dntly' ),
-                    'desc' => __( 'Label shown next to the agree to terms check box.', 'dntly' ),
-                    'type' => 'text',
-                    'size' => 'regular'
-                ),
-                'agree_text' => array(
-                    'id' => 'agree_text',
-                    'name' => __( 'Agreement Text', 'dntly' ),
-                    'desc' => __( 'If Agree to Terms is checked, enter the agreement terms here.', 'dntly' ),
-                    'type' => 'rich_editor'
-                ),
-                'checkout_label' => array(
-                    'id' => 'checkout_label',
-                    'name' => __( 'Complete Purchase Text', 'dntly' ),
-                    'desc' => __( 'The button label for completing a purchase.', 'dntly' ),
-                    'type' => 'text'
-                ),
-                'add_to_cart_text' => array(
-                    'id' => 'add_to_cart_text',
-                    'name' => __( 'Add to Cart Text', 'dntly' ),
-                    'desc' => __( 'Text shown on the Add to Cart Buttons', 'dntly' ),
-                    'type' => 'text'
-                )*/
             )
         )
     );
@@ -940,7 +848,7 @@ function dntly_get_settings_tabs() {
 
     $tabs            = array();
     $tabs['general'] = __( 'General', 'dntly' );
-    $tabs['email']   = __( 'Email', 'dntly' );
+    // $tabs['email']   = __( 'Email', 'dntly' );
     $tabs['sync']    = __( 'Sync', 'dntly' );
     $tabs['forms']   = __( 'Forms', 'dntly' );
 
